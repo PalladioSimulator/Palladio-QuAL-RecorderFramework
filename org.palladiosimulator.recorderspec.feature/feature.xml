@@ -243,14 +243,14 @@ litigation.
          unpack="false"/>
 
    <plugin
-         id="org.palladiosimulator.recorderspec.recorder.edp2"
+         id="org.palladiosimulator.recorderspec.edp2"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="org.palladiosimulator.recorderspec.recorder.sensorframework"
+         id="org.palladiosimulator.recorderspec.sensorframework"
          download-size="0"
          install-size="0"
          version="0.0.0"

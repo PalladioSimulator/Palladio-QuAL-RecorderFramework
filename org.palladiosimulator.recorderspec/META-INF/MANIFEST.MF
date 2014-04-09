@@ -15,6 +15,5 @@ Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.palladiosimulator.recorderspec,
  org.palladiosimulator.recorderspec.filters,
- org.palladiosimulator.recorderspec.recorder,
- org.palladiosimulator.recorderspec.recorder.launch
+ org.palladiosimulator.recorderspec.launch
 Bundle-Vendor: palladiosimulator.org

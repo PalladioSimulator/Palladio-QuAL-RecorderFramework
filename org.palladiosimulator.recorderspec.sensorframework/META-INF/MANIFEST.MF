@@ -1,11 +1,11 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Recorder Specification for SensorFramework
-Bundle-SymbolicName: org.palladiosimulator.recorderspec.recorder.sensorframework;singleton:=true
+Bundle-SymbolicName: org.palladiosimulator.recorderspec.sensorframework;singleton:=true
 Bundle-Version: 2.0.1.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Export-Package: org.palladiosimulator.recorderspec.recorder.sensorframework,
- org.palladiosimulator.recorderspec.recorder.sensorframework.launch
+Export-Package: org.palladiosimulator.recorderspec.sensorframework,
+ org.palladiosimulator.recorderspec.sensorframework.launch
 Require-Bundle: de.uka.ipd.sdq.sensorframework;bundle-version="1.1.0",
  org.palladiosimulator.recorderspec;bundle-version="2.0.1",
  org.jscience;bundle-version="4.1.3",

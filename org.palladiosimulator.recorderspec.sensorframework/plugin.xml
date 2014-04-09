@@ -2,13 +2,13 @@
 <?eclipse version="3.4"?>
 <plugin>
    <extension
-         id="org.palladiosimulator.recorderspec.recorder.sensorframework"
-         point="org.palladiosimulator.recorderspec.recorder">
+         id="org.palladiosimulator.recorderspec.sensorframework"
+         point="org.palladiosimulator.recorderspec">
       <recorder
-            configurationFactory="org.palladiosimulator.recorderspec.recorder.sensorframework.SensorFrameworkRecorderConfigurationFactory"
-            launchConfigTab="org.palladiosimulator.recorderspec.recorder.sensorframework.launch.SensorFrameworkTab"
+            configurationFactory="org.palladiosimulator.recorderspec.sensorframework.SensorFrameworkRecorderConfigurationFactory"
+            launchConfigTab="org.palladiosimulator.recorderspec.sensorframework.launch.SensorFrameworkTab"
             name="SensorFramework"
-            writeStrategy="org.palladiosimulator.recorderspec.recorder.sensorframework.SensorFrameworkRecorder">
+            writeStrategy="org.palladiosimulator.recorderspec.sensorframework.SensorFrameworkRecorder">
       </recorder>
    </extension>
 
