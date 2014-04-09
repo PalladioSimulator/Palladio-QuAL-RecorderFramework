@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="org.palladiosimulator.recorderspec.buckminster"
+      label="Palladio RecorderSpecification"
+      version="2.0.1.qualifier"
+      provider-name="palladiosimulator.org">
+
+   <url>
+      <discovery label="Palladio Commons" url="http://sdqweb.ipd.kit.edu/eclipse/commons/releases/1.4.0"/>
+      <discovery label="Palladio SensorFramework" url="http://sdqweb.ipd.kit.edu/eclipse/sensorframework/releases/3.5.0"/>
+      <discovery label="Eclipse Orbit" url="http://download.eclipse.org/tools/orbit/downloads/drops/R20130827064939/repository"/>
+   </url>
+
+   <includes
+         id="org.palladiosimulator.recorderspec.feature"
+         version="0.0.0"/>
+
+</feature>
