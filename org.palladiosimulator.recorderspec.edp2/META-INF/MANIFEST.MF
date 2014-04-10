@@ -13,7 +13,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.swt;bundle-version="3.5.1",
  org.eclipse.jface,
  org.palladiosimulator.edp2.ui;bundle-version="1.0.0",
- de.uka.ipd.sdq.probespec.framework;bundle-version="2.0.0"
+ org.palladiosimulator.probespec.framework;bundle-version="2.0.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.palladiosimulator.recorderspec.edp2,

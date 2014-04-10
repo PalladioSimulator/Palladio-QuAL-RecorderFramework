@@ -1,9 +1,10 @@
 package org.palladiosimulator.recorderspec.sensorframework;
 
-import static de.uka.ipd.sdq.probespec.framework.constants.MetricDescriptionConstants.CPU_STATE_OVER_TIME_METRIC;
+import static org.palladiosimulator.probespec.framework.constants.MetricDescriptionConstants.CPU_STATE_OVER_TIME_METRIC;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
+import org.palladiosimulator.probespec.framework.measurements.Measurement;
 import org.palladiosimulator.recorderspec.IRawWriteStrategy;
 import org.palladiosimulator.recorderspec.Recorder;
 import org.palladiosimulator.recorderspec.launch.IRecorderConfiguration;
@@ -15,7 +16,6 @@ import org.palladiosimulator.recorderspec.sensorframework.strategies.ResponseTim
 import org.palladiosimulator.recorderspec.sensorframework.strategies.UtilisationWriteDataStrategy;
 import org.palladiosimulator.recorderspec.sensorframework.strategies.WaitingTimeWriteDataStrategy;
 
-import de.uka.ipd.sdq.probespec.framework.measurements.Measurement;
 import de.uka.ipd.sdq.sensorframework.entities.Experiment;
 import de.uka.ipd.sdq.sensorframework.entities.ExperimentRun;
 import de.uka.ipd.sdq.sensorframework.entities.dao.IDAOFactory;

@@ -1,8 +1,7 @@
 package org.palladiosimulator.recorderspec.sensorframework.strategies;
 
+import org.palladiosimulator.probespec.framework.measurements.Measurement;
 import org.palladiosimulator.recorderspec.launch.IRecorderConfiguration;
-
-import de.uka.ipd.sdq.probespec.framework.measurements.Measurement;
 
 public interface IWriteDataStrategy {
 

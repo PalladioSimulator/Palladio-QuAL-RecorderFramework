@@ -1,7 +1,7 @@
 package org.palladiosimulator.recorderspec;
 
-import de.uka.ipd.sdq.probespec.framework.calculator.ICalculatorListener;
-import de.uka.ipd.sdq.probespec.framework.measurements.Measurement;
+import org.palladiosimulator.probespec.framework.calculator.ICalculatorListener;
+import org.palladiosimulator.probespec.framework.measurements.Measurement;
 
 
 /**
