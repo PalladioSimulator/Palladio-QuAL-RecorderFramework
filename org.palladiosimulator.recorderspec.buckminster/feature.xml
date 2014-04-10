@@ -15,4 +15,15 @@
          id="org.palladiosimulator.recorderspec.feature"
          version="0.0.0"/>
 
+   <requires>
+      <import plugin="org.junit"/>
+   </requires>
+
+   <plugin
+         id="org.palladiosimulator.recorderspec.tests"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
 </feature>
