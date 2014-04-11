@@ -1,6 +1,6 @@
 package org.palladiosimulator.recorderspec;
 
-import org.palladiosimulator.probespec.framework.measurements.Measurement;
+import org.palladiosimulator.measurementspec.Measurement;
 import org.palladiosimulator.recorderspec.launch.IRecorderConfiguration;
 
 public class ConsoleWriteStrategy implements IRawWriteStrategy {

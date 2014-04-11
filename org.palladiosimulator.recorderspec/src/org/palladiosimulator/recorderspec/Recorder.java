@@ -1,7 +1,7 @@
 package org.palladiosimulator.recorderspec;
 
+import org.palladiosimulator.measurementspec.Measurement;
 import org.palladiosimulator.probespec.framework.calculator.ICalculatorListener;
-import org.palladiosimulator.probespec.framework.measurements.Measurement;
 
 
 /**

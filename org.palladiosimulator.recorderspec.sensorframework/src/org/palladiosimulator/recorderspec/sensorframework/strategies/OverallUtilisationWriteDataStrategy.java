@@ -5,8 +5,8 @@ import javax.measure.quantity.Dimensionless;
 import javax.measure.quantity.Duration;
 import javax.measure.unit.SI;
 
-import org.palladiosimulator.probespec.framework.constants.MetricDescriptionConstants;
-import org.palladiosimulator.probespec.framework.measurements.Measurement;
+import org.palladiosimulator.measurementspec.Measurement;
+import org.palladiosimulator.metricspec.MetricDescriptionConstants;
 import org.palladiosimulator.recorderspec.launch.IRecorderConfiguration;
 import org.palladiosimulator.recorderspec.sensorframework.SensorFrameworkRecorderConfiguration;
 import org.palladiosimulator.recorderspec.sensorframework.SensorHelper;

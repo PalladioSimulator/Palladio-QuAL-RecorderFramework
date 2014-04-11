@@ -4,8 +4,8 @@ import javax.measure.Measure;
 import javax.measure.quantity.Duration;
 import javax.measure.unit.SI;
 
-import org.palladiosimulator.probespec.framework.constants.MetricDescriptionConstants;
-import org.palladiosimulator.probespec.framework.measurements.Measurement;
+import org.palladiosimulator.measurementspec.Measurement;
+import org.palladiosimulator.metricspec.MetricDescriptionConstants;
 
 import de.uka.ipd.sdq.sensorframework.entities.Experiment;
 import de.uka.ipd.sdq.sensorframework.entities.ExperimentRun;

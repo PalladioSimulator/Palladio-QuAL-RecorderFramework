@@ -53,7 +53,7 @@ public class EDP2RawRecorder extends Recorder {
      * This method writes given measurement data to the EDP2.
      */
     @Override
-    public void writeData(final org.palladiosimulator.probespec.framework.measurements.Measurement data) {
+    public void writeData(final org.palladiosimulator.measurementspec.Measurement data) {
         final Measurement measurement = new Measurement(edp2RecorderConfig.getRecorderAcceptedMetric());
 
         for (int i = 0; i < ((MetricSetDescription)edp2RecorderConfig.getRecorderAcceptedMetric()).getSubsumedMetrics().size(); i++) {

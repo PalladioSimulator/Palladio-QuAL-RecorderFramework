@@ -1,10 +1,10 @@
 package org.palladiosimulator.recorderspec.sensorframework;
 
-import static org.palladiosimulator.probespec.framework.constants.MetricDescriptionConstants.CPU_STATE_OVER_TIME_METRIC;
+import static org.palladiosimulator.metricspec.MetricDescriptionConstants.CPU_STATE_OVER_TIME_METRIC;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
-import org.palladiosimulator.probespec.framework.measurements.Measurement;
+import org.palladiosimulator.measurementspec.Measurement;
 import org.palladiosimulator.recorderspec.IRawWriteStrategy;
 import org.palladiosimulator.recorderspec.Recorder;
 import org.palladiosimulator.recorderspec.launch.IRecorderConfiguration;
