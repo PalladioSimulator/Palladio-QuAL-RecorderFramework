@@ -12,6 +12,7 @@ import org.palladiosimulator.recorderspec.sensorframework.strategies.AbstractWri
 import org.palladiosimulator.recorderspec.sensorframework.strategies.DemandedTimeWriteDataStrategy;
 import org.palladiosimulator.recorderspec.sensorframework.strategies.ExecutionResultWriteDataStrategy;
 import org.palladiosimulator.recorderspec.sensorframework.strategies.OverallUtilisationWriteDataStrategy;
+import org.palladiosimulator.recorderspec.sensorframework.strategies.PointInTimeWriteDataStrategy;
 import org.palladiosimulator.recorderspec.sensorframework.strategies.ResponseTimeWriteDataStrategy;
 import org.palladiosimulator.recorderspec.sensorframework.strategies.UtilisationWriteDataStrategy;
 import org.palladiosimulator.recorderspec.sensorframework.strategies.WaitingTimeWriteDataStrategy;
@@ -83,6 +84,9 @@ public class SensorFrameworkRecorder extends Recorder implements IRawWriteStrate
                     daoFactory, experiment, run);
         } else if (recorderAcceptedMetric.equals("ExecutionResult")) {
             writeDataStrategy = new ExecutionResultWriteDataStrategy(
+                    daoFactory, experiment, run);
+        } else if (recorderAcceptedMetric.equals("Point in time")) {
+            writeDataStrategy = new PointInTimeWriteDataStrategy(
                     daoFactory, experiment, run);
         } else {
         	throw new RuntimeException("Unsupported metric (\""+recorderAcceptedMetric+"\") requested to SensorFramework recorder");
