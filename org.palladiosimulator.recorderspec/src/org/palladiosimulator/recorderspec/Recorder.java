@@ -1,7 +1,7 @@
 package org.palladiosimulator.recorderspec;
 
+import org.palladiosimulator.measurementspec.IMeasurementSourceListener;
 import org.palladiosimulator.measurementspec.Measurement;
-import org.palladiosimulator.probespec.framework.calculator.ICalculatorListener;
 
 
 /**
@@ -13,7 +13,7 @@ import org.palladiosimulator.probespec.framework.calculator.ICalculatorListener;
  * @author Baum, Sebastian Lehrig
  * 
  */
-public abstract class Recorder implements IRecorder, ICalculatorListener {
+public abstract class Recorder implements IRecorder, IMeasurementSourceListener {
 
     /**
      * The default constructor for a recorder.
