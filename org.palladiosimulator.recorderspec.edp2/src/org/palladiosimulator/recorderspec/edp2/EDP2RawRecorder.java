@@ -20,7 +20,7 @@ import org.palladiosimulator.recorderspec.launch.IRecorderConfiguration;
 
 /**
  * This abstract class provides methods necessary to write raw or aggregated measurements to the
- * EDP2. It follows the typical three steps of the ProbeSpec Framework:
+ * EDP2. It follows the typical three steps of the ProbeFramework Framework:
  * 
  * 1) initialize(MetaDataInit metaData) Sets up the whole experiment by specifying the EDP2
  * repository, an experiment group, EDP2Measure objects, an ExperimentSetting, an ExperimentRun, and

@@ -225,7 +225,7 @@ litigation.
       <import plugin="org.eclipse.debug.ui" version="3.5.1" match="greaterOrEqual"/>
       <import plugin="org.eclipse.swt" version="3.5.1" match="greaterOrEqual"/>
       <import plugin="org.apache.log4j" version="1.2.13" match="greaterOrEqual"/>
-      <import plugin="org.palladiosimulator.probespec.framework" version="2.0.0" match="greaterOrEqual"/>
+      <import plugin="org.palladiosimulator.probeframework" version="2.0.0" match="greaterOrEqual"/>
       <import plugin="org.palladiosimulator.edp2" version="2.0.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.emf.ecore" version="2.4.2" match="greaterOrEqual"/>
       <import plugin="org.palladiosimulator.recorderspec" version="2.0.1" match="greaterOrEqual"/>

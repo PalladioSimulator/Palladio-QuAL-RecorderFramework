@@ -98,7 +98,7 @@ public class EDP2RecorderConfigurationFactory extends AbstractRecorderConfigurat
      *            Meta data object that holds the object to measure
      */
     private Edp2Measure initializeEDP2Measure(final MetricDescription measureMetric) {
-        // Important: Identifiers are not supported by the probespec so far
+        // Important: Identifiers are not supported by ProbeFramework so far
         // because ordinal values are used instead to represent nominal values.
         // If identifiers should be allowed, the initial identifier must
         // be set here.
