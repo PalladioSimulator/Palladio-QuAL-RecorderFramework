@@ -2,13 +2,13 @@
 <?eclipse version="3.4"?>
 <plugin>
    <extension
-         id="org.palladiosimulator.recorderspec.edp2"
-         point="org.palladiosimulator.recorderspec">
+         id="org.palladiosimulator.recorderframework.edp2"
+         point="org.palladiosimulator.recorderframework">
       <recorder
-            configurationFactory="org.palladiosimulator.recorderspec.edp2.EDP2RecorderConfigurationFactory"
-            launchConfigTab="org.palladiosimulator.recorderspec.edp2.launch.EDP2Tab"
+            configurationFactory="org.palladiosimulator.recorderframework.edp2.EDP2RecorderConfigurationFactory"
+            launchConfigTab="org.palladiosimulator.recorderframework.edp2.launch.EDP2Tab"
             name="Experiment Data Persistency &amp; Presentation (EDP2)"
-            writeStrategy="org.palladiosimulator.recorderspec.edp2.EDP2RawRecorder">
+            writeStrategy="org.palladiosimulator.recorderframework.edp2.EDP2RawRecorder">
       </recorder>
    </extension>
 

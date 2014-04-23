@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.4"?>
 <plugin>
-   <extension-point id="org.palladiosimulator.recorderspec" name="org.palladiosimulator.recorderspec" schema="schema/org.palladiosimulator.recorderspec.exsd"/>
+   <extension-point id="org.palladiosimulator.recorderframework" name="org.palladiosimulator.recorderframework" schema="schema/org.palladiosimulator.recorderframework.exsd"/>
 </plugin>

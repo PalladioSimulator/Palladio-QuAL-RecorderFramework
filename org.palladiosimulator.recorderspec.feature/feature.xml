@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="org.palladiosimulator.recorderspec.feature"
-      label="RecorderSpecification Feature"
+      id="org.palladiosimulator.recorderframework.feature"
+      label="RecorderFramework Feature"
       version="2.0.1.qualifier"
       provider-name="palladiosimulator.org">
 
@@ -228,7 +228,7 @@ litigation.
       <import plugin="org.palladiosimulator.probeframework" version="2.0.0" match="greaterOrEqual"/>
       <import plugin="org.palladiosimulator.edp2" version="2.0.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.emf.ecore" version="2.4.2" match="greaterOrEqual"/>
-      <import plugin="org.palladiosimulator.recorderspec" version="2.0.1" match="greaterOrEqual"/>
+      <import plugin="org.palladiosimulator.recorderframework" version="2.0.1" match="greaterOrEqual"/>
       <import plugin="org.eclipse.jface"/>
       <import plugin="org.palladiosimulator.edp2.ui" version="1.0.0" match="greaterOrEqual"/>
       <import plugin="de.uka.ipd.sdq.sensorframework" version="1.1.0" match="greaterOrEqual"/>
@@ -240,21 +240,21 @@ litigation.
    </requires>
 
    <plugin
-         id="org.palladiosimulator.recorderspec"
+         id="org.palladiosimulator.recorderframework"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="org.palladiosimulator.recorderspec.edp2"
+         id="org.palladiosimulator.recorderframework.edp2"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="org.palladiosimulator.recorderspec.sensorframework"
+         id="org.palladiosimulator.recorderframework.sensorframework"
          download-size="0"
          install-size="0"
          version="0.0.0"

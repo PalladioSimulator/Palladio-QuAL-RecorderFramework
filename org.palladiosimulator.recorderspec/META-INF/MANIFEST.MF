@@ -1,9 +1,9 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Recorder Specification
-Bundle-SymbolicName: org.palladiosimulator.recorderspec;singleton:=true
+Bundle-Name: Recorder Framework
+Bundle-SymbolicName: org.palladiosimulator.recorderframework;singleton:=true
 Bundle-Version: 2.0.1.qualifier
-Bundle-Activator: org.palladiosimulator.recorderspec.Activator
+Bundle-Activator: org.palladiosimulator.recorderframework.Activator
 Require-Bundle: org.jscience;bundle-version="4.1.3",
  org.eclipse.core.runtime,
  org.eclipse.debug.ui;bundle-version="3.5.1",
@@ -14,7 +14,7 @@ Require-Bundle: org.jscience;bundle-version="4.1.3",
  org.palladiosimulator.measurementspec;bundle-version="1.0.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Export-Package: org.palladiosimulator.recorderspec,
- org.palladiosimulator.recorderspec.filters,
- org.palladiosimulator.recorderspec.launch
+Export-Package: org.palladiosimulator.recorderframework,
+ org.palladiosimulator.recorderframework.filters,
+ org.palladiosimulator.recorderframework.launch
 Bundle-Vendor: palladiosimulator.org

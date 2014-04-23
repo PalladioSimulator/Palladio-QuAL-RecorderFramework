@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="org.palladiosimulator.recorderspec.buckminster"
-      label="Palladio RecorderSpecification"
+      id="org.palladiosimulator.recorderframework.buckminster"
+      label="Palladio RecorderFramework"
       version="2.0.1.qualifier"
       provider-name="palladiosimulator.org">
 
@@ -12,7 +12,7 @@
    </url>
 
    <includes
-         id="org.palladiosimulator.recorderspec.feature"
+         id="org.palladiosimulator.recorderframework.feature"
          version="0.0.0"/>
 
    <requires>
@@ -20,7 +20,7 @@
    </requires>
 
    <plugin
-         id="org.palladiosimulator.recorderspec.tests"
+         id="org.palladiosimulator.recorderframework.tests"
          download-size="0"
          install-size="0"
          version="0.0.0"

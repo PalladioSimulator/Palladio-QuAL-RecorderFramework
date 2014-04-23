@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Test Plugin for the Recorder Specification Framework
-Bundle-SymbolicName: org.palladiosimulator.recorderspec.tests;singleton:=true
+Bundle-Name: Test Plugin for the Recorder Framework
+Bundle-SymbolicName: org.palladiosimulator.recorderframework.tests;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: palladiosimulator.org
 Bundle-ActivationPolicy: lazy
