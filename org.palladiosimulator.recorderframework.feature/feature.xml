@@ -213,10 +213,15 @@ Each party waives its rights to a jury trial in any resulting
 litigation.
    </license>
 
-   <url>
-      <discovery label="EDP2 Update Site" url="http://sdqweb.ipd.kit.edu/eclipse/edp2/nightly/"/>
-      <discovery label="Metric Specification Framework Update Site" url="http://sdqweb.ipd.kit.edu/eclipse/metricspec/nightly/"/>
-      <discovery label="Measurement Specification Framework Update Site" url="http://sdqweb.ipd.kit.edu/eclipse/measurementspec/nightly/"/>
+   <url>      
+      <discovery label="Palladio Probe Framework" url="http://sdqweb.ipd.kit.edu/eclipse/probeframework/nightly/"/>
+      <discovery label="Palladio Commons" url="http://sdqweb.ipd.kit.edu/eclipse/commons/nightly/"/>
+      <discovery label="Palladio Sensor Framework" url="http://sdqweb.ipd.kit.edu/eclipse/sensorframework/releases/3.5.0"/>
+      <discovery label="EDP2" url="http://sdqweb.ipd.kit.edu/eclipse/edp2/nightly/"/>
+      <discovery label="Metric Specification" url="http://sdqweb.ipd.kit.edu/eclipse/metricspec/nightly/"/>
+      <discovery label="Measurement" url="http://sdqweb.ipd.kit.edu/eclipse/measurementspec/nightly/"/>
+      <discovery label="Eclipse Release" url="http://download.eclipse.org/releases/kepler/"/>
+      <discovery label="Eclipse Orbit" url="http://download.eclipse.org/tools/orbit/downloads/drops/R20130827064939/repository/"/>
    </url>
 
    <requires>
