@@ -2,7 +2,7 @@
 <feature
       id="org.palladiosimulator.recorderframework.buckminster"
       label="Palladio RecorderFramework"
-      version="2.0.1.qualifier"
+      version="1.0.0.qualifier"
       provider-name="palladiosimulator.org">
 
    <includes
