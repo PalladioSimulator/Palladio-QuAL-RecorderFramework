@@ -77,7 +77,7 @@ public class EDP2Tab extends AbstractLaunchConfigurationTab {
                         true);
                 if (dialog.open() == Dialog.OK) {
                     final Repository repository = (Repository) dialog.getResult();
-                    selectedRepositoryID = repository.getUuid();
+                    selectedRepositoryID = repository.getId();
                     dataField.setText(repository.toString());
                 }
             }

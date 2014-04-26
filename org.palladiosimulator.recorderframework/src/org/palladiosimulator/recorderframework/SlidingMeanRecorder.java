@@ -6,8 +6,8 @@ import java.util.List;
 import javax.measure.Measure;
 import javax.measure.quantity.Quantity;
 
-import org.palladiosimulator.edp2.models.ExperimentData.MetricSetDescription;
 import org.palladiosimulator.measurementspec.Measurement;
+import org.palladiosimulator.metricspec.MetricSetDescription;
 import org.palladiosimulator.recorderframework.launch.IRecorderConfiguration;
 
 /**

@@ -2,7 +2,7 @@ package org.palladiosimulator.recorderframework;
 
 import java.util.Map;
 
-import org.palladiosimulator.edp2.models.ExperimentData.MetricDescription;
+import org.palladiosimulator.metricspec.MetricDescription;
 import org.palladiosimulator.recorderframework.launch.IRecorderConfiguration;
 
 public abstract class AbstractRecorderConfiguration implements IRecorderConfiguration {

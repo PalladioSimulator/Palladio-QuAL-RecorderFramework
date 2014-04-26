@@ -5,7 +5,7 @@ import javax.measure.quantity.Duration;
 import javax.measure.unit.SI;
 
 import org.palladiosimulator.measurementspec.Measurement;
-import org.palladiosimulator.metricspec.MetricDescriptionConstants;
+import org.palladiosimulator.metricspec.constants.MetricDescriptionConstants;
 
 import de.uka.ipd.sdq.sensorframework.entities.Experiment;
 import de.uka.ipd.sdq.sensorframework.entities.ExperimentRun;

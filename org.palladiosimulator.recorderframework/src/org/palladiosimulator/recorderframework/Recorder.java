@@ -1,7 +1,7 @@
 package org.palladiosimulator.recorderframework;
 
-import org.palladiosimulator.measurementspec.IMeasurementSourceListener;
 import org.palladiosimulator.measurementspec.Measurement;
+import org.palladiosimulator.measurementspec.listener.IMeasurementSourceListener;
 
 
 /**

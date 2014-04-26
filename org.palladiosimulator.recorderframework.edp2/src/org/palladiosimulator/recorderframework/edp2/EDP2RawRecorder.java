@@ -6,15 +6,14 @@ import javax.measure.Measure;
 import javax.measure.unit.SI;
 
 import org.palladiosimulator.edp2.impl.DataNotAccessibleException;
-import org.palladiosimulator.edp2.impl.Measurement;
 import org.palladiosimulator.edp2.impl.MeasurementsUtility;
 import org.palladiosimulator.edp2.models.ExperimentData.ExperimentDataFactory;
 import org.palladiosimulator.edp2.models.ExperimentData.ExperimentRun;
 import org.palladiosimulator.edp2.models.ExperimentData.Measurements;
 import org.palladiosimulator.edp2.models.ExperimentData.MeasurementsRange;
-import org.palladiosimulator.edp2.models.ExperimentData.MetricSetDescription;
 import org.palladiosimulator.edp2.models.ExperimentData.RawMeasurements;
 import org.palladiosimulator.edp2.models.Repository.Repository;
+import org.palladiosimulator.measurementspec.Measurement;
 import org.palladiosimulator.recorderframework.Recorder;
 import org.palladiosimulator.recorderframework.launch.IRecorderConfiguration;
 
@@ -53,14 +52,8 @@ public class EDP2RawRecorder extends Recorder {
      * This method writes given measurement data to the EDP2.
      */
     @Override
-    public void writeData(final org.palladiosimulator.measurementspec.Measurement data) {
-        final Measurement measurement = new Measurement(edp2RecorderConfig.getRecorderAcceptedMetric());
-
-        for (int i = 0; i < ((MetricSetDescription)edp2RecorderConfig.getRecorderAcceptedMetric()).getSubsumedMetrics().size(); i++) {
-            measurement.setMeasuredValue(i, data.getMeasureForMetric(((MetricSetDescription)edp2RecorderConfig.getRecorderAcceptedMetric()).getSubsumedMetrics().get(i)));
-        }
-
-        MeasurementsUtility.storeMeasurement(measurements, measurement);
+    public void writeData(final Measurement data) {
+        MeasurementsUtility.storeMeasurement(measurements, data);
     }
 
     /**

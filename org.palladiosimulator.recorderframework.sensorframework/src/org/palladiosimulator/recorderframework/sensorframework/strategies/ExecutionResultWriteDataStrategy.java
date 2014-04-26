@@ -7,11 +7,11 @@ import javax.measure.quantity.Dimensionless;
 import javax.measure.quantity.Duration;
 import javax.measure.unit.SI;
 
-import org.palladiosimulator.edp2.models.ExperimentData.Identifier;
-import org.palladiosimulator.edp2.models.ExperimentData.MetricSetDescription;
-import org.palladiosimulator.edp2.models.ExperimentData.TextualBaseMetricDescription;
 import org.palladiosimulator.measurementspec.Measurement;
-import org.palladiosimulator.metricspec.MetricDescriptionConstants;
+import org.palladiosimulator.metricspec.Identifier;
+import org.palladiosimulator.metricspec.MetricSetDescription;
+import org.palladiosimulator.metricspec.TextualBaseMetricDescription;
+import org.palladiosimulator.metricspec.constants.MetricDescriptionConstants;
 import org.palladiosimulator.recorderframework.launch.IRecorderConfiguration;
 import org.palladiosimulator.recorderframework.sensorframework.SensorFrameworkRecorderConfiguration;
 import org.palladiosimulator.recorderframework.sensorframework.SensorHelper;

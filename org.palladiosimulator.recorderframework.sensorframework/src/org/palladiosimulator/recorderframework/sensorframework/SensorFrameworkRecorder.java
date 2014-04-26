@@ -1,6 +1,6 @@
 package org.palladiosimulator.recorderframework.sensorframework;
 
-import static org.palladiosimulator.metricspec.MetricDescriptionConstants.CPU_STATE_OVER_TIME_METRIC;
+import static org.palladiosimulator.metricspec.constants.MetricDescriptionConstants.CPU_STATE_OVER_TIME_METRIC;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;

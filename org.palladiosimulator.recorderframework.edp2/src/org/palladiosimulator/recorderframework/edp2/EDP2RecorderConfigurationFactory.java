@@ -5,16 +5,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.palladiosimulator.edp2.impl.RepositoryManager;
-import org.palladiosimulator.edp2.models.ExperimentData.Description;
 import org.palladiosimulator.edp2.models.ExperimentData.Edp2Measure;
 import org.palladiosimulator.edp2.models.ExperimentData.ExperimentDataFactory;
 import org.palladiosimulator.edp2.models.ExperimentData.ExperimentGroup;
 import org.palladiosimulator.edp2.models.ExperimentData.ExperimentRun;
 import org.palladiosimulator.edp2.models.ExperimentData.ExperimentSetting;
 import org.palladiosimulator.edp2.models.ExperimentData.Measurements;
-import org.palladiosimulator.edp2.models.ExperimentData.MetricDescription;
-import org.palladiosimulator.edp2.models.ExperimentData.MetricSetDescription;
 import org.palladiosimulator.edp2.models.Repository.Repository;
+import org.palladiosimulator.metricspec.Description;
+import org.palladiosimulator.metricspec.MetricDescription;
+import org.palladiosimulator.metricspec.MetricSetDescription;
 import org.palladiosimulator.recorderframework.AbstractRecorderConfiguration;
 import org.palladiosimulator.recorderframework.AbstractRecorderConfigurationFactory;
 import org.palladiosimulator.recorderframework.IRecorderConfigurationFactory;
@@ -132,12 +132,12 @@ public class EDP2RecorderConfigurationFactory extends AbstractRecorderConfigurat
     private MetricDescription addMetricDescriptionToRepository(final MetricDescription msd) {
         // Find existing description based on metric UUID
         for (final Description d : repository.getDescriptions()) {
-            if (d.getUuid().equals(msd.getUuid())) {
+            if (d.getId().equals(msd.getId())) {
                 return (MetricDescription) d;
             }
         }
 
-        msd.setRepository(repository);
+        repository.getDescriptions().add(msd);
         if (msd instanceof MetricSetDescription) {
             for (final MetricDescription md : ((MetricSetDescription) msd).getSubsumedMetrics()) {
                 addMetricDescriptionToRepository(md);
