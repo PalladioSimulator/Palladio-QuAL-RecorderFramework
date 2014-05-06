@@ -12,13 +12,14 @@ import org.palladiosimulator.edp2.models.ExperimentData.ExperimentRun;
 import org.palladiosimulator.edp2.models.ExperimentData.ExperimentSetting;
 import org.palladiosimulator.edp2.models.ExperimentData.Measurements;
 import org.palladiosimulator.edp2.models.Repository.Repository;
-import org.palladiosimulator.metricspec.Description;
 import org.palladiosimulator.metricspec.MetricDescription;
 import org.palladiosimulator.metricspec.MetricSetDescription;
 import org.palladiosimulator.recorderframework.AbstractRecorderConfiguration;
 import org.palladiosimulator.recorderframework.AbstractRecorderConfigurationFactory;
 import org.palladiosimulator.recorderframework.IRecorderConfigurationFactory;
 import org.palladiosimulator.recorderframework.launch.IRecorderConfiguration;
+
+import de.uka.ipd.sdq.identifier.Identifier;
 
 public class EDP2RecorderConfigurationFactory extends AbstractRecorderConfigurationFactory implements IRecorderConfigurationFactory {
 
@@ -126,24 +127,28 @@ public class EDP2RecorderConfigurationFactory extends AbstractRecorderConfigurat
     }
 
     /**
-     * @param msd
+     * @param metricDescription
      * @return
      */
-    private MetricDescription addMetricDescriptionToRepository(final MetricDescription msd) {
+    private MetricDescription addMetricDescriptionToRepository(final MetricDescription metricDescription) {
+        if (metricDescription.getRepository() != null) {
+            return metricDescription;
+        }
+
         // Find existing description based on metric UUID
-        for (final Description d : repository.getDescriptions()) {
-            if (d.getId().equals(msd.getId())) {
-                return (MetricDescription) d;
+        for (final Identifier identifiable : repository.getDescriptions()) {
+            if (identifiable.getId().equals(metricDescription.getId())) {
+                return (MetricDescription) identifiable;
             }
         }
 
-        repository.getDescriptions().add(msd);
-        if (msd instanceof MetricSetDescription) {
-            for (final MetricDescription md : ((MetricSetDescription) msd).getSubsumedMetrics()) {
-                addMetricDescriptionToRepository(md);
+        repository.getDescriptions().add(metricDescription);
+        if (metricDescription instanceof MetricSetDescription) {
+            for (final MetricDescription childMetricDescription : ((MetricSetDescription) metricDescription).getSubsumedMetrics()) {
+                addMetricDescriptionToRepository(childMetricDescription);
             }
         }
-        return msd;
+        return metricDescription;
     }
 
     /**
