@@ -5,13 +5,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.palladiosimulator.edp2.impl.RepositoryManager;
-import org.palladiosimulator.edp2.models.ExperimentData.Edp2Measure;
 import org.palladiosimulator.edp2.models.ExperimentData.ExperimentDataFactory;
 import org.palladiosimulator.edp2.models.ExperimentData.ExperimentGroup;
 import org.palladiosimulator.edp2.models.ExperimentData.ExperimentRun;
 import org.palladiosimulator.edp2.models.ExperimentData.ExperimentSetting;
+import org.palladiosimulator.edp2.models.ExperimentData.Measure;
 import org.palladiosimulator.edp2.models.ExperimentData.Measurements;
 import org.palladiosimulator.edp2.models.Repository.Repository;
+import org.palladiosimulator.edp2.models.measuringpoint.MeasuringPoint;
 import org.palladiosimulator.metricspec.MetricDescription;
 import org.palladiosimulator.metricspec.MetricSetDescription;
 import org.palladiosimulator.recorderframework.AbstractRecorderConfiguration;
@@ -46,7 +47,9 @@ public class EDP2RecorderConfigurationFactory extends AbstractRecorderConfigurat
         final MetricDescription metricDescription = (MetricDescription) configuration.get(AbstractRecorderConfiguration.RECORDER_ACCEPTED_METRIC);
         addMetricDescriptionToRepository(metricDescription);
 
-        final Measurements measure = initializeMeasurements(initializeEDP2Measure(metricDescription));
+        final MeasuringPoint measuringPoint = (MeasuringPoint) configuration.get(AbstractRecorderConfiguration.MEASURING_POINT);
+        
+        final Measurements measure = initializeMeasurements(initializeMeasure(metricDescription, measuringPoint));
         final EDP2RecorderConfiguration result = new EDP2RecorderConfiguration();
         final Map<String,Object> newConfiguration = new HashMap<String, Object>();
         newConfiguration.putAll(configuration);
@@ -54,7 +57,7 @@ public class EDP2RecorderConfigurationFactory extends AbstractRecorderConfigurat
         result.setConfiguration(newConfiguration);
 
         return result;
-    }
+    }    
 
     private void initalizeEDP2Repository(final String repositoryID) {
         repository = RepositoryManager.getRepositoryFromUUID(repositoryID);
@@ -98,18 +101,16 @@ public class EDP2RecorderConfigurationFactory extends AbstractRecorderConfigurat
      * @param edp2MetaData
      *            Meta data object that holds the object to measure
      */
-    private Edp2Measure initializeEDP2Measure(final MetricDescription measureMetric) {
+    private Measure initializeMeasure(final MetricDescription measureMetric, MeasuringPoint measuringPoint) {
         // Important: Identifiers are not supported by ProbeFramework so far
         // because ordinal values are used instead to represent nominal values.
         // If identifiers should be allowed, the initial identifier must
         // be set here.
-        final String measuredObject = measureMetric.getTextualDescription();
-
-        Edp2Measure measure;
+        Measure measure;
         // Check for existing Edp2Measures in the experimentGroup
-        for (final Edp2Measure edp2Measure : experimentGroup.getMeasure()) {
+        for (final Measure edp2Measure : experimentGroup.getMeasure()) {
             if (edp2Measure.getMetric().equals(measureMetric)
-                    && edp2Measure.getMeasuredObject().equals(measuredObject)) {
+                    && edp2Measure.getMeasuringPoint().equals(measuringPoint)) {
                 measure = edp2Measure;
                 return measure;
             }
@@ -117,8 +118,8 @@ public class EDP2RecorderConfigurationFactory extends AbstractRecorderConfigurat
         }
 
         // Create new Edp2Measure
-        measure = ExperimentDataFactory.eINSTANCE.createEdp2Measure();
-        measure.setMeasuredObject(measuredObject);
+        measure = ExperimentDataFactory.eINSTANCE.createMeasure();
+        measure.setMeasuringPoint(measuringPoint);
         measure.setMetric(measureMetric);
         measure.setExperimentGroup(experimentGroup);
         measure.getExperimentSettings().add(experimentGroup.getExperimentSettings().get(0));
@@ -158,7 +159,7 @@ public class EDP2RecorderConfigurationFactory extends AbstractRecorderConfigurat
      *            Meta data object that holds the model element ID to measure
      * @return
      */
-    private Measurements initializeMeasurements(final Edp2Measure measure) {
+    private Measurements initializeMeasurements(final Measure measure) {
         final Measurements measurements = ExperimentDataFactory.eINSTANCE.createMeasurements();
         measurements.setMeasure(measure);
         // TODO!

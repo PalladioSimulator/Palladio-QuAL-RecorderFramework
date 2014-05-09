@@ -2,29 +2,30 @@ package org.palladiosimulator.recorderframework;
 
 import java.util.Map;
 
+import org.palladiosimulator.edp2.models.measuringpoint.MeasuringPoint;
 import org.palladiosimulator.metricspec.MetricDescription;
 import org.palladiosimulator.recorderframework.launch.IRecorderConfiguration;
 
 public abstract class AbstractRecorderConfiguration implements IRecorderConfiguration {
 
     public static final String RECORDER_ACCEPTED_METRIC = "recorderAcceptedMetric";
-    public static final String MEASURED_ELEMENT_DESCRIPTION = "measuredElementDescription";
+    public static final String MEASURING_POINT = "measuringPoint";
 
     /**
      * This list should hold one MeasuredMetric with measurement information
      * for each tuple that is inducted to the pipe by the calculators.
      */
     private MetricDescription recorderAcceptedMetric;
-    private String measuredElementDescription;
+    private MeasuringPoint measuringPoint;
 
-    public String getMeasuredElementDescription() {
-        return measuredElementDescription;
+    public MeasuringPoint getMeasuringPoint() {
+        return measuringPoint;
     }
 
     @Override
     public void setConfiguration(final Map<String, Object> configuration) {
         recorderAcceptedMetric = getValue(configuration, RECORDER_ACCEPTED_METRIC, MetricDescription.class);
-        measuredElementDescription = getValue(configuration, MEASURED_ELEMENT_DESCRIPTION, String.class);
+        measuringPoint = getValue(configuration, MEASURING_POINT, MeasuringPoint.class);
     }
 
     /**

@@ -7,6 +7,7 @@ import javax.measure.quantity.Dimensionless;
 import javax.measure.quantity.Duration;
 import javax.measure.unit.SI;
 
+import org.palladiosimulator.edp2.impl.MeasuringPointUtility;
 import org.palladiosimulator.measurementspec.Measurement;
 import org.palladiosimulator.metricspec.Identifier;
 import org.palladiosimulator.metricspec.MetricSetDescription;
@@ -64,7 +65,7 @@ public class ExecutionResultWriteDataStrategy extends AbstractWriteDataStrategy 
     public void initialise(final IRecorderConfiguration recorderConfiguration) {
         final SensorFrameworkRecorderConfiguration sensorFrameworkRecorderConfig = (SensorFrameworkRecorderConfiguration) recorderConfiguration;
         initStatesCache(sensorFrameworkRecorderConfig);
-        initSensor(sensorFrameworkRecorderConfig.getMeasuredElementDescription());
+        initSensor(MeasuringPointUtility.measuringPointToString(sensorFrameworkRecorderConfig.getMeasuringPoint()));
     }
 
     /*

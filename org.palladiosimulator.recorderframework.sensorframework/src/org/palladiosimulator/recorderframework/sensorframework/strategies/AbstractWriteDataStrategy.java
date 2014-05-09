@@ -1,5 +1,6 @@
 package org.palladiosimulator.recorderframework.sensorframework.strategies;
 
+import org.palladiosimulator.edp2.impl.MeasuringPointUtility;
 import org.palladiosimulator.recorderframework.launch.IRecorderConfiguration;
 import org.palladiosimulator.recorderframework.sensorframework.SensorFrameworkRecorderConfiguration;
 import org.palladiosimulator.recorderframework.sensorframework.SensorHelper;
@@ -28,8 +29,8 @@ public abstract class AbstractWriteDataStrategy implements IWriteDataStrategy {
 
     @Override
     public void initialise(final IRecorderConfiguration recorderConfiguration) {
-        final SensorFrameworkRecorderConfiguration sensorFrameworkRecorderConfig = (SensorFrameworkRecorderConfiguration) recorderConfiguration;
-        final String sensorId = sensorFrameworkRecorderConfig.getMeasuredElementDescription();
+        final SensorFrameworkRecorderConfiguration sensorFrameworkRecorderConfig = (SensorFrameworkRecorderConfiguration) recorderConfiguration;     
+        final String sensorId = MeasuringPointUtility.measuringPointToString(sensorFrameworkRecorderConfig.getMeasuringPoint());
         sensor = SensorHelper.createOrReuseTimeSensor(daoFactory, experiment,
                 sensorId);
     }
