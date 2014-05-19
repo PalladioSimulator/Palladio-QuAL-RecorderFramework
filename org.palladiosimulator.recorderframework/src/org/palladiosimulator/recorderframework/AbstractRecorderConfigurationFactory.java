@@ -3,6 +3,7 @@
  */
 package org.palladiosimulator.recorderframework;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
 
@@ -31,7 +32,12 @@ public abstract class AbstractRecorderConfigurationFactory implements IRecorderC
     @Override
     public void initialize(final Map<String, Object> configuration) {
         experimentName = getValue(configuration, EXPERIMENT_RUN_NAME, String.class);
-        experimentRunName = new Date().toString();
+        
+        // Do not use just Date.toString here, as that cannot be parsed anymore. 
+        // If another date format shall be used here, do it properly with defining a DateFormat.
+        SimpleDateFormat dateFormat = new SimpleDateFormat();
+        experimentRunName = dateFormat.format(new Date());
+
     }
 
     /**
