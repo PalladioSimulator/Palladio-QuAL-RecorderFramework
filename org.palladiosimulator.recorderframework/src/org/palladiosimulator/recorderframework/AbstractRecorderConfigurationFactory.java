@@ -35,7 +35,7 @@ public abstract class AbstractRecorderConfigurationFactory implements IRecorderC
         
         // Do not use just Date.toString here, as that cannot be parsed anymore. 
         // If another date format shall be used here, do it properly with defining a DateFormat.
-        SimpleDateFormat dateFormat = new SimpleDateFormat();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss:SSS");
         experimentRunName = dateFormat.format(new Date());
 
     }
