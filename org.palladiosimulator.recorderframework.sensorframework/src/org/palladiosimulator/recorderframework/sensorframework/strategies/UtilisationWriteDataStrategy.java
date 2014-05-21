@@ -8,7 +8,7 @@ import javax.measure.quantity.Duration;
 import javax.measure.unit.SI;
 
 import org.palladiosimulator.edp2.impl.MeasuringPointUtility;
-import org.palladiosimulator.measurementspec.Measurement;
+import org.palladiosimulator.measurementframework.measureprovider.IMeasureProvider;
 import org.palladiosimulator.metricspec.constants.MetricDescriptionConstants;
 import org.palladiosimulator.recorderframework.launch.IRecorderConfiguration;
 import org.palladiosimulator.recorderframework.sensorframework.SensorFrameworkRecorderConfiguration;
@@ -35,8 +35,10 @@ public class UtilisationWriteDataStrategy extends AbstractWriteDataStrategy {
 
     @Override
     public void initialise(final IRecorderConfiguration recorderConfiguration) {
-        final SensorFrameworkRecorderConfiguration sensorFrameworkRecorderConfig = (SensorFrameworkRecorderConfiguration) recorderConfiguration;
-        final String sensorId = MeasuringPointUtility.measuringPointToString(sensorFrameworkRecorderConfig.getMeasuringPoint());
+        final SensorFrameworkRecorderConfiguration sensorFrameworkRecorderConfig = (SensorFrameworkRecorderConfiguration) recorderConfiguration;        
+        final String sensorId = sensorFrameworkRecorderConfig.getRecorderAcceptedMetric().getName() + " of "
+                +
+                MeasuringPointUtility.measuringPointToString(sensorFrameworkRecorderConfig.getMeasuringPoint());
         this.idleState = SensorHelper.createOrReuseState(daoFactory, "Idle");
         this.busyState = SensorHelper.createOrReuseState(daoFactory, "Busy");
         sensor = SensorHelper.createOrReuseStateSensor(daoFactory, experiment,
@@ -48,7 +50,7 @@ public class UtilisationWriteDataStrategy extends AbstractWriteDataStrategy {
     }
 
     @Override
-    public void writeData(final Measurement data) {
+    public void writeData(final IMeasureProvider data) {
         final Measure<Double, Duration> measurementTimeMeasure = data.getMeasureForMetric(MetricDescriptionConstants.POINT_IN_TIME_METRIC);
         final Measure<Long, Dimensionless> numericStateMeasure = data.getMeasureForMetric(MetricDescriptionConstants.CPU_STATE_METRIC);
         final double measurementTime = measurementTimeMeasure.doubleValue(SI.SECOND);

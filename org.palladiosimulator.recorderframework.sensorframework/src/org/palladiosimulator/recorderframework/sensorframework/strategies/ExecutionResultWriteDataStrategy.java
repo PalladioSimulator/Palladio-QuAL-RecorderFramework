@@ -8,7 +8,7 @@ import javax.measure.quantity.Duration;
 import javax.measure.unit.SI;
 
 import org.palladiosimulator.edp2.impl.MeasuringPointUtility;
-import org.palladiosimulator.measurementspec.Measurement;
+import org.palladiosimulator.measurementframework.measureprovider.IMeasureProvider;
 import org.palladiosimulator.metricspec.Identifier;
 import org.palladiosimulator.metricspec.MetricSetDescription;
 import org.palladiosimulator.metricspec.TextualBaseMetricDescription;
@@ -65,7 +65,7 @@ public class ExecutionResultWriteDataStrategy extends AbstractWriteDataStrategy 
     public void initialise(final IRecorderConfiguration recorderConfiguration) {
         final SensorFrameworkRecorderConfiguration sensorFrameworkRecorderConfig = (SensorFrameworkRecorderConfiguration) recorderConfiguration;
         initStatesCache(sensorFrameworkRecorderConfig);
-        initSensor(MeasuringPointUtility.measuringPointToString(sensorFrameworkRecorderConfig.getMeasuringPoint()));
+        initSensor(sensorFrameworkRecorderConfig.getRecorderAcceptedMetric().getName() +" of "+ MeasuringPointUtility.measuringPointToString(sensorFrameworkRecorderConfig.getMeasuringPoint()));
     }
 
     /*
@@ -77,7 +77,7 @@ public class ExecutionResultWriteDataStrategy extends AbstractWriteDataStrategy 
      * PipeData)
      */
     @Override
-    public void writeData(final Measurement data) {
+    public void writeData(final IMeasureProvider data) {
         final Measure<Double, Duration> measurementTimeMeasure = data.getMeasureForMetric(MetricDescriptionConstants.POINT_IN_TIME_METRIC);
         final Measure<Identifier, Dimensionless> numericStateMeasure = data.getMeasureForMetric(exceptionResultMetric);
         final double measurementTime = measurementTimeMeasure.doubleValue(SI.SECOND);

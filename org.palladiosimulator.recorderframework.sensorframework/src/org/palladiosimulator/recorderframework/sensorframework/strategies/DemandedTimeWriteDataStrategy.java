@@ -4,7 +4,7 @@ import javax.measure.Measure;
 import javax.measure.quantity.Duration;
 import javax.measure.unit.SI;
 
-import org.palladiosimulator.measurementspec.Measurement;
+import org.palladiosimulator.measurementframework.measureprovider.IMeasureProvider;
 import org.palladiosimulator.metricspec.constants.MetricDescriptionConstants;
 
 import de.uka.ipd.sdq.sensorframework.entities.Experiment;
@@ -20,7 +20,7 @@ public class DemandedTimeWriteDataStrategy extends AbstractWriteDataStrategy {
     }
 
     @Override
-    public void writeData(final Measurement data) {
+    public void writeData(final IMeasureProvider data) {
         final Measure<Double, Duration> measurementTimeMeasure = data.getMeasureForMetric(MetricDescriptionConstants.POINT_IN_TIME_METRIC);
         final Measure<Double, Duration> demandedTimeMeasure = data.getMeasureForMetric(MetricDescriptionConstants.RESOURCE_DEMAND_METRIC);
         final double measurementTime = measurementTimeMeasure.doubleValue(SI.SECOND);

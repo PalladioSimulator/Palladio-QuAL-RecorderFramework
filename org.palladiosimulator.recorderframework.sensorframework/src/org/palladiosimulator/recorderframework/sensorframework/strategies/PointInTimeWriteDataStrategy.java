@@ -4,7 +4,7 @@ import javax.measure.Measure;
 import javax.measure.quantity.Duration;
 import javax.measure.unit.SI;
 
-import org.palladiosimulator.measurementspec.Measurement;
+import org.palladiosimulator.measurementframework.measureprovider.IMeasureProvider;
 import org.palladiosimulator.metricspec.constants.MetricDescriptionConstants;
 
 import de.uka.ipd.sdq.sensorframework.entities.Experiment;
@@ -20,7 +20,7 @@ public class PointInTimeWriteDataStrategy extends AbstractWriteDataStrategy {
     }
 
     @Override
-    public void writeData(Measurement data) {
+    public void writeData(IMeasureProvider data) {
         final Measure<Double, Duration> eventTimeMeasure = data.getMeasureForMetric(MetricDescriptionConstants.POINT_IN_TIME_METRIC);
         final double eventTime = eventTimeMeasure.doubleValue(SI.SECOND);
         //FIXME: implement real point in time sensor

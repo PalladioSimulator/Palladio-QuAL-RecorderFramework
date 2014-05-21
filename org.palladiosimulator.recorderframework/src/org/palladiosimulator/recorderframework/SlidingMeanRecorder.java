@@ -6,7 +6,7 @@ import java.util.List;
 import javax.measure.Measure;
 import javax.measure.quantity.Quantity;
 
-import org.palladiosimulator.measurementspec.Measurement;
+import org.palladiosimulator.measurementframework.Measurement;
 import org.palladiosimulator.metricspec.MetricSetDescription;
 import org.palladiosimulator.recorderframework.launch.IRecorderConfiguration;
 

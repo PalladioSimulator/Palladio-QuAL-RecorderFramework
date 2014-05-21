@@ -13,7 +13,7 @@ import org.palladiosimulator.edp2.models.ExperimentData.Measurements;
 import org.palladiosimulator.edp2.models.ExperimentData.MeasurementsRange;
 import org.palladiosimulator.edp2.models.ExperimentData.RawMeasurements;
 import org.palladiosimulator.edp2.models.Repository.Repository;
-import org.palladiosimulator.measurementspec.Measurement;
+import org.palladiosimulator.measurementframework.Measurement;
 import org.palladiosimulator.recorderframework.Recorder;
 import org.palladiosimulator.recorderframework.launch.IRecorderConfiguration;
 

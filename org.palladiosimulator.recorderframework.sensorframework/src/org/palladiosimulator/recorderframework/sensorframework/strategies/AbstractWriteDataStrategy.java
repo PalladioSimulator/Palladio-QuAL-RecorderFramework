@@ -30,7 +30,7 @@ public abstract class AbstractWriteDataStrategy implements IWriteDataStrategy {
     @Override
     public void initialise(final IRecorderConfiguration recorderConfiguration) {
         final SensorFrameworkRecorderConfiguration sensorFrameworkRecorderConfig = (SensorFrameworkRecorderConfiguration) recorderConfiguration;     
-        final String sensorId = MeasuringPointUtility.measuringPointToString(sensorFrameworkRecorderConfig.getMeasuringPoint());
+        final String sensorId = sensorFrameworkRecorderConfig.getRecorderAcceptedMetric().getName() +" of "+ MeasuringPointUtility.measuringPointToString(sensorFrameworkRecorderConfig.getMeasuringPoint());
         sensor = SensorHelper.createOrReuseTimeSensor(daoFactory, experiment,
                 sensorId);
     }

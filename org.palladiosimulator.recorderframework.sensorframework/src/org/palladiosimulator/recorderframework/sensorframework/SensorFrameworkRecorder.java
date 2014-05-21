@@ -4,7 +4,7 @@ import static org.palladiosimulator.metricspec.constants.MetricDescriptionConsta
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
-import org.palladiosimulator.measurementspec.Measurement;
+import org.palladiosimulator.measurementframework.Measurement;
 import org.palladiosimulator.recorderframework.IRawWriteStrategy;
 import org.palladiosimulator.recorderframework.Recorder;
 import org.palladiosimulator.recorderframework.launch.IRecorderConfiguration;
@@ -20,10 +20,10 @@ import org.palladiosimulator.recorderframework.sensorframework.strategies.Waitin
 import de.uka.ipd.sdq.sensorframework.entities.Experiment;
 import de.uka.ipd.sdq.sensorframework.entities.ExperimentRun;
 import de.uka.ipd.sdq.sensorframework.entities.dao.IDAOFactory;
-	
+
 /**
  * Recorder for the SensorFramework.
- *
+ * 
  * @author pmerkle, Sebastian Lehrig
  */
 public class SensorFrameworkRecorder extends Recorder implements IRawWriteStrategy {
@@ -33,11 +33,10 @@ public class SensorFrameworkRecorder extends Recorder implements IRawWriteStrate
     private SensorFrameworkRecorderConfiguration recorderConfiguration;
 
     /**
-     * All instances of this class uses the same IDAOFactory. Hence it is
-     * sufficient when a single writer flushes the data. Several subsequent
-     * flushes would be redundant. This variable is used to coordinate the flush
-     * between several instances of this writer. It is false when one instance
-     * has written data that has not yet been flushed; true else.
+     * All instances of this class uses the same IDAOFactory. Hence it is sufficient when a single
+     * writer flushes the data. Several subsequent flushes would be redundant. This variable is used
+     * to coordinate the flush between several instances of this writer. It is false when one
+     * instance has written data that has not yet been flushed; true else.
      */
     private static boolean flushed;
 
@@ -49,8 +48,8 @@ public class SensorFrameworkRecorder extends Recorder implements IRawWriteStrate
             this.recorderConfiguration = (SensorFrameworkRecorderConfiguration) myRecorderConfiguration;
         } else {
             throw new IllegalArgumentException("Expected meta data of type "
-                    + SensorFrameworkRecorderConfiguration.class.getSimpleName()
-                    + " but was " + myRecorderConfiguration.getClass().getSimpleName());
+                    + SensorFrameworkRecorderConfiguration.class.getSimpleName() + " but was "
+                    + myRecorderConfiguration.getClass().getSimpleName());
         }
 
         if (this.recorderConfiguration.isRemoteRun()) {
@@ -63,33 +62,33 @@ public class SensorFrameworkRecorder extends Recorder implements IRawWriteStrate
         final IDAOFactory daoFactory = this.recorderConfiguration.getDaoFactory();
         final Experiment experiment = this.recorderConfiguration.getExperiment();
         final ExperimentRun run = this.recorderConfiguration.getExperimentRun();
-        final String recorderAcceptedMetric = recorderConfiguration.getRecorderAcceptedMetric().getName(); 
-        if (recorderAcceptedMetric.equals("Response Time")) {
-            writeDataStrategy = new ResponseTimeWriteDataStrategy(daoFactory,
-                    experiment, run);
+        final String recorderAcceptedMetric = recorderConfiguration.getRecorderAcceptedMetric().getName();
+        if (recorderAcceptedMetric.equals("Point in time")) {
+            writeDataStrategy = new PointInTimeWriteDataStrategy(daoFactory, experiment, run);
+        } else if (recorderAcceptedMetric.equals("Response Time")) {
+            writeDataStrategy = new ResponseTimeWriteDataStrategy(daoFactory, experiment, run);
+        } else if (recorderAcceptedMetric.equals("Response Time Tuple")) {
+            writeDataStrategy = new ResponseTimeWriteDataStrategy(daoFactory, experiment, run);
+        } else if (recorderAcceptedMetric.equals("Holding Time")) {
+            writeDataStrategy = new WaitingTimeWriteDataStrategy(daoFactory, experiment, run);
+        } else if (recorderAcceptedMetric.equals("Holding Time Tuple")) {
+            writeDataStrategy = new WaitingTimeWriteDataStrategy(daoFactory, experiment, run);
         } else if (recorderAcceptedMetric.equals("Waiting Time")) {
-            writeDataStrategy = new WaitingTimeWriteDataStrategy(daoFactory,
-                    experiment, run);
-        } else if (recorderAcceptedMetric.equals("Hold Time")) {
-            writeDataStrategy = new WaitingTimeWriteDataStrategy(daoFactory,
-                    experiment, run);
+            writeDataStrategy = new WaitingTimeWriteDataStrategy(daoFactory, experiment, run);
+        } else if (recorderAcceptedMetric.equals("Waiting Time Tuple")) {
+            writeDataStrategy = new WaitingTimeWriteDataStrategy(daoFactory, experiment, run);
         } else if (recorderAcceptedMetric.equals("Demand")) {
-            writeDataStrategy = new DemandedTimeWriteDataStrategy(daoFactory,
-                    experiment, run);
-        } else if (recorderAcceptedMetric.equals("State") || recorderAcceptedMetric.equals(CPU_STATE_OVER_TIME_METRIC.getName()) ) {
-            writeDataStrategy = new UtilisationWriteDataStrategy(daoFactory,
-                    experiment, run);
+            writeDataStrategy = new DemandedTimeWriteDataStrategy(daoFactory, experiment, run);
+        } else if (recorderAcceptedMetric.equals("State")
+                || recorderAcceptedMetric.equals(CPU_STATE_OVER_TIME_METRIC.getName())) {
+            writeDataStrategy = new UtilisationWriteDataStrategy(daoFactory, experiment, run);
         } else if (recorderAcceptedMetric.equals("Overall Utilisation")) {
-            writeDataStrategy = new OverallUtilisationWriteDataStrategy(
-                    daoFactory, experiment, run);
+            writeDataStrategy = new OverallUtilisationWriteDataStrategy(daoFactory, experiment, run);
         } else if (recorderAcceptedMetric.equals("ExecutionResult")) {
-            writeDataStrategy = new ExecutionResultWriteDataStrategy(
-                    daoFactory, experiment, run);
-        } else if (recorderAcceptedMetric.equals("Point in time")) {
-            writeDataStrategy = new PointInTimeWriteDataStrategy(
-                    daoFactory, experiment, run);
+            writeDataStrategy = new ExecutionResultWriteDataStrategy(daoFactory, experiment, run);
         } else {
-        	throw new RuntimeException("Unsupported metric (\""+recorderAcceptedMetric+"\") requested to SensorFramework recorder");
+            throw new RuntimeException("Unsupported metric (\"" + recorderAcceptedMetric
+                    + "\") requested to SensorFramework recorder");
         }
         writeDataStrategy.initialise(recorderConfiguration);
 
@@ -101,7 +100,7 @@ public class SensorFrameworkRecorder extends Recorder implements IRawWriteStrate
         if (!flushed) {
             writeDataStrategy.writeData(data);
         } else {
-            if(logger.isEnabledFor(Level.WARN)) {
+            if (logger.isEnabledFor(Level.WARN)) {
                 logger.warn("Tried to write data, but the pipe has been flushed already");
             }
         }
@@ -111,11 +110,13 @@ public class SensorFrameworkRecorder extends Recorder implements IRawWriteStrate
     public synchronized void flush() {
         if (!flushed) {
             flushed = true;
-            if(logger.isDebugEnabled()) {
+            if (logger.isDebugEnabled()) {
                 logger.debug("Flushing SensorFramework data store");
             }
             recorderConfiguration.getDaoFactory().store();
-            //do not execute daoFactory.finalizeAndClose() ! This will flush all lists for file-based lists, e.g. experiments, from memory. This should not be done on any DAO requested via the singleton as the lists are not reloaded on next access.
+            // do not execute daoFactory.finalizeAndClose() ! This will flush all lists for
+            // file-based lists, e.g. experiments, from memory. This should not be done on any DAO
+            // requested via the singleton as the lists are not reloaded on next access.
         }
     }
 }

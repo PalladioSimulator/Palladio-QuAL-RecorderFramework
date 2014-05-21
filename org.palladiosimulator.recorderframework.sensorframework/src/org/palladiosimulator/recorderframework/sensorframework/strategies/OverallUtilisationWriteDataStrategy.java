@@ -5,7 +5,7 @@ import javax.measure.quantity.Dimensionless;
 import javax.measure.quantity.Duration;
 import javax.measure.unit.SI;
 
-import org.palladiosimulator.measurementspec.Measurement;
+import org.palladiosimulator.measurementframework.measureprovider.IMeasureProvider;
 import org.palladiosimulator.metricspec.constants.MetricDescriptionConstants;
 import org.palladiosimulator.recorderframework.launch.IRecorderConfiguration;
 import org.palladiosimulator.recorderframework.sensorframework.SensorFrameworkRecorderConfiguration;
@@ -43,7 +43,7 @@ public class OverallUtilisationWriteDataStrategy extends AbstractWriteDataStrate
     }
 
     @Override
-    public void writeData(final Measurement data) {
+    public void writeData(final IMeasureProvider data) {
         final Measure<Double, Duration> measurementTimeMeasure = data.getMeasureForMetric(MetricDescriptionConstants.POINT_IN_TIME_METRIC);
         final Measure<Long, Dimensionless> numericStateMeasure = data.getMeasureForMetric(MetricDescriptionConstants.CPU_STATE_METRIC);
         final double measurementTime = measurementTimeMeasure.doubleValue(SI.SECOND);
