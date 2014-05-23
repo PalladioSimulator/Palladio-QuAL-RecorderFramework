@@ -12,9 +12,9 @@ import de.uka.ipd.sdq.sensorframework.entities.ExperimentRun;
 import de.uka.ipd.sdq.sensorframework.entities.TimeSpanSensor;
 import de.uka.ipd.sdq.sensorframework.entities.dao.IDAOFactory;
 
-public class DemandedTimeWriteDataStrategy extends AbstractWriteDataStrategy {
+public class ResourceDemandWriteDataStrategy extends AbstractWriteDataStrategy {
 
-    public DemandedTimeWriteDataStrategy(final IDAOFactory daoFactory,
+    public ResourceDemandWriteDataStrategy(final IDAOFactory daoFactory,
             final Experiment experiment, final ExperimentRun run) {
         super(daoFactory, experiment, run);
     }

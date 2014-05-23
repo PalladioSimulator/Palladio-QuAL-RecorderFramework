@@ -1,6 +1,19 @@
 package org.palladiosimulator.recorderframework.sensorframework;
 
-import static org.palladiosimulator.metricspec.constants.MetricDescriptionConstants.CPU_STATE_OVER_TIME_METRIC;
+import static org.palladiosimulator.metricspec.constants.MetricDescriptionConstants.EXECUTION_RESULT_METRIC;
+import static org.palladiosimulator.metricspec.constants.MetricDescriptionConstants.HOLDING_TIME_METRIC;
+import static org.palladiosimulator.metricspec.constants.MetricDescriptionConstants.HOLDING_TIME_METRIC_TUPLE;
+import static org.palladiosimulator.metricspec.constants.MetricDescriptionConstants.OVERALL_STATE_OF_ACTIVE_RESOURCE_METRIC;
+import static org.palladiosimulator.metricspec.constants.MetricDescriptionConstants.POINT_IN_TIME_METRIC;
+import static org.palladiosimulator.metricspec.constants.MetricDescriptionConstants.RESOURCE_DEMAND_METRIC;
+import static org.palladiosimulator.metricspec.constants.MetricDescriptionConstants.RESOURCE_DEMAND_METRIC_TUPLE;
+import static org.palladiosimulator.metricspec.constants.MetricDescriptionConstants.RESPONSE_TIME_METRIC;
+import static org.palladiosimulator.metricspec.constants.MetricDescriptionConstants.RESPONSE_TIME_METRIC_TUPLE;
+import static org.palladiosimulator.metricspec.constants.MetricDescriptionConstants.STATE_OF_ACTIVE_RESOURCE_METRIC;
+import static org.palladiosimulator.metricspec.constants.MetricDescriptionConstants.STATE_OF_ACTIVE_RESOURCE_METRIC_TUPLE;
+import static org.palladiosimulator.metricspec.constants.MetricDescriptionConstants.STATE_OF_ACTIVE_RESOURCE_OVER_TIME_METRIC;
+import static org.palladiosimulator.metricspec.constants.MetricDescriptionConstants.WAITING_TIME_METRIC;
+import static org.palladiosimulator.metricspec.constants.MetricDescriptionConstants.WAITING_TIME_METRIC_TUPLE;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
@@ -9,12 +22,12 @@ import org.palladiosimulator.recorderframework.IRawWriteStrategy;
 import org.palladiosimulator.recorderframework.Recorder;
 import org.palladiosimulator.recorderframework.launch.IRecorderConfiguration;
 import org.palladiosimulator.recorderframework.sensorframework.strategies.AbstractWriteDataStrategy;
-import org.palladiosimulator.recorderframework.sensorframework.strategies.DemandedTimeWriteDataStrategy;
 import org.palladiosimulator.recorderframework.sensorframework.strategies.ExecutionResultWriteDataStrategy;
-import org.palladiosimulator.recorderframework.sensorframework.strategies.OverallUtilisationWriteDataStrategy;
+import org.palladiosimulator.recorderframework.sensorframework.strategies.OverallStateWriteDataStrategy;
 import org.palladiosimulator.recorderframework.sensorframework.strategies.PointInTimeWriteDataStrategy;
+import org.palladiosimulator.recorderframework.sensorframework.strategies.ResourceDemandWriteDataStrategy;
 import org.palladiosimulator.recorderframework.sensorframework.strategies.ResponseTimeWriteDataStrategy;
-import org.palladiosimulator.recorderframework.sensorframework.strategies.UtilisationWriteDataStrategy;
+import org.palladiosimulator.recorderframework.sensorframework.strategies.StateOfActiveResourceWriteDataStrategy;
 import org.palladiosimulator.recorderframework.sensorframework.strategies.WaitingTimeWriteDataStrategy;
 
 import de.uka.ipd.sdq.sensorframework.entities.Experiment;
@@ -56,38 +69,35 @@ public class SensorFrameworkRecorder extends Recorder implements IRawWriteStrate
             throw new UnsupportedOperationException("Remote runs are not implemented yet");
         }
 
-        // Create sensor
-        // TODO Remove hard coded metric names "Response Time", ... Use Enum
-        // instead!?
+        // TODO Remove hard-coded metric references?
+
         final IDAOFactory daoFactory = this.recorderConfiguration.getDaoFactory();
         final Experiment experiment = this.recorderConfiguration.getExperiment();
         final ExperimentRun run = this.recorderConfiguration.getExperimentRun();
-        final String recorderAcceptedMetric = recorderConfiguration.getRecorderAcceptedMetric().getName();
-        if (recorderAcceptedMetric.equals("Point in time")) {
+        final String recorderAcceptedMetric = recorderConfiguration.getRecorderAcceptedMetric().getId();
+        if (recorderAcceptedMetric.equals(POINT_IN_TIME_METRIC.getId())) {
             writeDataStrategy = new PointInTimeWriteDataStrategy(daoFactory, experiment, run);
-        } else if (recorderAcceptedMetric.equals("Response Time")) {
+        } else if (recorderAcceptedMetric.equals(RESPONSE_TIME_METRIC.getId())
+                || recorderAcceptedMetric.equals(RESPONSE_TIME_METRIC_TUPLE.getId())) {
             writeDataStrategy = new ResponseTimeWriteDataStrategy(daoFactory, experiment, run);
-        } else if (recorderAcceptedMetric.equals("Response Time Tuple")) {
-            writeDataStrategy = new ResponseTimeWriteDataStrategy(daoFactory, experiment, run);
-        } else if (recorderAcceptedMetric.equals("Holding Time")) {
-            writeDataStrategy = new WaitingTimeWriteDataStrategy(daoFactory, experiment, run);
-        } else if (recorderAcceptedMetric.equals("Holding Time Tuple")) {
-            writeDataStrategy = new WaitingTimeWriteDataStrategy(daoFactory, experiment, run);
-        } else if (recorderAcceptedMetric.equals("Waiting Time")) {
-            writeDataStrategy = new WaitingTimeWriteDataStrategy(daoFactory, experiment, run);
-        } else if (recorderAcceptedMetric.equals("Waiting Time Tuple")) {
-            writeDataStrategy = new WaitingTimeWriteDataStrategy(daoFactory, experiment, run);
-        } else if (recorderAcceptedMetric.equals("Demand")) {
-            writeDataStrategy = new DemandedTimeWriteDataStrategy(daoFactory, experiment, run);
-        } else if (recorderAcceptedMetric.equals("State")
-                || recorderAcceptedMetric.equals(CPU_STATE_OVER_TIME_METRIC.getName())) {
-            writeDataStrategy = new UtilisationWriteDataStrategy(daoFactory, experiment, run);
-        } else if (recorderAcceptedMetric.equals("Overall Utilisation")) {
-            writeDataStrategy = new OverallUtilisationWriteDataStrategy(daoFactory, experiment, run);
-        } else if (recorderAcceptedMetric.equals("ExecutionResult")) {
+        } else if (recorderAcceptedMetric.equals(HOLDING_TIME_METRIC.getId())
+                || recorderAcceptedMetric.equals(HOLDING_TIME_METRIC_TUPLE.getId())
+                || recorderAcceptedMetric.equals(WAITING_TIME_METRIC.getId())
+                || recorderAcceptedMetric.equals(WAITING_TIME_METRIC_TUPLE.getId())) {
+            writeDataStrategy = new WaitingTimeWriteDataStrategy(daoFactory, experiment, run); // TODO Are the correct metrics handled here?
+        } else if (recorderAcceptedMetric.equals(RESOURCE_DEMAND_METRIC.getId())
+                || recorderAcceptedMetric.equals(RESOURCE_DEMAND_METRIC_TUPLE.getId())) {
+            writeDataStrategy = new ResourceDemandWriteDataStrategy(daoFactory, experiment, run);
+        } else if (recorderAcceptedMetric.equals(STATE_OF_ACTIVE_RESOURCE_METRIC.getId())
+                || recorderAcceptedMetric.equals(STATE_OF_ACTIVE_RESOURCE_METRIC_TUPLE.getId())
+                || recorderAcceptedMetric.equals(STATE_OF_ACTIVE_RESOURCE_OVER_TIME_METRIC.getId())) {
+            writeDataStrategy = new StateOfActiveResourceWriteDataStrategy(daoFactory, experiment, run);
+        } else if (recorderAcceptedMetric.equals(OVERALL_STATE_OF_ACTIVE_RESOURCE_METRIC.getId())) {
+            writeDataStrategy = new OverallStateWriteDataStrategy(daoFactory, experiment, run);
+        } else if (recorderAcceptedMetric.equals(EXECUTION_RESULT_METRIC.getId())) {
             writeDataStrategy = new ExecutionResultWriteDataStrategy(daoFactory, experiment, run);
         } else {
-            throw new RuntimeException("Unsupported metric (\"" + recorderAcceptedMetric
+            throw new RuntimeException("Unsupported metric (\"" + recorderConfiguration.getRecorderAcceptedMetric().getName()
                     + "\") requested to SensorFramework recorder");
         }
         writeDataStrategy.initialise(recorderConfiguration);

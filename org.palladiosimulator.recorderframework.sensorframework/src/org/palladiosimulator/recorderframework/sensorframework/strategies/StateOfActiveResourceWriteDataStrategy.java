@@ -1,10 +1,13 @@
 package org.palladiosimulator.recorderframework.sensorframework.strategies;
 
+import java.util.HashMap;
+
 import javax.measure.Measure;
 import javax.measure.quantity.Dimensionless;
 import javax.measure.quantity.Duration;
 import javax.measure.unit.SI;
 
+import org.palladiosimulator.edp2.impl.MeasuringPointUtility;
 import org.palladiosimulator.measurementframework.measureprovider.IMeasureProvider;
 import org.palladiosimulator.metricspec.constants.MetricDescriptionConstants;
 import org.palladiosimulator.recorderframework.launch.IRecorderConfiguration;
@@ -17,21 +20,25 @@ import de.uka.ipd.sdq.sensorframework.entities.State;
 import de.uka.ipd.sdq.sensorframework.entities.StateSensor;
 import de.uka.ipd.sdq.sensorframework.entities.dao.IDAOFactory;
 
-public class OverallUtilisationWriteDataStrategy extends AbstractWriteDataStrategy {
+public class StateOfActiveResourceWriteDataStrategy extends AbstractWriteDataStrategy {
+
+    private final HashMap<String, State> statesCache = new HashMap<String, State>();
 
     private State idleState;
 
     private State busyState;
 
-    public OverallUtilisationWriteDataStrategy(final IDAOFactory daoFactory,
+    public StateOfActiveResourceWriteDataStrategy(final IDAOFactory daoFactory,
             final Experiment experiment, final ExperimentRun run) {
         super(daoFactory, experiment, run);
     }
 
     @Override
     public void initialise(final IRecorderConfiguration recorderConfiguration) {
-        final SensorFrameworkRecorderConfiguration sensorFrameworkRecorderConfig = (SensorFrameworkRecorderConfiguration) recorderConfiguration;
-        final String sensorId = sensorFrameworkRecorderConfig.getRecorderAcceptedMetric().getTextualDescription();
+        final SensorFrameworkRecorderConfiguration sensorFrameworkRecorderConfig = (SensorFrameworkRecorderConfiguration) recorderConfiguration;        
+        final String sensorId = sensorFrameworkRecorderConfig.getRecorderAcceptedMetric().getName() + " of "
+                +
+                MeasuringPointUtility.measuringPointToString(sensorFrameworkRecorderConfig.getMeasuringPoint());
         this.idleState = SensorHelper.createOrReuseState(daoFactory, "Idle");
         this.busyState = SensorHelper.createOrReuseState(daoFactory, "Busy");
         sensor = SensorHelper.createOrReuseStateSensor(daoFactory, experiment,
@@ -45,14 +52,25 @@ public class OverallUtilisationWriteDataStrategy extends AbstractWriteDataStrate
     @Override
     public void writeData(final IMeasureProvider data) {
         final Measure<Double, Duration> measurementTimeMeasure = data.getMeasureForMetric(MetricDescriptionConstants.POINT_IN_TIME_METRIC);
-        final Measure<Long, Dimensionless> numericStateMeasure = data.getMeasureForMetric(MetricDescriptionConstants.CPU_STATE_METRIC);
+        final Measure<Long, Dimensionless> numericStateMeasure = data.getMeasureForMetric(MetricDescriptionConstants.STATE_OF_ACTIVE_RESOURCE_METRIC);
         final double measurementTime = measurementTimeMeasure.doubleValue(SI.SECOND);
         final int numericState = numericStateMeasure.intValue(Dimensionless.UNIT);
         State state = null;
         if (numericState == 0) {
             state = idleState;
         } else {
-            state = busyState;
+            final String stateLiteral = "Busy " + Integer.toString(numericState)
+                    + " Job(s)";
+            if (!statesCache.containsKey(stateLiteral)) {
+                final State newState = SensorHelper.createOrReuseState(daoFactory,
+                        stateLiteral);
+                statesCache.put(stateLiteral, newState);
+                if (!((StateSensor) sensor).getSensorStates()
+                        .contains(newState)) {
+                    ((StateSensor) sensor).addSensorState(newState);
+                }
+            }
+            state = statesCache.get(stateLiteral);
         }
         run.addStateMeasurement((StateSensor)sensor, state, measurementTime);
     }
