@@ -5,14 +5,14 @@ import java.util.Date;
 import javax.measure.Measure;
 import javax.measure.unit.SI;
 
-import org.palladiosimulator.edp2.impl.DataNotAccessibleException;
-import org.palladiosimulator.edp2.impl.MeasurementsUtility;
+import org.palladiosimulator.edp2.dao.exception.DataNotAccessibleException;
 import org.palladiosimulator.edp2.models.ExperimentData.ExperimentDataFactory;
 import org.palladiosimulator.edp2.models.ExperimentData.ExperimentRun;
 import org.palladiosimulator.edp2.models.ExperimentData.Measurements;
 import org.palladiosimulator.edp2.models.ExperimentData.MeasurementsRange;
 import org.palladiosimulator.edp2.models.ExperimentData.RawMeasurements;
 import org.palladiosimulator.edp2.models.Repository.Repository;
+import org.palladiosimulator.edp2.util.MeasurementsUtility;
 import org.palladiosimulator.measurementframework.Measurement;
 import org.palladiosimulator.recorderframework.Recorder;
 import org.palladiosimulator.recorderframework.launch.IRecorderConfiguration;

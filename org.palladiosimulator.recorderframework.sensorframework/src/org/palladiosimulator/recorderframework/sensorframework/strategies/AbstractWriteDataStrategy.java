@@ -1,6 +1,6 @@
 package org.palladiosimulator.recorderframework.sensorframework.strategies;
 
-import org.palladiosimulator.edp2.impl.MeasuringPointUtility;
+import org.palladiosimulator.edp2.util.MeasuringPointUtility;
 import org.palladiosimulator.recorderframework.launch.IRecorderConfiguration;
 import org.palladiosimulator.recorderframework.sensorframework.SensorFrameworkRecorderConfiguration;
 import org.palladiosimulator.recorderframework.sensorframework.SensorHelper;
