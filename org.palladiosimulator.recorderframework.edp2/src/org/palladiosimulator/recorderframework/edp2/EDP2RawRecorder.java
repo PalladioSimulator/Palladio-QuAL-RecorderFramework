@@ -3,15 +3,16 @@ package org.palladiosimulator.recorderframework.edp2;
 import java.util.Date;
 
 import javax.measure.Measure;
+import javax.measure.quantity.Quantity;
 import javax.measure.unit.SI;
 
-import org.palladiosimulator.edp2.dao.exception.DataNotAccessibleException;
+import org.palladiosimulator.edp2.dao.MeasurementsDao;
+import org.palladiosimulator.edp2.models.ExperimentData.DataSeries;
 import org.palladiosimulator.edp2.models.ExperimentData.ExperimentDataFactory;
 import org.palladiosimulator.edp2.models.ExperimentData.ExperimentRun;
 import org.palladiosimulator.edp2.models.ExperimentData.Measurements;
 import org.palladiosimulator.edp2.models.ExperimentData.MeasurementsRange;
 import org.palladiosimulator.edp2.models.ExperimentData.RawMeasurements;
-import org.palladiosimulator.edp2.models.Repository.Repository;
 import org.palladiosimulator.edp2.util.MeasurementsUtility;
 import org.palladiosimulator.measurementframework.Measurement;
 import org.palladiosimulator.recorderframework.Recorder;
@@ -72,13 +73,11 @@ public class EDP2RawRecorder extends Recorder {
         measurementsRange.setStartTime(Measure.valueOf(startTime, SI.SECOND));
         measurementsRange.setEndTime(Measure.valueOf(endTime, SI.SECOND));
 
-        try {
-            final Repository repository = experimentRun.getExperimentSetting().getExperimentGroup().getRepository();
-            MeasurementsUtility.ensureClosedRepository(repository);
-            MeasurementsUtility.ensureOpenRepository(repository);
-        } catch (final DataNotAccessibleException e) {
-            throw new RuntimeException(e);
+        for (final DataSeries ds : measurementsRange.getRawMeasurements().getDataSeries()) {
+            final MeasurementsDao<?, ? extends Quantity> dao = MeasurementsUtility.getMeasurementsDao(ds);
+            dao.flush();
         }
+
     }
 
     /**

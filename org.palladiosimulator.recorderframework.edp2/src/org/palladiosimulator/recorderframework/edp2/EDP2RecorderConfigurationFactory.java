@@ -48,7 +48,7 @@ public class EDP2RecorderConfigurationFactory extends AbstractRecorderConfigurat
         addMetricDescriptionToRepository(metricDescription);
 
         final MeasuringPoint measuringPoint = (MeasuringPoint) configuration.get(AbstractRecorderConfiguration.MEASURING_POINT);
-        
+
         final Measurements measure = initializeMeasurements(initializeMeasure(metricDescription, measuringPoint));
         final EDP2RecorderConfiguration result = new EDP2RecorderConfiguration();
         final Map<String,Object> newConfiguration = new HashMap<String, Object>();
@@ -57,7 +57,7 @@ public class EDP2RecorderConfigurationFactory extends AbstractRecorderConfigurat
         result.setConfiguration(newConfiguration);
 
         return result;
-    }    
+    }
 
     private void initalizeEDP2Repository(final String repositoryID) {
         repository = RepositoryManager.getRepositoryFromUUID(repositoryID);
@@ -101,7 +101,7 @@ public class EDP2RecorderConfigurationFactory extends AbstractRecorderConfigurat
      * @param edp2MetaData
      *            Meta data object that holds the object to measure
      */
-    private Measure initializeMeasure(final MetricDescription measureMetric, MeasuringPoint measuringPoint) {
+    private Measure initializeMeasure(final MetricDescription measureMetric, final MeasuringPoint measuringPoint) {
         // Important: Identifiers are not supported by ProbeFramework so far
         // because ordinal values are used instead to represent nominal values.
         // If identifiers should be allowed, the initial identifier must
@@ -168,5 +168,10 @@ public class EDP2RecorderConfigurationFactory extends AbstractRecorderConfigurat
         experimentRun.getMeasurements().add(measurements);
 
         return measurements;
+    }
+
+    @Override
+    public void finalizeRecorderConfigurationFactory() {
+        repository.flush();
     }
 }

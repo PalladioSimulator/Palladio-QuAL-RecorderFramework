@@ -70,4 +70,9 @@ IRecorderConfigurationFactory {
             run = experiment.addExperimentRun(getExperimentRunName());
         }
     }
+
+    @Override
+    public void finalizeRecorderConfigurationFactory() {
+        daoFactory.finalizeAndClose();
+    }
 }

@@ -10,4 +10,6 @@ public interface IRecorderConfigurationFactory {
 
     public IRecorderConfiguration createRecorderConfiguration(Map<String,Object> configuration);
 
+    public void finalizeRecorderConfigurationFactory();
+
 }
