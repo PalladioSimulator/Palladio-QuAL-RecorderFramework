@@ -7,9 +7,9 @@ import javax.measure.quantity.Dimensionless;
 import javax.measure.quantity.Duration;
 import javax.measure.unit.SI;
 
-import org.palladiosimulator.edp2.util.MeasuringPointUtility;
 import org.palladiosimulator.measurementframework.measureprovider.IMeasureProvider;
 import org.palladiosimulator.metricspec.constants.MetricDescriptionConstants;
+import org.palladiosimulator.pcm.edp2.measuringpoint.util.MeasuringPointUtility;
 import org.palladiosimulator.recorderframework.launch.IRecorderConfiguration;
 import org.palladiosimulator.recorderframework.sensorframework.SensorFrameworkRecorderConfiguration;
 import org.palladiosimulator.recorderframework.sensorframework.SensorHelper;
