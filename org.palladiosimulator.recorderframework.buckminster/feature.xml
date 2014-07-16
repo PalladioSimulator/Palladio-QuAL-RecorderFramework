@@ -15,6 +15,7 @@
       <discovery label="Eclipse Release" url="http://download.eclipse.org/releases/luna/"/>
       <discovery label="Eclipse Orbit" url="http://download.eclipse.org/tools/orbit/downloads/drops/R20130827064939/repository/"/>
       <discovery label="Palladio" url="https://sdqweb.ipd.kit.edu/eclipse/palladio/nightly"/>
+      <discovery label="MDSD Profiles" url="http://sdqweb.ipd.kit.edu/eclipse/mdsdprofiles/nightly"/>
    </url>
 
    <includes
