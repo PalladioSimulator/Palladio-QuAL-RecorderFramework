@@ -61,11 +61,14 @@ public class EDP2RecorderConfigurationFactory extends AbstractRecorderConfigurat
 
     private void initalizeEDP2Repository(final String repositoryID) {
         repository = RepositoryManager.getRepositoryFromUUID(repositoryID);
+        if (repository == null) {
+            throw new IllegalArgumentException("The provided EDP2 repository does not exist. Please check your configuration");
+        }
     }
 
     /**
      * Initializes an EDP2 ExperimentGroup if not present.
-     * 
+     *
      * @param edp2MetaData
      */
     private void initializeExperimentGroup() {
@@ -97,7 +100,7 @@ public class EDP2RecorderConfigurationFactory extends AbstractRecorderConfigurat
     /**
      * Initialize EDP2 measure.
      * @param result
-     * 
+     *
      * @param edp2MetaData
      *            Meta data object that holds the object to measure
      */
@@ -154,7 +157,7 @@ public class EDP2RecorderConfigurationFactory extends AbstractRecorderConfigurat
 
     /**
      * Initialize EDP2 measurements.
-     * 
+     *
      * @param edp2MetaData
      *            Meta data object that holds the model element ID to measure
      * @return
