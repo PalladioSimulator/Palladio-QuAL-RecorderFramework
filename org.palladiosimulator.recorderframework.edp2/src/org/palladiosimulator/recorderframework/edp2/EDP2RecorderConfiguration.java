@@ -5,9 +5,8 @@ import java.util.Map;
 
 import org.palladiosimulator.edp2.models.ExperimentData.Measurements;
 import org.palladiosimulator.recorderframework.AbstractRecorderConfiguration;
-import org.palladiosimulator.recorderframework.launch.IRecorderConfiguration;
 
-public class EDP2RecorderConfiguration extends AbstractRecorderConfiguration implements IRecorderConfiguration, Serializable {
+public class EDP2RecorderConfiguration extends AbstractRecorderConfiguration implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -15,9 +14,9 @@ public class EDP2RecorderConfiguration extends AbstractRecorderConfiguration imp
     private Measurements measurements;
 
     @Override
-    public void setConfiguration(final Map<String,Object> configuration) {
+    public void setConfiguration(final Map<String, Object> configuration) {
         super.setConfiguration(configuration);
-        measurements = getValue(configuration, MEASUREMENTS, Measurements.class);
+        this.measurements = getValue(configuration, MEASUREMENTS, Measurements.class);
     }
 
     public String getModelElementID() {
@@ -26,6 +25,6 @@ public class EDP2RecorderConfiguration extends AbstractRecorderConfiguration imp
     }
 
     public Measurements getMeasurements() {
-        return measurements;
+        return this.measurements;
     }
 }

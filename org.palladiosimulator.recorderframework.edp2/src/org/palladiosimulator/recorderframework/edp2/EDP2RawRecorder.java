@@ -19,16 +19,15 @@ import org.palladiosimulator.recorderframework.Recorder;
 import org.palladiosimulator.recorderframework.launch.IRecorderConfiguration;
 
 /**
- * This abstract class provides methods necessary to write raw or aggregated measurements to the
- * EDP2. It follows the typical three steps of the ProbeFramework Framework:
+ * This class provides methods necessary to write raw or aggregated measurements to the EDP2. It
+ * follows the typical three steps of ProbeFramework:
  * 
- * 1) initialize(MetaDataInit metaData) Sets up the whole experiment by specifying the EDP2
- * repository, an experiment group, EDP2Measure objects, an ExperimentSetting, an ExperimentRun, and
- * Measurements.
+ * 1) initialize: Sets up the whole experiment by specifying the EDP2 repository, an experiment
+ * group, EDP2Measure objects, an ExperimentSetting, an ExperimentRun, and Measurements.
  * 
- * 2) writeData(PipeData pipeData) Writes measurements into EDP2.
+ * 2) writeData: Writes measurements into EDP2.
  * 
- * 3) flush() Ends the experiment after writing.
+ * 3) flush: Ends the experiment by writing to EDP2.
  * 
  * @author Baum, Sebastian Lehrig
  * 
@@ -50,7 +49,7 @@ public class EDP2RawRecorder extends Recorder {
     }
 
     /**
-     * This method writes given measurement data to the EDP2.
+     * This method writes given measurement data to EDP2.
      */
     @Override
     public void writeData(final Measurement data) {
@@ -58,8 +57,7 @@ public class EDP2RawRecorder extends Recorder {
     }
 
     /**
-     * This method will end the current experiment and close the data output
-     * stream.
+     * This method ends the current experiment and close the data output stream.
      */
     @Override
     public void flush() {
@@ -68,8 +66,7 @@ public class EDP2RawRecorder extends Recorder {
 
         final long startTime = experimentRun.getStartTime().getTime();
         final long endTime = new Date().getTime();
-        experimentRun.setDuration(Measure.valueOf(endTime - startTime,
-                SI.SECOND));
+        experimentRun.setDuration(Measure.valueOf(endTime - startTime, SI.SECOND));
         measurementsRange.setStartTime(Measure.valueOf(startTime, SI.SECOND));
         measurementsRange.setEndTime(Measure.valueOf(endTime, SI.SECOND));
 
@@ -81,8 +78,7 @@ public class EDP2RawRecorder extends Recorder {
     }
 
     /**
-     * In this method, an EDP2 experiment run is prepared by initializing
-     * EDP2's MeasurementRange
+     * In this method, an EDP2 experiment run is prepared by initializing EDP2's MeasurementRange
      */
     private void attachRawMeasurementRangeToMeasurements() {
         final MeasurementsRange measurementsRange = experimentDataFactory.createMeasurementsRange(measurements);

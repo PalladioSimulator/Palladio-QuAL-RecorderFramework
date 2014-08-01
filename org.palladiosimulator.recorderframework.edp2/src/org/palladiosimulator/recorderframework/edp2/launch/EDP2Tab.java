@@ -44,8 +44,7 @@ public class EDP2Tab extends AbstractLaunchConfigurationTab {
         };
 
         final Group dataSetGroup = new Group(container, SWT.NONE);
-        dataSetGroup.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true,
-                false));
+        dataSetGroup.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
         final GridLayout gridLayout_2 = new GridLayout();
         gridLayout_2.numColumns = 3;
         dataSetGroup.setLayout(gridLayout_2);
@@ -55,8 +54,7 @@ public class EDP2Tab extends AbstractLaunchConfigurationTab {
         dataSourceLabel.setText("Data source:");
 
         dataField = new Text(dataSetGroup, SWT.BORDER | SWT.READ_ONLY);
-        dataField
-        .setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
+        dataField.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
         dataField.addModifyListener(modifyListener);
 
         final Button browseButton = new Button(dataSetGroup, SWT.NONE);
@@ -66,15 +64,13 @@ public class EDP2Tab extends AbstractLaunchConfigurationTab {
             /*
              * (non-Javadoc)
              * 
-             * @see
-             * org.eclipse.swt.events.SelectionListener#widgetSelected(org.eclipse
+             * @see org.eclipse.swt.events.SelectionListener#widgetSelected(org.eclipse
              * .swt.events.SelectionEvent)
              */
             @Override
             public void widgetSelected(final SelectionEvent e) {
-                final ConfigureDatasourceDialog dialog = new ConfigureDatasourceDialog(
-                        e.display.getActiveShell(), "Select Datasource...",
-                        true);
+                final ConfigureDatasourceDialog dialog = new ConfigureDatasourceDialog(e.display.getActiveShell(),
+                        "Select Datasource...", true);
                 if (dialog.open() == Dialog.OK) {
                     final Repository repository = (Repository) dialog.getResult();
                     selectedRepositoryID = repository.getId();
@@ -93,10 +89,9 @@ public class EDP2Tab extends AbstractLaunchConfigurationTab {
     @Override
     public void initializeFrom(final ILaunchConfiguration configuration) {
         try {
-            selectedRepositoryID = configuration.getAttribute(
-                    EDP2RecorderConfigurationFactory.REPOSITORY_ID, "");
+            selectedRepositoryID = configuration.getAttribute(EDP2RecorderConfigurationFactory.REPOSITORY_ID, "");
             final Repository repository = RepositoryManager.getRepositoryFromUUID(selectedRepositoryID);
-            if(repository == null) {
+            if (repository == null) {
                 dataField.setText("");
             } else {
                 dataField.setText(repository.toString());
@@ -109,9 +104,7 @@ public class EDP2Tab extends AbstractLaunchConfigurationTab {
 
     @Override
     public void performApply(final ILaunchConfigurationWorkingCopy configuration) {
-        configuration.setAttribute(EDP2RecorderConfigurationFactory.REPOSITORY_ID,
-                selectedRepositoryID);
-
+        configuration.setAttribute(EDP2RecorderConfigurationFactory.REPOSITORY_ID, selectedRepositoryID);
     }
 
     @Override
@@ -130,9 +123,11 @@ public class EDP2Tab extends AbstractLaunchConfigurationTab {
     }
 
     @Override
-    public void activated(final ILaunchConfigurationWorkingCopy workingCopy) {}
+    public void activated(final ILaunchConfigurationWorkingCopy workingCopy) {
+    }
 
     @Override
-    public void deactivated(final ILaunchConfigurationWorkingCopy workingCopy) {}
+    public void deactivated(final ILaunchConfigurationWorkingCopy workingCopy) {
+    }
 
 }
