@@ -10,6 +10,6 @@ import java.util.Map;
  */
 public interface IRecorderConfiguration {
 
-	public void setConfiguration(Map<String, Object> configuration);
-	
+    public void setConfiguration(Map<String, Object> configuration);
+
 }

@@ -4,8 +4,7 @@ import org.palladiosimulator.measurementframework.Measurement;
 import org.palladiosimulator.recorderframework.launch.IRecorderConfiguration;
 
 /**
- * A WriteStrategy is responsible for storing the measurements
- * to any external, independent device
+ * A WriteStrategy is responsible for storing the measurements to any external, independent device
  *
  * @author pmerkle
  * @author Baum
@@ -14,8 +13,7 @@ import org.palladiosimulator.recorderframework.launch.IRecorderConfiguration;
 public interface IRecorder {
 
     /**
-     * This method contains meta data of the measurements to initialize the
-     * writer.
+     * This method contains meta data of the measurements to initialize the writer.
      * 
      * @param metaData
      *            The meta data of the measurements.

@@ -84,7 +84,13 @@ public class SensorFrameworkRecorder extends Recorder implements IRawWriteStrate
                 || recorderAcceptedMetric.equals(HOLDING_TIME_METRIC_TUPLE.getId())
                 || recorderAcceptedMetric.equals(WAITING_TIME_METRIC.getId())
                 || recorderAcceptedMetric.equals(WAITING_TIME_METRIC_TUPLE.getId())) {
-            writeDataStrategy = new WaitingTimeWriteDataStrategy(daoFactory, experiment, run); // TODO Are the correct metrics handled here?
+            writeDataStrategy = new WaitingTimeWriteDataStrategy(daoFactory, experiment, run); // TODO
+                                                                                               // Are
+                                                                                               // the
+                                                                                               // correct
+                                                                                               // metrics
+                                                                                               // handled
+                                                                                               // here?
         } else if (recorderAcceptedMetric.equals(RESOURCE_DEMAND_METRIC.getId())
                 || recorderAcceptedMetric.equals(RESOURCE_DEMAND_METRIC_TUPLE.getId())) {
             writeDataStrategy = new ResourceDemandWriteDataStrategy(daoFactory, experiment, run);
@@ -97,7 +103,8 @@ public class SensorFrameworkRecorder extends Recorder implements IRawWriteStrate
         } else if (recorderAcceptedMetric.equals(EXECUTION_RESULT_METRIC.getId())) {
             writeDataStrategy = new ExecutionResultWriteDataStrategy(daoFactory, experiment, run);
         } else {
-            throw new RuntimeException("Unsupported metric (\"" + recorderConfiguration.getRecorderAcceptedMetric().getName()
+            throw new RuntimeException("Unsupported metric (\""
+                    + recorderConfiguration.getRecorderAcceptedMetric().getName()
                     + "\") requested to SensorFramework recorder");
         }
         writeDataStrategy.initialise(recorderConfiguration);

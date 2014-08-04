@@ -23,8 +23,8 @@ public class OverallStateWriteDataStrategy extends AbstractWriteDataStrategy {
 
     private State busyState;
 
-    public OverallStateWriteDataStrategy(final IDAOFactory daoFactory,
-            final Experiment experiment, final ExperimentRun run) {
+    public OverallStateWriteDataStrategy(final IDAOFactory daoFactory, final Experiment experiment,
+            final ExperimentRun run) {
         super(daoFactory, experiment, run);
     }
 
@@ -34,8 +34,7 @@ public class OverallStateWriteDataStrategy extends AbstractWriteDataStrategy {
         final String sensorId = sensorFrameworkRecorderConfig.getRecorderAcceptedMetric().getTextualDescription();
         this.idleState = SensorHelper.createOrReuseState(daoFactory, "Idle");
         this.busyState = SensorHelper.createOrReuseState(daoFactory, "Busy");
-        sensor = SensorHelper.createOrReuseStateSensor(daoFactory, experiment,
-                sensorId, idleState);
+        sensor = SensorHelper.createOrReuseStateSensor(daoFactory, experiment, sensorId, idleState);
         if (!((StateSensor) sensor).getSensorStates().contains(idleState)) {
             ((StateSensor) sensor).addSensorState(idleState);
         }
@@ -44,8 +43,10 @@ public class OverallStateWriteDataStrategy extends AbstractWriteDataStrategy {
 
     @Override
     public void writeData(final IMeasureProvider data) {
-        final Measure<Double, Duration> measurementTimeMeasure = data.getMeasureForMetric(MetricDescriptionConstants.POINT_IN_TIME_METRIC);
-        final Measure<Long, Dimensionless> numericStateMeasure = data.getMeasureForMetric(MetricDescriptionConstants.STATE_OF_ACTIVE_RESOURCE_METRIC);
+        final Measure<Double, Duration> measurementTimeMeasure = data
+                .getMeasureForMetric(MetricDescriptionConstants.POINT_IN_TIME_METRIC);
+        final Measure<Long, Dimensionless> numericStateMeasure = data
+                .getMeasureForMetric(MetricDescriptionConstants.STATE_OF_ACTIVE_RESOURCE_METRIC);
         final double measurementTime = measurementTimeMeasure.doubleValue(SI.SECOND);
         final int numericState = numericStateMeasure.intValue(Dimensionless.UNIT);
         State state = null;
@@ -54,7 +55,7 @@ public class OverallStateWriteDataStrategy extends AbstractWriteDataStrategy {
         } else {
             state = busyState;
         }
-        run.addStateMeasurement((StateSensor)sensor, state, measurementTime);
+        run.addStateMeasurement((StateSensor) sensor, state, measurementTime);
     }
 
 }

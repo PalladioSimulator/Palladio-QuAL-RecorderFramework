@@ -12,8 +12,8 @@ public abstract class AbstractRecorderConfiguration implements IRecorderConfigur
     public static final String MEASURING_POINT = "measuringPoint";
 
     /**
-     * This list should hold one MeasuredMetric with measurement information
-     * for each tuple that is inducted to the pipe by the calculators.
+     * This list should hold one MeasuredMetric with measurement information for each tuple that is
+     * inducted to the pipe by the calculators.
      */
     private MetricDescription recorderAcceptedMetric;
     private MeasuringPoint measuringPoint;
@@ -36,16 +36,17 @@ public abstract class AbstractRecorderConfiguration implements IRecorderConfigur
     }
 
     /**
-     * @param recorderAcceptedMetric the recorderAcceptedMetric to set
+     * @param recorderAcceptedMetric
+     *            the recorderAcceptedMetric to set
      */
     public final void setRecorderAcceptedMetric(final MetricDescription recorderAcceptedMetric) {
         this.recorderAcceptedMetric = recorderAcceptedMetric;
     }
 
-    protected <T> T getValue(final Map<String, Object> configuration, final String configurationAttributeID, final Class<T> dataType) {
+    protected <T> T getValue(final Map<String, Object> configuration, final String configurationAttributeID,
+            final Class<T> dataType) {
         @SuppressWarnings("unchecked")
-        final
-        T result = (T) configuration.get(configurationAttributeID);
+        final T result = (T) configuration.get(configurationAttributeID);
         if (result == null) {
             throw new RuntimeException("Expected configuation entry not found");
         }

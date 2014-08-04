@@ -3,12 +3,10 @@ package org.palladiosimulator.recorderframework;
 import org.palladiosimulator.measurementframework.Measurement;
 import org.palladiosimulator.measurementframework.listener.IMeasurementSourceListener;
 
-
 /**
- * This class is the super class of any recorder implementations. A recorder is
- * responsible of making the measurements persistent, using a specified
- * WriteStrategy. The measurements can either be aggregated before storing or be
- * stored as raw measurements.
+ * This class is the super class of any recorder implementations. A recorder is responsible of
+ * making the measurements persistent, using a specified WriteStrategy. The measurements can either
+ * be aggregated before storing or be stored as raw measurements.
  * 
  * @author Baum, Sebastian Lehrig
  * 

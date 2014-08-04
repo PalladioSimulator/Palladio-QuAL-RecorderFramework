@@ -46,8 +46,7 @@ public class SensorFrameworkTab extends AbstractLaunchConfigurationTab {
         };
 
         final Group dataSetGroup = new Group(container, SWT.NONE);
-        dataSetGroup.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true,
-                false));
+        dataSetGroup.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
         final GridLayout gridLayout_2 = new GridLayout();
         gridLayout_2.numColumns = 3;
         dataSetGroup.setLayout(gridLayout_2);
@@ -57,8 +56,7 @@ public class SensorFrameworkTab extends AbstractLaunchConfigurationTab {
         dataSourceLabel.setText("Data source:");
 
         dataField = new Text(dataSetGroup, SWT.BORDER | SWT.READ_ONLY);
-        dataField
-        .setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
+        dataField.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
         dataField.addModifyListener(modifyListener);
 
         final Button browseButton = new Button(dataSetGroup, SWT.NONE);
@@ -68,20 +66,17 @@ public class SensorFrameworkTab extends AbstractLaunchConfigurationTab {
             /*
              * (non-Javadoc)
              * 
-             * @see
-             * org.eclipse.swt.events.SelectionListener#widgetSelected(org.eclipse
+             * @see org.eclipse.swt.events.SelectionListener#widgetSelected(org.eclipse
              * .swt.events.SelectionEvent)
              */
             @Override
             public void widgetSelected(final SelectionEvent e) {
-                final ConfigureDatasourceDialog dialog = new ConfigureDatasourceDialog(
-                        e.display.getActiveShell(), "Select Datasource...",
-                        true);
+                final ConfigureDatasourceDialog dialog = new ConfigureDatasourceDialog(e.display.getActiveShell(),
+                        "Select Datasource...", true);
                 if (dialog.open() == Dialog.OK) {
                     final IDAOFactory dataSet = (IDAOFactory) dialog.getResult();
                     selectedDataSourceID = (int) dataSet.getID();
-                    dataField.setText(dataSet.getName() + " ["
-                            + dataSet.getID() + " ]");
+                    dataField.setText(dataSet.getName() + " [" + dataSet.getID() + " ]");
                 }
             }
         });
@@ -98,14 +93,11 @@ public class SensorFrameworkTab extends AbstractLaunchConfigurationTab {
         try {
             selectedDataSourceID = configuration.getAttribute(
                     SensorFrameworkRecorderConfigurationFactory.DATASOURCE_ID, -1);
-            if (SensorFrameworkDataset.singleton().getDataSourceByID(
-                    selectedDataSourceID) == null) {
+            if (SensorFrameworkDataset.singleton().getDataSourceByID(selectedDataSourceID) == null) {
                 dataField.setText("");
             } else {
-                final IDAOFactory factory = SensorFrameworkDataset.singleton()
-                        .getDataSourceByID(selectedDataSourceID);
-                dataField.setText(DatasourceListLabelProvider
-                        .dataSetRepresentation(factory));
+                final IDAOFactory factory = SensorFrameworkDataset.singleton().getDataSourceByID(selectedDataSourceID);
+                dataField.setText(DatasourceListLabelProvider.dataSetRepresentation(factory));
             }
         } catch (final CoreException e) {
             selectedDataSourceID = -1;
@@ -115,8 +107,7 @@ public class SensorFrameworkTab extends AbstractLaunchConfigurationTab {
 
     @Override
     public void performApply(final ILaunchConfigurationWorkingCopy configuration) {
-        configuration.setAttribute(SensorFrameworkRecorderConfigurationFactory.DATASOURCE_ID,
-                selectedDataSourceID);
+        configuration.setAttribute(SensorFrameworkRecorderConfigurationFactory.DATASOURCE_ID, selectedDataSourceID);
 
     }
 
@@ -127,8 +118,7 @@ public class SensorFrameworkTab extends AbstractLaunchConfigurationTab {
 
     @Override
     public boolean isValid(final ILaunchConfiguration launchConfig) {
-        if (SensorFrameworkDataset.singleton().getDataSourceByID(
-                selectedDataSourceID) == null) {
+        if (SensorFrameworkDataset.singleton().getDataSourceByID(selectedDataSourceID) == null) {
             setErrorMessage("Data source is missing!");
             return false;
         }
@@ -136,9 +126,11 @@ public class SensorFrameworkTab extends AbstractLaunchConfigurationTab {
     }
 
     @Override
-    public void activated(final ILaunchConfigurationWorkingCopy workingCopy) {}
+    public void activated(final ILaunchConfigurationWorkingCopy workingCopy) {
+    }
 
     @Override
-    public void deactivated(final ILaunchConfigurationWorkingCopy workingCopy) {}
+    public void deactivated(final ILaunchConfigurationWorkingCopy workingCopy) {
+    }
 
 }

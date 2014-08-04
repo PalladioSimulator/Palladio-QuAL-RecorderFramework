@@ -12,7 +12,7 @@ import de.uka.ipd.sdq.sensorframework.entities.ExperimentRun;
 import de.uka.ipd.sdq.sensorframework.entities.dao.IDAOFactory;
 
 public class SensorFrameworkRecorderConfigurationFactory extends AbstractRecorderConfigurationFactory implements
-IRecorderConfigurationFactory {
+        IRecorderConfigurationFactory {
 
     public static final String DATASOURCE_ID = "datasourceID";
     private long datasourceID;
@@ -32,7 +32,7 @@ IRecorderConfigurationFactory {
     @Override
     public SensorFrameworkRecorderConfiguration createRecorderConfiguration(final Map<String, Object> configuration) {
         final SensorFrameworkRecorderConfiguration result = new SensorFrameworkRecorderConfiguration();
-        final Map<String,Object> newConfiguration = new HashMap<String, Object>();
+        final Map<String, Object> newConfiguration = new HashMap<String, Object>();
         newConfiguration.putAll(configuration);
         newConfiguration.put(SensorFrameworkRecorderConfiguration.DAO_FACTORY, daoFactory);
         newConfiguration.put(SensorFrameworkRecorderConfiguration.EXPERIMENT, experiment);

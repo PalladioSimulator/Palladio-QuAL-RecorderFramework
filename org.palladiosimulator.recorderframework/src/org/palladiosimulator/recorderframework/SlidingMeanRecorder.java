@@ -11,9 +11,8 @@ import org.palladiosimulator.metricspec.MetricSetDescription;
 import org.palladiosimulator.recorderframework.launch.IRecorderConfiguration;
 
 /**
- * This recorder calculates the sliding mean, i.e. the average value of a
- * specified number of last result tuple element whenever a new pipe data
- * element is received.
+ * This recorder calculates the sliding mean, i.e. the average value of a specified number of last
+ * result tuple element whenever a new pipe data element is received.
  * 
  * @author Baum, Sebastian Lehrig
  * 
@@ -29,8 +28,8 @@ public abstract class SlidingMeanRecorder extends Recorder implements IAggregati
      * @param writeStrategy
      *            The write strategy of the recorder.
      * @param dataQueueSize
-     *            The window size of the sliding mean value, i.e. the number of
-     *            last incoming result tuples the mean is computed on.
+     *            The window size of the sliding mean value, i.e. the number of last incoming result
+     *            tuples the mean is computed on.
      */
     public SlidingMeanRecorder(final int dataQueueSize) {
         super();
@@ -38,8 +37,8 @@ public abstract class SlidingMeanRecorder extends Recorder implements IAggregati
     }
 
     /**
-     * This method initializes the aggregation write strategy, providing it with
-     * all information that is necessary.
+     * This method initializes the aggregation write strategy, providing it with all information
+     * that is necessary.
      * 
      * @param metaData
      *            The meta data for the incoming result tuples.
@@ -48,23 +47,23 @@ public abstract class SlidingMeanRecorder extends Recorder implements IAggregati
     public void initialize(final IRecorderConfiguration recorderConfiguration) {
         final AbstractRecorderConfiguration abstractRecorderConfiguration = (AbstractRecorderConfiguration) recorderConfiguration;
 
-        final int aggregatedMetricIndex = ((MetricSetDescription)abstractRecorderConfiguration.getRecorderAcceptedMetric()).getSubsumedMetrics().size() - 1;
+        final int aggregatedMetricIndex = ((MetricSetDescription) abstractRecorderConfiguration
+                .getRecorderAcceptedMetric()).getSubsumedMetrics().size() - 1;
 
         // Create initializing meta data for the aggregation to initialize the
         // aggregation write strategy.
-        final AggregationMetaDataInit aggregationMetaData = new AggregationMetaDataInit(
-                aggregatedMetricIndex);
+        final AggregationMetaDataInit aggregationMetaData = new AggregationMetaDataInit(aggregatedMetricIndex);
         aggregationMetaData.setAggregationFunctionName("Sliding Mean");
         aggregationMetaData
-        .setAggregationFunctionDescription("Computes the average value of the last element of the result tuple at every processData step.");
+                .setAggregationFunctionDescription("Computes the average value of the last element of the result tuple at every processData step.");
         aggregationMetaData.setValid(false);
 
         initializeAggregatedMeasurements(aggregationMetaData);
     }
 
     /**
-     * This method calculates the sliding mean for each incoming data element
-     * with the specified window size.
+     * This method calculates the sliding mean for each incoming data element with the specified
+     * window size.
      * 
      * @param data
      *            The data to be processed.
@@ -72,54 +71,54 @@ public abstract class SlidingMeanRecorder extends Recorder implements IAggregati
     @Override
     public void writeData(final Measurement data) {
         // TODO: Fix code below
-        //		// add element to data queue
-        //		dataQueue.addAll(data);
-        //		if (dataQueue.size() > dataQueueSize) {
-        //			throw new IllegalArgumentException("Data Queue Size seems to be incorrectly set");
-        //		}
+        // // add element to data queue
+        // dataQueue.addAll(data);
+        // if (dataQueue.size() > dataQueueSize) {
+        // throw new IllegalArgumentException("Data Queue Size seems to be incorrectly set");
+        // }
         //
-        //		// Aggregation is always performed on the last result tuple element
-        //		Measure<?, ? extends Quantity> measure = data.get(data
-        //				.size()- 1);
+        // // Aggregation is always performed on the last result tuple element
+        // Measure<?, ? extends Quantity> measure = data.get(data
+        // .size()- 1);
         //
-        //		// Return value
-        //		Measure<?, ? extends Quantity> resultMeasure = Measure.valueOf(0,
-        //				measure.getUnit());
+        // // Return value
+        // Measure<?, ? extends Quantity> resultMeasure = Measure.valueOf(0,
+        // measure.getUnit());
         //
-        //		if (measure.getValue() instanceof Long) {
-        //			double value = 0;
-        //			for (Measure<?, ? extends Quantity> p : dataQueue) {
-        //				value += (Long) p.getValue();
-        //			}
-        //			resultMeasure = Measure.valueOf(value / dataQueue.size(), measure
-        //					.getUnit());
-        //		} else if (measure.getValue() instanceof Integer) {
-        //			double value = 0;
-        //			for (Measure<?, ? extends Quantity> p : dataQueue) {
-        //				value += (Integer) p.getValue();
-        //			}
-        //			resultMeasure = Measure.valueOf(value / dataQueue.size(), measure
-        //					.getUnit());
-        //		} else if (measure.getValue() instanceof Double) {
-        //			double value = 0;
-        //			for (Measure<?, ? extends Quantity> p : dataQueue) {
-        //				value += (Double) p.getValue();
-        //			}
-        //			resultMeasure = Measure.valueOf(value / dataQueue.size(), measure
-        //					.getUnit());
-        //		} else if (measure.getValue() instanceof Float) {
-        //			double value = 0;
-        //			for (Measure<?, ? extends Quantity> p : dataQueue) {
-        //				value += (Float) p.getValue();
-        //			}
-        //			resultMeasure = Measure.valueOf(value / dataQueue.size(), measure
-        //					.getUnit());
-        //		}
+        // if (measure.getValue() instanceof Long) {
+        // double value = 0;
+        // for (Measure<?, ? extends Quantity> p : dataQueue) {
+        // value += (Long) p.getValue();
+        // }
+        // resultMeasure = Measure.valueOf(value / dataQueue.size(), measure
+        // .getUnit());
+        // } else if (measure.getValue() instanceof Integer) {
+        // double value = 0;
+        // for (Measure<?, ? extends Quantity> p : dataQueue) {
+        // value += (Integer) p.getValue();
+        // }
+        // resultMeasure = Measure.valueOf(value / dataQueue.size(), measure
+        // .getUnit());
+        // } else if (measure.getValue() instanceof Double) {
+        // double value = 0;
+        // for (Measure<?, ? extends Quantity> p : dataQueue) {
+        // value += (Double) p.getValue();
+        // }
+        // resultMeasure = Measure.valueOf(value / dataQueue.size(), measure
+        // .getUnit());
+        // } else if (measure.getValue() instanceof Float) {
+        // double value = 0;
+        // for (Measure<?, ? extends Quantity> p : dataQueue) {
+        // value += (Float) p.getValue();
+        // }
+        // resultMeasure = Measure.valueOf(value / dataQueue.size(), measure
+        // .getUnit());
+        // }
         //
-        //		Vector<Measure<?, ? extends Quantity>> aggregatedTuple = new Vector<Measure<?, ? extends Quantity>>();
-        //		aggregatedTuple.add(resultMeasure);
-        //		//PipeData aggregatedData = new PipeData(aggregatedTuple);
+        // Vector<Measure<?, ? extends Quantity>> aggregatedTuple = new Vector<Measure<?, ? extends
+        // Quantity>>();
+        // aggregatedTuple.add(resultMeasure);
+        // //PipeData aggregatedData = new PipeData(aggregatedTuple);
     }
-
 
 }

@@ -17,8 +17,7 @@ public class RecorderExtensionHelper {
         final List<IExtension> recorderExtensions = loadExtensions("org.palladiosimulator.recorderframework");
         final List<String> names = new ArrayList<String>();
         for (final IExtension extension : recorderExtensions) {
-            final IConfigurationElement e = obtainConfigurationElement("recorder",
-                    extension);
+            final IConfigurationElement e = obtainConfigurationElement("recorder", extension);
             if (e != null) {
                 names.add(e.getAttribute("name"));
             }
@@ -26,27 +25,22 @@ public class RecorderExtensionHelper {
         return names.toArray(new String[names.size()]);
     }
 
-    public static ILaunchConfigurationTab[] getLaunchConfigTabs()
-            throws CoreException {
+    public static ILaunchConfigurationTab[] getLaunchConfigTabs() throws CoreException {
         final List<IExtension> recorderExtensions = loadExtensions("org.palladiosimulator.recorderframework");
         final List<ILaunchConfigurationTab> tabList = new ArrayList<ILaunchConfigurationTab>();
         for (final IExtension extension : recorderExtensions) {
-            final IConfigurationElement e = obtainConfigurationElement("recorder",
-                    extension);
+            final IConfigurationElement e = obtainConfigurationElement("recorder", extension);
             if (e != null) {
-                tabList.add((ILaunchConfigurationTab) e
-                        .createExecutableExtension("launchConfigTab"));
+                tabList.add((ILaunchConfigurationTab) e.createExecutableExtension("launchConfigTab"));
             }
         }
         return tabList.toArray(new ILaunchConfigurationTab[tabList.size()]);
     }
 
-    public static String getExtensionIdentifierForName(final String recorderName)
-            throws CoreException {
+    public static String getExtensionIdentifierForName(final String recorderName) throws CoreException {
         final List<IExtension> recorderExtensions = loadExtensions("org.palladiosimulator.recorderframework");
         for (final IExtension extension : recorderExtensions) {
-            final IConfigurationElement e = obtainConfigurationElement("recorder",
-                    extension);
+            final IConfigurationElement e = obtainConfigurationElement("recorder", extension);
             if (e != null && e.getAttribute("name").equals(recorderName)) {
                 return extension.getUniqueIdentifier();
             }
@@ -54,12 +48,11 @@ public class RecorderExtensionHelper {
         return null;
     }
 
-    public static IRecorderConfigurationFactory getRecorderConfigurationFactoryForName(
-            final String recorderName) throws CoreException {
+    public static IRecorderConfigurationFactory getRecorderConfigurationFactoryForName(final String recorderName)
+            throws CoreException {
         final List<IExtension> recorderExtensions = loadExtensions("org.palladiosimulator.recorderframework");
         for (final IExtension extension : recorderExtensions) {
-            final IConfigurationElement e = obtainConfigurationElement("recorder",
-                    extension);
+            final IConfigurationElement e = obtainConfigurationElement("recorder", extension);
             if (e != null && e.getAttribute("name").equals(recorderName)) {
                 final Object config = e.createExecutableExtension("configurationFactory");
                 if (config != null) {
@@ -82,8 +75,7 @@ public class RecorderExtensionHelper {
             throws CoreException {
         final List<IExtension> recorderExtensions = loadExtensions("org.palladiosimulator.recorderframework");
         for (final IExtension extension : recorderExtensions) {
-            final IConfigurationElement e = obtainConfigurationElement("recorder",
-                    extension);
+            final IConfigurationElement e = obtainConfigurationElement("recorder", extension);
             if (e != null && e.getAttribute("name").equals(recorderName)) {
                 return e.createExecutableExtension(attributeName);
             }
@@ -91,21 +83,18 @@ public class RecorderExtensionHelper {
         return null;
     }
 
-    public static String getNameForExtensionIdentifier(final String extensionID)
-            throws CoreException {
-        final IExtension ext = Platform.getExtensionRegistry().getExtensionPoint(
-                "org.palladiosimulator.recorderframework")
-                .getExtension(extensionID);
+    public static String getNameForExtensionIdentifier(final String extensionID) throws CoreException {
+        final IExtension ext = Platform.getExtensionRegistry()
+                .getExtensionPoint("org.palladiosimulator.recorderframework").getExtension(extensionID);
         if (ext != null) {
-            final IConfigurationElement e = obtainConfigurationElement("recorder",
-                    ext);
+            final IConfigurationElement e = obtainConfigurationElement("recorder", ext);
             return e.getAttribute("name");
         }
         return null;
     }
 
-    private static IConfigurationElement obtainConfigurationElement(
-            final String elementName, final IExtension extension) throws CoreException {
+    private static IConfigurationElement obtainConfigurationElement(final String elementName, final IExtension extension)
+            throws CoreException {
         final IConfigurationElement[] elements = extension.getConfigurationElements();
         for (final IConfigurationElement element : elements) {
             if (element.getName().equals(elementName)) {
@@ -116,8 +105,7 @@ public class RecorderExtensionHelper {
     }
 
     private static List<IExtension> loadExtensions(final String extensionPointID) {
-        final IExtension[] exts = Platform.getExtensionRegistry().getExtensionPoint(
-                extensionPointID).getExtensions();
+        final IExtension[] exts = Platform.getExtensionRegistry().getExtensionPoint(extensionPointID).getExtensions();
         final List<IExtension> results = new ArrayList<IExtension>();
         for (final IExtension extension : exts) {
             results.add(extension);

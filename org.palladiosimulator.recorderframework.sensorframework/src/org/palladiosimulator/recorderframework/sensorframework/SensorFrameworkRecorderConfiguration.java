@@ -11,7 +11,8 @@ import de.uka.ipd.sdq.sensorframework.entities.Experiment;
 import de.uka.ipd.sdq.sensorframework.entities.ExperimentRun;
 import de.uka.ipd.sdq.sensorframework.entities.dao.IDAOFactory;
 
-public class SensorFrameworkRecorderConfiguration extends AbstractRecorderConfiguration implements IRecorderConfiguration, Serializable {
+public class SensorFrameworkRecorderConfiguration extends AbstractRecorderConfiguration implements
+        IRecorderConfiguration, Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -28,7 +29,7 @@ public class SensorFrameworkRecorderConfiguration extends AbstractRecorderConfig
     public static final String PERSISTENCE_RECORDER_ID = "SensorFramework";
 
     @Override
-    public void setConfiguration(final Map<String,Object> configuration) {
+    public void setConfiguration(final Map<String, Object> configuration) {
         super.setConfiguration(configuration);
         daoFactory = getValue(configuration, DAO_FACTORY, IDAOFactory.class);
         experiment = getValue(configuration, EXPERIMENT, Experiment.class);

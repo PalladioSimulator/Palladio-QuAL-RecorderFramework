@@ -14,17 +14,18 @@ import de.uka.ipd.sdq.sensorframework.entities.dao.IDAOFactory;
 
 public class PointInTimeWriteDataStrategy extends AbstractWriteDataStrategy {
 
-    public PointInTimeWriteDataStrategy(final IDAOFactory daoFactory,
-            final Experiment experiment, final ExperimentRun run) {
+    public PointInTimeWriteDataStrategy(final IDAOFactory daoFactory, final Experiment experiment,
+            final ExperimentRun run) {
         super(daoFactory, experiment, run);
     }
 
     @Override
     public void writeData(IMeasureProvider data) {
-        final Measure<Double, Duration> eventTimeMeasure = data.getMeasureForMetric(MetricDescriptionConstants.POINT_IN_TIME_METRIC);
+        final Measure<Double, Duration> eventTimeMeasure = data
+                .getMeasureForMetric(MetricDescriptionConstants.POINT_IN_TIME_METRIC);
         final double eventTime = eventTimeMeasure.doubleValue(SI.SECOND);
-        //FIXME: implement real point in time sensor
-        run.addTimeSpanMeasurement((TimeSpanSensor)sensor, eventTime, 0.0);
+        // FIXME: implement real point in time sensor
+        run.addTimeSpanMeasurement((TimeSpanSensor) sensor, eventTime, 0.0);
     }
 
 }

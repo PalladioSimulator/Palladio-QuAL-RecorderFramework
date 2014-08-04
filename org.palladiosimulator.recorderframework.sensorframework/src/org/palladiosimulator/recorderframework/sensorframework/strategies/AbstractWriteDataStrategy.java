@@ -20,8 +20,7 @@ public abstract class AbstractWriteDataStrategy implements IWriteDataStrategy {
 
     protected Sensor sensor;
 
-    public AbstractWriteDataStrategy(final IDAOFactory daoFactory,
-            final Experiment experiment, final ExperimentRun run) {
+    public AbstractWriteDataStrategy(final IDAOFactory daoFactory, final Experiment experiment, final ExperimentRun run) {
         this.daoFactory = daoFactory;
         this.experiment = experiment;
         this.run = run;
@@ -29,10 +28,10 @@ public abstract class AbstractWriteDataStrategy implements IWriteDataStrategy {
 
     @Override
     public void initialise(final IRecorderConfiguration recorderConfiguration) {
-        final SensorFrameworkRecorderConfiguration sensorFrameworkRecorderConfig = (SensorFrameworkRecorderConfiguration) recorderConfiguration;     
-        final String sensorId = sensorFrameworkRecorderConfig.getRecorderAcceptedMetric().getName() +" of "+ MeasuringPointUtility.measuringPointToString(sensorFrameworkRecorderConfig.getMeasuringPoint());
-        sensor = SensorHelper.createOrReuseTimeSensor(daoFactory, experiment,
-                sensorId);
+        final SensorFrameworkRecorderConfiguration sensorFrameworkRecorderConfig = (SensorFrameworkRecorderConfiguration) recorderConfiguration;
+        final String sensorId = sensorFrameworkRecorderConfig.getRecorderAcceptedMetric().getName() + " of "
+                + MeasuringPointUtility.measuringPointToString(sensorFrameworkRecorderConfig.getMeasuringPoint());
+        sensor = SensorHelper.createOrReuseTimeSensor(daoFactory, experiment, sensorId);
     }
 
 }

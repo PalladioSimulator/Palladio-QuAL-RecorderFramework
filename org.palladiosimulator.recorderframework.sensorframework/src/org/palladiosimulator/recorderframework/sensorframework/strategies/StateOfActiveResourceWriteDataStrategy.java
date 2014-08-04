@@ -28,21 +28,19 @@ public class StateOfActiveResourceWriteDataStrategy extends AbstractWriteDataStr
 
     private State busyState;
 
-    public StateOfActiveResourceWriteDataStrategy(final IDAOFactory daoFactory,
-            final Experiment experiment, final ExperimentRun run) {
+    public StateOfActiveResourceWriteDataStrategy(final IDAOFactory daoFactory, final Experiment experiment,
+            final ExperimentRun run) {
         super(daoFactory, experiment, run);
     }
 
     @Override
     public void initialise(final IRecorderConfiguration recorderConfiguration) {
-        final SensorFrameworkRecorderConfiguration sensorFrameworkRecorderConfig = (SensorFrameworkRecorderConfiguration) recorderConfiguration;        
+        final SensorFrameworkRecorderConfiguration sensorFrameworkRecorderConfig = (SensorFrameworkRecorderConfiguration) recorderConfiguration;
         final String sensorId = sensorFrameworkRecorderConfig.getRecorderAcceptedMetric().getName() + " of "
-                +
-                MeasuringPointUtility.measuringPointToString(sensorFrameworkRecorderConfig.getMeasuringPoint());
+                + MeasuringPointUtility.measuringPointToString(sensorFrameworkRecorderConfig.getMeasuringPoint());
         this.idleState = SensorHelper.createOrReuseState(daoFactory, "Idle");
         this.busyState = SensorHelper.createOrReuseState(daoFactory, "Busy");
-        sensor = SensorHelper.createOrReuseStateSensor(daoFactory, experiment,
-                sensorId, idleState);
+        sensor = SensorHelper.createOrReuseStateSensor(daoFactory, experiment, sensorId, idleState);
         if (!((StateSensor) sensor).getSensorStates().contains(idleState)) {
             ((StateSensor) sensor).addSensorState(idleState);
         }
@@ -51,28 +49,27 @@ public class StateOfActiveResourceWriteDataStrategy extends AbstractWriteDataStr
 
     @Override
     public void writeData(final IMeasureProvider data) {
-        final Measure<Double, Duration> measurementTimeMeasure = data.getMeasureForMetric(MetricDescriptionConstants.POINT_IN_TIME_METRIC);
-        final Measure<Long, Dimensionless> numericStateMeasure = data.getMeasureForMetric(MetricDescriptionConstants.STATE_OF_ACTIVE_RESOURCE_METRIC);
+        final Measure<Double, Duration> measurementTimeMeasure = data
+                .getMeasureForMetric(MetricDescriptionConstants.POINT_IN_TIME_METRIC);
+        final Measure<Long, Dimensionless> numericStateMeasure = data
+                .getMeasureForMetric(MetricDescriptionConstants.STATE_OF_ACTIVE_RESOURCE_METRIC);
         final double measurementTime = measurementTimeMeasure.doubleValue(SI.SECOND);
         final int numericState = numericStateMeasure.intValue(Dimensionless.UNIT);
         State state = null;
         if (numericState == 0) {
             state = idleState;
         } else {
-            final String stateLiteral = "Busy " + Integer.toString(numericState)
-                    + " Job(s)";
+            final String stateLiteral = "Busy " + Integer.toString(numericState) + " Job(s)";
             if (!statesCache.containsKey(stateLiteral)) {
-                final State newState = SensorHelper.createOrReuseState(daoFactory,
-                        stateLiteral);
+                final State newState = SensorHelper.createOrReuseState(daoFactory, stateLiteral);
                 statesCache.put(stateLiteral, newState);
-                if (!((StateSensor) sensor).getSensorStates()
-                        .contains(newState)) {
+                if (!((StateSensor) sensor).getSensorStates().contains(newState)) {
                     ((StateSensor) sensor).addSensorState(newState);
                 }
             }
             state = statesCache.get(stateLiteral);
         }
-        run.addStateMeasurement((StateSensor)sensor, state, measurementTime);
+        run.addStateMeasurement((StateSensor) sensor, state, measurementTime);
     }
 
 }

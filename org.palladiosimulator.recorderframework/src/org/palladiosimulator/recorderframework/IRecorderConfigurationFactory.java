@@ -8,7 +8,7 @@ public interface IRecorderConfigurationFactory {
 
     public void initialize(Map<String, Object> configuration);
 
-    public IRecorderConfiguration createRecorderConfiguration(Map<String,Object> configuration);
+    public IRecorderConfiguration createRecorderConfiguration(Map<String, Object> configuration);
 
     public void finalizeRecorderConfigurationFactory();
 
