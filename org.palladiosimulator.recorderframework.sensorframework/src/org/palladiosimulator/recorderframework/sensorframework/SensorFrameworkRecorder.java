@@ -41,7 +41,7 @@ import de.uka.ipd.sdq.sensorframework.entities.dao.IDAOFactory;
  */
 public class SensorFrameworkRecorder extends Recorder implements IRawWriteStrategy {
 
-    private static Logger logger = Logger.getLogger(SensorFrameworkRecorder.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(SensorFrameworkRecorder.class.getName());
 
     private SensorFrameworkRecorderConfiguration recorderConfiguration;
 
@@ -110,8 +110,8 @@ public class SensorFrameworkRecorder extends Recorder implements IRawWriteStrate
         if (!flushed) {
             writeDataStrategy.writeData(data);
         } else {
-            if (logger.isEnabledFor(Level.WARN)) {
-                logger.warn("Tried to write data, but the pipe has been flushed already");
+            if (LOGGER.isEnabledFor(Level.WARN)) {
+                LOGGER.warn("Tried to write data, but the pipe has been flushed already");
             }
         }
     }
@@ -120,8 +120,8 @@ public class SensorFrameworkRecorder extends Recorder implements IRawWriteStrate
     public synchronized void flush() {
         if (!flushed) {
             flushed = true;
-            if (logger.isDebugEnabled()) {
-                logger.debug("Flushing SensorFramework data store");
+            if (LOGGER.isDebugEnabled()) {
+                LOGGER.debug("Flushing SensorFramework data store");
             }
             recorderConfiguration.getDaoFactory().store();
             // do not execute daoFactory.finalizeAndClose() ! This will flush all lists for

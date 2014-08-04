@@ -16,14 +16,15 @@ import org.apache.log4j.Logger;
  */
 public class MCRWarmUpFilter {
 
-	private static Logger logger = Logger.getLogger(MCRWarmUpFilter.class.getName());
+	private static final Logger LOGGER = Logger.getLogger(MCRWarmUpFilter.class.getName());
 	private int minIndex = 0;
 
 	public List<Double> filter(List<Double> samples) {
 		
 		if (samples.size() <= 150){
-			if(logger.isEnabledFor(Level.WARN))
-				logger.warn("MCRWarmUpFilter Warning: Too few samples to get a meaningful result.");
+			if(LOGGER.isEnabledFor(Level.WARN)) {
+                LOGGER.warn("MCRWarmUpFilter Warning: Too few samples to get a meaningful result.");
+            }
 		}
 		
 		int truncatedSamplesSize = samples.size();
@@ -47,7 +48,7 @@ public class MCRWarmUpFilter {
 			double d = factor * sum;
 
 			if (d < minValue) {
-//				logger.warn(i + ": " + d);
+//				LOGGER.warn(i + ": " + d);
 				minIndex = i;
 				minValue = d;
 			}
@@ -57,8 +58,9 @@ public class MCRWarmUpFilter {
 		}
 
 		if (minIndex > samples.size() / 3){
-			if(logger.isEnabledFor(Level.WARN))
-				logger.warn("Truncation point is in the last two thirds of the samples, so the confidence in this result is low.");
+			if(LOGGER.isEnabledFor(Level.WARN)) {
+                LOGGER.warn("Truncation point is in the last two thirds of the samples, so the confidence in this result is low.");
+            }
 		}
 		
 		// TODO Create new list?
