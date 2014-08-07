@@ -9,10 +9,10 @@ import javax.measure.unit.SI;
 import org.palladiosimulator.edp2.dao.MeasurementsDao;
 import org.palladiosimulator.edp2.models.ExperimentData.DataSeries;
 import org.palladiosimulator.edp2.models.ExperimentData.ExperimentDataFactory;
-import org.palladiosimulator.edp2.models.ExperimentData.ExperimentRun;
 import org.palladiosimulator.edp2.models.ExperimentData.Measurements;
 import org.palladiosimulator.edp2.models.ExperimentData.MeasurementsRange;
 import org.palladiosimulator.edp2.models.ExperimentData.RawMeasurements;
+import org.palladiosimulator.edp2.models.ExperimentData.Run;
 import org.palladiosimulator.edp2.util.MeasurementsUtility;
 import org.palladiosimulator.measurementframework.Measurement;
 import org.palladiosimulator.recorderframework.Recorder;
@@ -62,11 +62,11 @@ public class EDP2RawRecorder extends Recorder {
     @Override
     public void flush() {
         final MeasurementsRange measurementsRange = this.measurements.getMeasurementsRanges().get(0);
-        final ExperimentRun experimentRun = this.measurements.getExperimentRun();
+        final Run run = this.measurements.getRun();
 
-        final long startTime = experimentRun.getStartTime().getTime();
+        final long startTime = run.getStartTime().getTime();
         final long endTime = new Date().getTime();
-        experimentRun.setDuration(Measure.valueOf(endTime - startTime, SI.SECOND));
+        run.setDuration(Measure.valueOf(endTime - startTime, SI.SECOND));
         measurementsRange.setStartTime(Measure.valueOf(startTime, SI.SECOND));
         measurementsRange.setEndTime(Measure.valueOf(endTime, SI.SECOND));
 
