@@ -17,9 +17,9 @@ public class EDP2RecorderConfigurationFactory extends AbstractEDP2RecorderConfig
     @Override
     public void initialize(final Map<String, Object> configuration) {
         super.initialize(configuration);
-
+        
+        initializeExperimentSetting(getValue(configuration, VARIATION_ID, String.class));
         initializeExperimentRun();
-        initializeExperimentSetting(getValue(configuration, VARIATION_ID, String.class));        
     }
     
     /**
@@ -28,6 +28,8 @@ public class EDP2RecorderConfigurationFactory extends AbstractEDP2RecorderConfig
     private void initializeExperimentRun() {
         this.experimentRun = ExperimentDataFactory.eINSTANCE.createExperimentRun();
         this.experimentRun.setStartTime(new Date());
+        this.experimentSetting.getExperimentRuns().add(this.experimentRun);
+        this.experimentGroup.getExperimentSettings().add(this.experimentSetting);
     }
     
     /**
@@ -39,16 +41,14 @@ public class EDP2RecorderConfigurationFactory extends AbstractEDP2RecorderConfig
         // check for existing experiment setting
         for (final ExperimentSetting setting : this.experimentGroup.getExperimentSettings()) {
             if (setting.getDescription().equals(variationID)) {
-                this.experimentSetting = setting;
+                this.experimentSetting = setting;                
                 return;
             }
         }
 
         // create new experiment setting
         this.experimentSetting = ExperimentDataFactory.eINSTANCE.createExperimentSetting();
-        this.experimentSetting.setDescription(variationID);
-        this.experimentSetting.getExperimentRuns().add(this.experimentRun);
-        this.experimentGroup.getExperimentSettings().add(this.experimentSetting);
+        this.experimentSetting.setDescription(variationID);        
     }
     
     
