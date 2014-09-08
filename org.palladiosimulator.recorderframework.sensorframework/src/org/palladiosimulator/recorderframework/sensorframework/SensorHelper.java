@@ -9,14 +9,18 @@ import de.uka.ipd.sdq.sensorframework.entities.dao.IDAOFactory;
 import de.uka.ipd.sdq.sensorframework.entities.dao.ISensorDAO;
 import de.uka.ipd.sdq.sensorframework.entities.dao.IStateDAO;
 
+/**
+ * @deprecated Superseded by EDP2.
+ */
 public class SensorHelper {
     public static StateSensor createOrReuseStateSensor(IDAOFactory f, Experiment experiment, String id,
             State initialState) {
         ISensorDAO sensorDAO = f.createSensorDAO();
         if (sensorDAO.findBySensorName(id).size() > 0) {
             for (Sensor s : sensorDAO.findBySensorName(id)) {
-                if (s instanceof StateSensor && experiment.getSensors().contains(s))
+                if (s instanceof StateSensor && experiment.getSensors().contains(s)) {
                     return (StateSensor) s;
+                }
             }
         }
         return experiment.addStateSensor(initialState, id);
@@ -34,8 +38,9 @@ public class SensorHelper {
         ISensorDAO sensorDAO = f.createSensorDAO();
         if (sensorDAO.findBySensorName(id).size() > 0) {
             for (Sensor s : sensorDAO.findBySensorName(id)) {
-                if (s instanceof TimeSpanSensor && experimentDatastore.getSensors().contains(s))
+                if (s instanceof TimeSpanSensor && experimentDatastore.getSensors().contains(s)) {
                     return (TimeSpanSensor) s;
+                }
             }
         }
         return experimentDatastore.addTimeSpanSensor(id);

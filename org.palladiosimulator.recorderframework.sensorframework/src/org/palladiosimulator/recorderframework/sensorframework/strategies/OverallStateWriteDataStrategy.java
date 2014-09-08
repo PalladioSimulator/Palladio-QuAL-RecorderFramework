@@ -17,6 +17,9 @@ import de.uka.ipd.sdq.sensorframework.entities.State;
 import de.uka.ipd.sdq.sensorframework.entities.StateSensor;
 import de.uka.ipd.sdq.sensorframework.entities.dao.IDAOFactory;
 
+/**
+ * @deprecated Superseded by EDP2.
+ */
 public class OverallStateWriteDataStrategy extends AbstractWriteDataStrategy {
 
     private State idleState;

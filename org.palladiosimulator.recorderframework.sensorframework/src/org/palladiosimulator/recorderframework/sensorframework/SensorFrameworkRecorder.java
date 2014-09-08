@@ -37,6 +37,7 @@ import de.uka.ipd.sdq.sensorframework.entities.dao.IDAOFactory;
  * Recorder for the SensorFramework.
  * 
  * @author pmerkle, Sebastian Lehrig
+ * @deprecated Superseded by EDP2.
  */
 public class SensorFrameworkRecorder extends Recorder {
 

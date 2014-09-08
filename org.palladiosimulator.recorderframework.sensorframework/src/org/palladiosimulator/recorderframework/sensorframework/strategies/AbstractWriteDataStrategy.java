@@ -10,6 +10,9 @@ import de.uka.ipd.sdq.sensorframework.entities.ExperimentRun;
 import de.uka.ipd.sdq.sensorframework.entities.Sensor;
 import de.uka.ipd.sdq.sensorframework.entities.dao.IDAOFactory;
 
+/**
+ * @deprecated Superseded by EDP2.
+ */
 public abstract class AbstractWriteDataStrategy implements IWriteDataStrategy {
 
     protected IDAOFactory daoFactory;

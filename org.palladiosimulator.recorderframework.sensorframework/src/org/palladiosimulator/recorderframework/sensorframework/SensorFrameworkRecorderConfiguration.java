@@ -11,6 +11,9 @@ import de.uka.ipd.sdq.sensorframework.entities.Experiment;
 import de.uka.ipd.sdq.sensorframework.entities.ExperimentRun;
 import de.uka.ipd.sdq.sensorframework.entities.dao.IDAOFactory;
 
+/**
+ * @deprecated Superseded by EDP2.
+ */
 public class SensorFrameworkRecorderConfiguration extends AbstractRecorderConfiguration implements
         IRecorderConfiguration, Serializable {
 

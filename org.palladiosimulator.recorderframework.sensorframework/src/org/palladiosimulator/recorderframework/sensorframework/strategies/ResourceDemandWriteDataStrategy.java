@@ -12,6 +12,9 @@ import de.uka.ipd.sdq.sensorframework.entities.ExperimentRun;
 import de.uka.ipd.sdq.sensorframework.entities.TimeSpanSensor;
 import de.uka.ipd.sdq.sensorframework.entities.dao.IDAOFactory;
 
+/**
+ * @deprecated Superseded by EDP2.
+ */
 public class ResourceDemandWriteDataStrategy extends AbstractWriteDataStrategy {
 
     public ResourceDemandWriteDataStrategy(final IDAOFactory daoFactory, final Experiment experiment,

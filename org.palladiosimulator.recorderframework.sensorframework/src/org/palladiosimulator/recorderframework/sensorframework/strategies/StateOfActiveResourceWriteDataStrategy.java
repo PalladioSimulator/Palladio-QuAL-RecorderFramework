@@ -20,6 +20,9 @@ import de.uka.ipd.sdq.sensorframework.entities.State;
 import de.uka.ipd.sdq.sensorframework.entities.StateSensor;
 import de.uka.ipd.sdq.sensorframework.entities.dao.IDAOFactory;
 
+/**
+ * @deprecated Superseded by EDP2.
+ */
 public class StateOfActiveResourceWriteDataStrategy extends AbstractWriteDataStrategy {
 
     private final HashMap<String, State> statesCache = new HashMap<String, State>();

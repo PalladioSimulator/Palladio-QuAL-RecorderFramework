@@ -1,5 +1,8 @@
 package org.palladiosimulator.recorderframework.sensorframework;
 
+/**
+ * @deprecated Superseded by EDP2.
+ */
 public class DatasourceConfigurationInvalidException extends RuntimeException {
 
     /**

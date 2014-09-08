@@ -27,7 +27,7 @@ import de.uka.ipd.sdq.sensorframework.entities.dao.IDAOFactory;
  * Realizes a write strategy for reliability sensors.
  * 
  * @author brosch
- * 
+ * @deprecated Superseded by EDP2.
  */
 public class ExecutionResultWriteDataStrategy extends AbstractWriteDataStrategy {
 

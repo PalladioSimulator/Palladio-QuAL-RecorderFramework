@@ -24,6 +24,9 @@ import de.uka.ipd.sdq.sensorframework.dialogs.dataset.ConfigureDatasourceDialog;
 import de.uka.ipd.sdq.sensorframework.dialogs.dataset.DatasourceListLabelProvider;
 import de.uka.ipd.sdq.sensorframework.entities.dao.IDAOFactory;
 
+/**
+ * @deprecated Superseded by EDP2.
+ */
 public class SensorFrameworkTab extends AbstractLaunchConfigurationTab {
 
     private Text dataField;
