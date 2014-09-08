@@ -1,7 +1,6 @@
 package org.palladiosimulator.recorderframework;
 
 import org.palladiosimulator.measurementframework.Measurement;
-import org.palladiosimulator.measurementframework.listener.IMeasurementSourceListener;
 
 /**
  * This class is the super class of any recorder implementations. A recorder is responsible of
@@ -11,7 +10,7 @@ import org.palladiosimulator.measurementframework.listener.IMeasurementSourceLis
  * @author Baum, Sebastian Lehrig
  * 
  */
-public abstract class Recorder implements IRecorder, IMeasurementSourceListener {
+public abstract class Recorder implements IRecorder {
 
     /**
      * The default constructor for a recorder.

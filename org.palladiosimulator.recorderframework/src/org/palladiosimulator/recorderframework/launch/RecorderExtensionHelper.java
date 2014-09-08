@@ -8,8 +8,8 @@ import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.debug.ui.ILaunchConfigurationTab;
+import org.palladiosimulator.recorderframework.IRecorder;
 import org.palladiosimulator.recorderframework.IRecorderConfigurationFactory;
-import org.palladiosimulator.recorderframework.Recorder;
 
 public class RecorderExtensionHelper {
 
@@ -63,9 +63,9 @@ public class RecorderExtensionHelper {
         return null;
     }
 
-    public static Recorder instantiateWriteStrategyForRecorder(final String recorderName) {
+    public static IRecorder instantiateWriteStrategyForRecorder(final String recorderName) {
         try {
-            return (Recorder) instantiateExecutableExtension(recorderName, "writeStrategy");
+            return (IRecorder) instantiateExecutableExtension(recorderName, "writeStrategy");
         } catch (final CoreException e) {
             throw new RuntimeException("Could not instantiate write strategy for recorder named " + recorderName);
         }

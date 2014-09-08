@@ -18,7 +18,6 @@ import static org.palladiosimulator.metricspec.constants.MetricDescriptionConsta
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.palladiosimulator.measurementframework.Measurement;
-import org.palladiosimulator.recorderframework.IRawWriteStrategy;
 import org.palladiosimulator.recorderframework.Recorder;
 import org.palladiosimulator.recorderframework.launch.IRecorderConfiguration;
 import org.palladiosimulator.recorderframework.sensorframework.strategies.AbstractWriteDataStrategy;
@@ -39,7 +38,7 @@ import de.uka.ipd.sdq.sensorframework.entities.dao.IDAOFactory;
  * 
  * @author pmerkle, Sebastian Lehrig
  */
-public class SensorFrameworkRecorder extends Recorder implements IRawWriteStrategy {
+public class SensorFrameworkRecorder extends Recorder {
 
     private static final Logger LOGGER = Logger.getLogger(SensorFrameworkRecorder.class.getName());
 

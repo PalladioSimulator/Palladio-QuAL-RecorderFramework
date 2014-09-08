@@ -11,6 +11,8 @@ import org.apache.log4j.Logger;
  * 
  * The Filter is still experimental!
  * 
+ * TODO To be integrated, this filter may become an EDP2 filter [Lehrig]
+ * 
  * @author Philipp Merkle
  * 
  */

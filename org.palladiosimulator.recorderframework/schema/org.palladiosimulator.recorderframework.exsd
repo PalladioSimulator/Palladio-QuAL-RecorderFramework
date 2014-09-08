@@ -62,7 +62,7 @@
                   
                </documentation>
                <appinfo>
-                  <meta.attribute kind="java" basedOn=":org.palladiosimulator.recorderframework.IRawWriteStrategy"/>
+                  <meta.attribute kind="java" basedOn=":org.palladiosimulator.recorderframework.IRecorder"/>
                </appinfo>
             </annotation>
          </attribute>

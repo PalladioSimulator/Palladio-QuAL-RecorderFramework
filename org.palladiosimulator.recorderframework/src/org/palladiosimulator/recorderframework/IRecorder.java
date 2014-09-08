@@ -1,6 +1,7 @@
 package org.palladiosimulator.recorderframework;
 
 import org.palladiosimulator.measurementframework.Measurement;
+import org.palladiosimulator.measurementframework.listener.IMeasurementSourceListener;
 import org.palladiosimulator.recorderframework.launch.IRecorderConfiguration;
 
 /**
@@ -10,7 +11,7 @@ import org.palladiosimulator.recorderframework.launch.IRecorderConfiguration;
  * @author Baum
  * @author Sebastian Lehrig
  */
-public interface IRecorder {
+public interface IRecorder extends IMeasurementSourceListener {
 
     /**
      * This method contains meta data of the measurements to initialize the writer.
