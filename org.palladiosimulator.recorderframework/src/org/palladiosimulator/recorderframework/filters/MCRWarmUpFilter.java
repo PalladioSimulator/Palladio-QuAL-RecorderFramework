@@ -21,6 +21,13 @@ public class MCRWarmUpFilter {
     private static final Logger LOGGER = Logger.getLogger(MCRWarmUpFilter.class.getName());
     private int minIndex = 0;
 
+    /**
+     * Filters the given list of samples.
+     * 
+     * @param samples
+     *            the list of samples; including double values.
+     * @return the filtered list.
+     */
     public List<Double> filter(List<Double> samples) {
 
         if (samples.size() <= 150) {
@@ -60,7 +67,8 @@ public class MCRWarmUpFilter {
 
         if (minIndex > samples.size() / 3) {
             if (LOGGER.isEnabledFor(Level.WARN)) {
-                LOGGER.warn("Truncation point is in the last two thirds of the samples, so the confidence in this result is low.");
+                LOGGER.warn("Truncation point is in the last two thirds of the samples, "
+                        + "so the confidence in this result is low.");
             }
         }
 
@@ -68,6 +76,11 @@ public class MCRWarmUpFilter {
         return samples.subList(minIndex, samples.size() - 1);
     }
 
+    /**
+     * Getter for the truncation index used by the filter.
+     * 
+     * @return the truncation index.
+     */
     public int getTruncationIndex() {
         return minIndex;
     }
