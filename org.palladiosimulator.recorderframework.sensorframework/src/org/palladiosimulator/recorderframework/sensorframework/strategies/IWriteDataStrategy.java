@@ -1,7 +1,7 @@
 package org.palladiosimulator.recorderframework.sensorframework.strategies;
 
 import org.palladiosimulator.measurementframework.measureprovider.IMeasureProvider;
-import org.palladiosimulator.recorderframework.launch.IRecorderConfiguration;
+import org.palladiosimulator.recorderframework.config.IRecorderConfiguration;
 
 /**
  * @deprecated Superseded by EDP2.

@@ -3,6 +3,7 @@ package org.palladiosimulator.recorderframework.edp2;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.palladiosimulator.commons.datastructureutils.MapHelper;
 import org.palladiosimulator.edp2.impl.RepositoryManager;
 import org.palladiosimulator.edp2.models.ExperimentData.ExperimentDataFactory;
 import org.palladiosimulator.edp2.models.ExperimentData.ExperimentGroup;
@@ -15,14 +16,13 @@ import org.palladiosimulator.metricspec.MetricDescription;
 import org.palladiosimulator.metricspec.MetricSetDescription;
 import org.palladiosimulator.recorderframework.config.AbstractRecorderConfiguration;
 import org.palladiosimulator.recorderframework.config.AbstractRecorderConfigurationFactory;
-import org.palladiosimulator.recorderframework.config.IRecorderConfigurationFactory;
+import org.palladiosimulator.recorderframework.config.IRecorderConfiguration;
 import org.palladiosimulator.recorderframework.edp2.config.EDP2RecorderConfiguration;
-import org.palladiosimulator.recorderframework.launch.IRecorderConfiguration;
 
 import de.uka.ipd.sdq.identifier.Identifier;
 
-public abstract class AbstractEDP2RecorderConfigurationFactory<RUN extends Run> extends AbstractRecorderConfigurationFactory implements
-        IRecorderConfigurationFactory {
+public abstract class AbstractEDP2RecorderConfigurationFactory<RUN extends Run> extends
+        AbstractRecorderConfigurationFactory {
 
     public static final String REPOSITORY_ID = "EDP2RepositoryID";
     public static final String VARIATION_ID = "variationId";
@@ -32,7 +32,7 @@ public abstract class AbstractEDP2RecorderConfigurationFactory<RUN extends Run> 
 
     /** EDP2 experiment group. */
     protected ExperimentGroup experimentGroup;
-    
+
     /** An EDP2 run, either an experiment run or an experiment group run. */
     protected RUN experimentRun;
 
@@ -40,7 +40,7 @@ public abstract class AbstractEDP2RecorderConfigurationFactory<RUN extends Run> 
     public void initialize(final Map<String, Object> configuration) {
         super.initialize(configuration);
 
-        initalizeEDP2Repository(getValue(configuration, REPOSITORY_ID, String.class));
+        initalizeEDP2Repository(MapHelper.getValue(configuration, REPOSITORY_ID, String.class));
         initializeExperimentGroup();
     }
 
@@ -62,7 +62,7 @@ public abstract class AbstractEDP2RecorderConfigurationFactory<RUN extends Run> 
 
         return result;
     }
-    
+
     private Measure initializeMeasure(final MetricDescription measureMetric, final MeasuringPoint measuringPoint) {
         // Check for existing Edp2Measures in the experimentGroup
         for (final Measure edp2Measure : this.experimentGroup.getMeasure()) {
@@ -70,21 +70,21 @@ public abstract class AbstractEDP2RecorderConfigurationFactory<RUN extends Run> 
                 return edp2Measure;
             }
         }
-        
+
         return createMeasure(measureMetric, measuringPoint);
     }
-    
+
     protected Measure createMeasure(final MetricDescription measureMetric, final MeasuringPoint measuringPoint) {
         final Measure measure;
-        
+
         measure = ExperimentDataFactory.eINSTANCE.createMeasure();
         measure.setMeasuringPoint(measuringPoint);
         measure.setMetric(measureMetric);
         measure.setExperimentGroup(this.experimentGroup);
-        
-        return measure; 
+
+        return measure;
     }
-    
+
     /**
      * Initialize EDP2 measurements.
      */
@@ -96,7 +96,7 @@ public abstract class AbstractEDP2RecorderConfigurationFactory<RUN extends Run> 
 
         return measurements;
     }
-    
+
     /**
      * Receives the EDP2 from the central repository registry, based on a given repository ID.
      * 

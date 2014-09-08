@@ -1,15 +1,13 @@
-/**
- * 
- */
 package org.palladiosimulator.recorderframework.config;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
 
+import org.palladiosimulator.commons.datastructureutils.MapHelper;
+
 /**
- * @author snowball
- *
+ * @author snowball, Sebastian Lehrig
  */
 public abstract class AbstractRecorderConfigurationFactory implements IRecorderConfigurationFactory {
 
@@ -36,41 +34,25 @@ public abstract class AbstractRecorderConfigurationFactory implements IRecorderC
      */
     @Override
     public void initialize(final Map<String, Object> configuration) {
-        experimentName = getValue(configuration, EXPERIMENT_RUN_NAME, String.class);
+        this.experimentName = MapHelper.getValue(configuration, EXPERIMENT_RUN_NAME, String.class);
 
         // Do not use just Date.toString here, as that cannot be parsed anymore.
         // If another date format shall be used here, do it properly with defining a DateFormat.
-        SimpleDateFormat dateFormat = new SimpleDateFormat(EXPERIMENT_RUN_DATE_FORMAT);
-        experimentRunName = dateFormat.format(new Date());
-
+        this.experimentRunName = new SimpleDateFormat(EXPERIMENT_RUN_DATE_FORMAT).format(new Date());
     }
 
     /**
      * @return the experimentName
      */
     public final String getExperimentName() {
-        return experimentName;
+        return this.experimentName;
     }
 
     /**
      * @return the experimentName
      */
     public final String getExperimentRunName() {
-        return experimentRunName;
-    }
-
-    protected <T> T getValue(final Map<String, Object> configuration, final String configurationAttributeID,
-            final Class<T> dataType) {
-        @SuppressWarnings("unchecked")
-        final T result = (T) configuration.get(configurationAttributeID);
-        if (result == null) {
-            throw new RuntimeException("Expected configuation entry not found");
-        }
-        if (!dataType.isInstance(result)) {
-            throw new RuntimeException("Data in configuration does not have expected type");
-        }
-
-        return result;
+        return this.experimentRunName;
     }
 
 }

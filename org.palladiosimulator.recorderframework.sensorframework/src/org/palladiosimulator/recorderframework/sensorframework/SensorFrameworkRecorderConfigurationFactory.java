@@ -3,8 +3,8 @@ package org.palladiosimulator.recorderframework.sensorframework;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.palladiosimulator.commons.datastructureutils.MapHelper;
 import org.palladiosimulator.recorderframework.config.AbstractRecorderConfigurationFactory;
-import org.palladiosimulator.recorderframework.config.IRecorderConfigurationFactory;
 
 import de.uka.ipd.sdq.sensorframework.SensorFrameworkDataset;
 import de.uka.ipd.sdq.sensorframework.entities.Experiment;
@@ -14,8 +14,7 @@ import de.uka.ipd.sdq.sensorframework.entities.dao.IDAOFactory;
 /**
  * @deprecated Superseded by EDP2.
  */
-public class SensorFrameworkRecorderConfigurationFactory extends AbstractRecorderConfigurationFactory implements
-        IRecorderConfigurationFactory {
+public class SensorFrameworkRecorderConfigurationFactory extends AbstractRecorderConfigurationFactory {
 
     public static final String DATASOURCE_ID = "datasourceID";
     private long datasourceID;
@@ -27,7 +26,7 @@ public class SensorFrameworkRecorderConfigurationFactory extends AbstractRecorde
     @Override
     public void initialize(final Map<String, Object> configuration) {
         super.initialize(configuration);
-        this.datasourceID = getValue(configuration, DATASOURCE_ID, Integer.class);
+        this.datasourceID = MapHelper.getValue(configuration, DATASOURCE_ID, Integer.class);
 
         initialiseNewSensorframework();
     }

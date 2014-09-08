@@ -2,7 +2,7 @@ package org.palladiosimulator.recorderframework;
 
 import org.palladiosimulator.measurementframework.Measurement;
 import org.palladiosimulator.measurementframework.listener.IMeasurementSourceListener;
-import org.palladiosimulator.recorderframework.launch.IRecorderConfiguration;
+import org.palladiosimulator.recorderframework.config.IRecorderConfiguration;
 
 /**
  * A Recorder is responsible for storing the measurements to any external, independent device.

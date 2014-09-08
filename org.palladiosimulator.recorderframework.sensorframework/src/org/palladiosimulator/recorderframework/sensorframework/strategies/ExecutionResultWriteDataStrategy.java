@@ -13,7 +13,7 @@ import org.palladiosimulator.metricspec.Identifier;
 import org.palladiosimulator.metricspec.MetricSetDescription;
 import org.palladiosimulator.metricspec.TextualBaseMetricDescription;
 import org.palladiosimulator.metricspec.constants.MetricDescriptionConstants;
-import org.palladiosimulator.recorderframework.launch.IRecorderConfiguration;
+import org.palladiosimulator.recorderframework.config.IRecorderConfiguration;
 import org.palladiosimulator.recorderframework.sensorframework.SensorFrameworkRecorderConfiguration;
 import org.palladiosimulator.recorderframework.sensorframework.SensorHelper;
 

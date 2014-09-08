@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.util.Collections;
 import java.util.Map;
 
+import org.palladiosimulator.commons.datastructureutils.MapHelper;
 import org.palladiosimulator.recorderframework.config.AbstractRecorderConfiguration;
-import org.palladiosimulator.recorderframework.launch.IRecorderConfiguration;
 
 import de.uka.ipd.sdq.sensorframework.entities.Experiment;
 import de.uka.ipd.sdq.sensorframework.entities.ExperimentRun;
@@ -15,7 +15,7 @@ import de.uka.ipd.sdq.sensorframework.entities.dao.IDAOFactory;
  * @deprecated Superseded by EDP2.
  */
 public class SensorFrameworkRecorderConfiguration extends AbstractRecorderConfiguration implements
-        IRecorderConfiguration, Serializable {
+        Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -34,9 +34,9 @@ public class SensorFrameworkRecorderConfiguration extends AbstractRecorderConfig
     @Override
     public void setConfiguration(final Map<String, Object> configuration) {
         super.setConfiguration(configuration);
-        daoFactory = getValue(configuration, DAO_FACTORY, IDAOFactory.class);
-        experiment = getValue(configuration, EXPERIMENT, Experiment.class);
-        run = getValue(configuration, RUN, ExperimentRun.class);
+        daoFactory = MapHelper.getValue(configuration, DAO_FACTORY, IDAOFactory.class);
+        experiment = MapHelper.getValue(configuration, EXPERIMENT, Experiment.class);
+        run = MapHelper.getValue(configuration, RUN, ExperimentRun.class);
     }
 
     /**

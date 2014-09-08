@@ -3,6 +3,7 @@ package org.palladiosimulator.recorderframework.edp2.config;
 import java.util.Date;
 import java.util.Map;
 
+import org.palladiosimulator.commons.datastructureutils.MapHelper;
 import org.palladiosimulator.edp2.models.ExperimentData.ExperimentDataFactory;
 import org.palladiosimulator.edp2.models.ExperimentData.ExperimentRun;
 import org.palladiosimulator.edp2.models.ExperimentData.ExperimentSetting;
@@ -19,7 +20,7 @@ public class EDP2RecorderConfigurationFactory extends AbstractEDP2RecorderConfig
     public void initialize(final Map<String, Object> configuration) {
         super.initialize(configuration);
         
-        initializeExperimentSetting(getValue(configuration, VARIATION_ID, String.class));
+        initializeExperimentSetting(MapHelper.getValue(configuration, VARIATION_ID, String.class));
         initializeExperimentRun();
     }
     

@@ -16,8 +16,8 @@ import org.palladiosimulator.edp2.models.ExperimentData.Run;
 import org.palladiosimulator.edp2.util.MeasurementsUtility;
 import org.palladiosimulator.measurementframework.Measurement;
 import org.palladiosimulator.recorderframework.AbstractRecorder;
+import org.palladiosimulator.recorderframework.config.IRecorderConfiguration;
 import org.palladiosimulator.recorderframework.edp2.config.EDP2RecorderConfiguration;
-import org.palladiosimulator.recorderframework.launch.IRecorderConfiguration;
 
 /**
  * This class provides methods necessary to write raw or aggregated measurements to the EDP2. It

@@ -10,7 +10,7 @@ import javax.measure.unit.SI;
 import org.palladiosimulator.edp2.util.MeasuringPointUtility;
 import org.palladiosimulator.measurementframework.measureprovider.IMeasureProvider;
 import org.palladiosimulator.metricspec.constants.MetricDescriptionConstants;
-import org.palladiosimulator.recorderframework.launch.IRecorderConfiguration;
+import org.palladiosimulator.recorderframework.config.IRecorderConfiguration;
 import org.palladiosimulator.recorderframework.sensorframework.SensorFrameworkRecorderConfiguration;
 import org.palladiosimulator.recorderframework.sensorframework.SensorHelper;
 

@@ -3,6 +3,7 @@ package org.palladiosimulator.recorderframework.edp2.config;
 import java.io.Serializable;
 import java.util.Map;
 
+import org.palladiosimulator.commons.datastructureutils.MapHelper;
 import org.palladiosimulator.edp2.models.ExperimentData.Measurements;
 import org.palladiosimulator.recorderframework.config.AbstractRecorderConfiguration;
 
@@ -16,7 +17,7 @@ public class EDP2RecorderConfiguration extends AbstractRecorderConfiguration imp
     @Override
     public void setConfiguration(final Map<String, Object> configuration) {
         super.setConfiguration(configuration);
-        this.measurements = getValue(configuration, MEASUREMENTS, Measurements.class);
+        this.measurements = MapHelper.getValue(configuration, MEASUREMENTS, Measurements.class);
     }
 
     public String getModelElementID() {
