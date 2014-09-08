@@ -12,6 +12,8 @@ public interface IRecorderConfigurationFactory {
     /**
      * Initializes this factory as a preparation for creating a configuration object.
      * 
+     * TODO Do we really need initialization or can we directly create configurations? [Lehrig]
+     * 
      * @param configuration
      *            a map with key-value pairs to be used for initialization.
      */
