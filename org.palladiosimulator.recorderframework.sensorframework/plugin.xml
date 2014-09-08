@@ -8,7 +8,7 @@
             configurationFactory="org.palladiosimulator.recorderframework.sensorframework.SensorFrameworkRecorderConfigurationFactory"
             launchConfigTab="org.palladiosimulator.recorderframework.sensorframework.launch.SensorFrameworkTab"
             name="SensorFramework"
-            writeStrategy="org.palladiosimulator.recorderframework.sensorframework.SensorFrameworkRecorder">
+            recorderImplementation="org.palladiosimulator.recorderframework.sensorframework.SensorFrameworkRecorder">
       </recorder>
    </extension>
 

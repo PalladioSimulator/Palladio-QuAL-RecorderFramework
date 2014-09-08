@@ -63,11 +63,11 @@ public class RecorderExtensionHelper {
         return null;
     }
 
-    public static IRecorder instantiateWriteStrategyForRecorder(final String recorderName) {
+    public static IRecorder instantiateRecorderImplementationForRecorder(final String recorderName) {
         try {
-            return (IRecorder) instantiateExecutableExtension(recorderName, "writeStrategy");
+            return (IRecorder) instantiateExecutableExtension(recorderName, "recorderImplementation");
         } catch (final CoreException e) {
-            throw new RuntimeException("Could not instantiate write strategy for recorder named " + recorderName);
+            throw new RuntimeException("Could not instantiate recorder implementation for recorder named " + recorderName);
         }
     }
 

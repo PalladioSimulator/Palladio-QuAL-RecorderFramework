@@ -1,6 +1,5 @@
 /**
- * This package contains write strategies necessary for recorders to store measurements to the EDP2.
- * Namely, there is a raw write strategy and an aggregation write strategy. 
+ * This package contains a recorder implementation to store measurements to the EDP2. 
  * 
  * @author Sebastian Lehrig 
  */

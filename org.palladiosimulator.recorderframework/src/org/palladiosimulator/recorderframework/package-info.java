@@ -1,6 +1,7 @@
 /**
- * This package contains all recorder implementations. A recorder writes incoming measurements to a
- * persistency framework. This framework is determined by the recorder's write strategy.
+ * This package contains the base classes/interfaces for recorder implementation. A recorder
+ * writes incoming measurements to a persistency framework. This framework is determined by
+ * a recorder's concrete implementation.
  * 
  * @author Sebastian Lehrig
  */

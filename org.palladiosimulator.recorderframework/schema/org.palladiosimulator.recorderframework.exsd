@@ -56,7 +56,7 @@
                </documentation>
             </annotation>
          </attribute>
-         <attribute name="writeStrategy" type="string" use="required">
+         <attribute name="recorderImplementation" type="string" use="required">
             <annotation>
                <documentation>
                   

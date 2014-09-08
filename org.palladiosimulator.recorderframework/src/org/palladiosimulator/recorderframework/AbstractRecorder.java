@@ -3,9 +3,8 @@ package org.palladiosimulator.recorderframework;
 import org.palladiosimulator.measurementframework.Measurement;
 
 /**
- * This class is the super class of any recorder implementations. A recorder is responsible of
- * making the measurements persistent, using a specified WriteStrategy. The measurements can either
- * be aggregated before storing or be stored as raw measurements.
+ * This class is the super class of any recorder implementation. A recorder is responsible of making
+ * the measurements persistent.
  * 
  * @author Baum, Sebastian Lehrig
  */

@@ -8,7 +8,7 @@
             configurationFactory="org.palladiosimulator.recorderframework.edp2.config.EDP2RecorderConfigurationFactory"
             launchConfigTab="org.palladiosimulator.recorderframework.edp2.launch.EDP2Tab"
             name="Experiment Data Persistency &amp; Presentation (EDP2)"
-            writeStrategy="org.palladiosimulator.recorderframework.edp2.EDP2RawRecorder">
+            recorderImplementation="org.palladiosimulator.recorderframework.edp2.EDP2RawRecorder">
       </recorder>
    </extension>
 

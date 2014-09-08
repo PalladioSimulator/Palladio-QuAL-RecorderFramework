@@ -5,11 +5,8 @@ import org.palladiosimulator.measurementframework.listener.IMeasurementSourceLis
 import org.palladiosimulator.recorderframework.launch.IRecorderConfiguration;
 
 /**
- * A WriteStrategy is responsible for storing the measurements to a recorder, i.e., any external,
- * independent device.
+ * A Recorder is responsible for storing the measurements to any external, independent device.
  *
- * @author pmerkle
- * @author Baum
  * @author Sebastian Lehrig
  */
 public interface IRecorder extends IMeasurementSourceListener {
@@ -20,7 +17,7 @@ public interface IRecorder extends IMeasurementSourceListener {
      * @param recorderConfiguration
      *            The configuration used for this recorder.
      */
-    public abstract void initialize(IRecorderConfiguration recorderConfiguration);
+    public abstract void initialize(final IRecorderConfiguration recorderConfiguration);
 
     /**
      * Writes data into the recorder.
@@ -28,7 +25,7 @@ public interface IRecorder extends IMeasurementSourceListener {
      * @param measurement
      *            The measurement that should be stored.
      */
-    public abstract void writeData(Measurement measurement);
+    public abstract void writeData(final Measurement measurement);
 
     /**
      * This method is called at the end of the writing process. Flushing assures that all data is
