@@ -1,116 +1,48 @@
 package org.palladiosimulator.recorderframework.launch;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IConfigurationElement;
-import org.eclipse.core.runtime.IExtension;
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.debug.ui.ILaunchConfigurationTab;
+import org.palladiosimulator.commons.eclipseutils.ExtensionHelper;
 import org.palladiosimulator.recorderframework.IRecorder;
 import org.palladiosimulator.recorderframework.config.IRecorderConfigurationFactory;
 
 public class RecorderExtensionHelper {
 
-    public static String[] getRecorderNames() throws CoreException {
-        final List<IExtension> recorderExtensions = loadExtensions("org.palladiosimulator.recorderframework");
-        final List<String> names = new ArrayList<String>();
-        for (final IExtension extension : recorderExtensions) {
-            final IConfigurationElement e = obtainConfigurationElement("recorder", extension);
-            if (e != null) {
-                names.add(e.getAttribute("name"));
-            }
-        }
-        return names.toArray(new String[names.size()]);
+    private static final String RECORDER_EXTENSION_POINT_ID = "org.palladiosimulator.recorderframework";
+    private static final String RECORDER_EXTENSION_ELEMENT = "recorder";
+
+    private static final String RECORDER_EXTENSION_RECORDER_IMPLEMENTATION_ATTRIBUTE = "recorderImplementation";
+    private static final String RECORDER_EXTENSION_CONFIGURATION_FACTORY_ATTRIBUTE = "configurationFactory";
+    private static final String RECORDER_EXTENSION_NAME_ATTRIBUTE = "name";
+    private static final String RECORDER_EXTENSION_LAUNCH_CONFIG_TAB_ATTRIBUTE = "launchConfigTab";
+
+    public static List<String> getRecorderNames() throws CoreException {
+        return ExtensionHelper.getAttributes(RECORDER_EXTENSION_POINT_ID, RECORDER_EXTENSION_ELEMENT,
+                RECORDER_EXTENSION_NAME_ATTRIBUTE);
     }
 
-    public static ILaunchConfigurationTab[] getLaunchConfigTabs() throws CoreException {
-        final List<IExtension> recorderExtensions = loadExtensions("org.palladiosimulator.recorderframework");
-        final List<ILaunchConfigurationTab> tabList = new ArrayList<ILaunchConfigurationTab>();
-        for (final IExtension extension : recorderExtensions) {
-            final IConfigurationElement e = obtainConfigurationElement("recorder", extension);
-            if (e != null) {
-                tabList.add((ILaunchConfigurationTab) e.createExecutableExtension("launchConfigTab"));
-            }
-        }
-        return tabList.toArray(new ILaunchConfigurationTab[tabList.size()]);
-    }
-
-    public static String getExtensionIdentifierForName(final String recorderName) throws CoreException {
-        final List<IExtension> recorderExtensions = loadExtensions("org.palladiosimulator.recorderframework");
-        for (final IExtension extension : recorderExtensions) {
-            final IConfigurationElement e = obtainConfigurationElement("recorder", extension);
-            if (e != null && e.getAttribute("name").equals(recorderName)) {
-                return extension.getUniqueIdentifier();
-            }
-        }
-        return null;
+    public static List<ILaunchConfigurationTab> getLaunchConfigTabs() throws CoreException {
+        return ExtensionHelper.getExecutableExtensions(RECORDER_EXTENSION_POINT_ID, RECORDER_EXTENSION_ELEMENT,
+                RECORDER_EXTENSION_LAUNCH_CONFIG_TAB_ATTRIBUTE);
     }
 
     public static IRecorderConfigurationFactory getRecorderConfigurationFactoryForName(final String recorderName)
             throws CoreException {
-        final List<IExtension> recorderExtensions = loadExtensions("org.palladiosimulator.recorderframework");
-        for (final IExtension extension : recorderExtensions) {
-            final IConfigurationElement e = obtainConfigurationElement("recorder", extension);
-            if (e != null && e.getAttribute("name").equals(recorderName)) {
-                final Object config = e.createExecutableExtension("configurationFactory");
-                if (config != null) {
-                    return (IRecorderConfigurationFactory) config;
-                }
-            }
-        }
-        return null;
+        return ExtensionHelper.getExecutableExtension(RECORDER_EXTENSION_POINT_ID, RECORDER_EXTENSION_ELEMENT,
+                RECORDER_EXTENSION_CONFIGURATION_FACTORY_ATTRIBUTE, RECORDER_EXTENSION_NAME_ATTRIBUTE, recorderName);
     }
 
     public static IRecorder instantiateRecorderImplementationForRecorder(final String recorderName) {
         try {
-            return (IRecorder) instantiateExecutableExtension(recorderName, "recorderImplementation");
+            return ExtensionHelper.getExecutableExtension(RECORDER_EXTENSION_POINT_ID, RECORDER_EXTENSION_ELEMENT,
+                    RECORDER_EXTENSION_RECORDER_IMPLEMENTATION_ATTRIBUTE, RECORDER_EXTENSION_NAME_ATTRIBUTE,
+                    recorderName);
         } catch (final CoreException e) {
-            throw new RuntimeException("Could not instantiate recorder implementation for recorder named " + recorderName);
+            throw new RuntimeException("Could not instantiate recorder implementation for recorder named "
+                    + recorderName);
         }
-    }
-
-    private static Object instantiateExecutableExtension(final String recorderName, final String attributeName)
-            throws CoreException {
-        final List<IExtension> recorderExtensions = loadExtensions("org.palladiosimulator.recorderframework");
-        for (final IExtension extension : recorderExtensions) {
-            final IConfigurationElement e = obtainConfigurationElement("recorder", extension);
-            if (e != null && e.getAttribute("name").equals(recorderName)) {
-                return e.createExecutableExtension(attributeName);
-            }
-        }
-        return null;
-    }
-
-    public static String getNameForExtensionIdentifier(final String extensionID) throws CoreException {
-        final IExtension ext = Platform.getExtensionRegistry()
-                .getExtensionPoint("org.palladiosimulator.recorderframework").getExtension(extensionID);
-        if (ext != null) {
-            final IConfigurationElement e = obtainConfigurationElement("recorder", ext);
-            return e.getAttribute("name");
-        }
-        return null;
-    }
-
-    private static IConfigurationElement obtainConfigurationElement(final String elementName, final IExtension extension)
-            throws CoreException {
-        final IConfigurationElement[] elements = extension.getConfigurationElements();
-        for (final IConfigurationElement element : elements) {
-            if (element.getName().equals(elementName)) {
-                return element;
-            }
-        }
-        return null;
-    }
-
-    private static List<IExtension> loadExtensions(final String extensionPointID) {
-        final IExtension[] exts = Platform.getExtensionRegistry().getExtensionPoint(extensionPointID).getExtensions();
-        final List<IExtension> results = new ArrayList<IExtension>();
-        for (final IExtension extension : exts) {
-            results.add(extension);
-        }
-        return results;
     }
 
 }
