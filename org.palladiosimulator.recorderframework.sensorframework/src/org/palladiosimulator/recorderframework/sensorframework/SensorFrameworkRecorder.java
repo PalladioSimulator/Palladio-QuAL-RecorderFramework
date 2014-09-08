@@ -18,7 +18,7 @@ import static org.palladiosimulator.metricspec.constants.MetricDescriptionConsta
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.palladiosimulator.measurementframework.Measurement;
-import org.palladiosimulator.recorderframework.Recorder;
+import org.palladiosimulator.recorderframework.AbstractRecorder;
 import org.palladiosimulator.recorderframework.launch.IRecorderConfiguration;
 import org.palladiosimulator.recorderframework.sensorframework.strategies.AbstractWriteDataStrategy;
 import org.palladiosimulator.recorderframework.sensorframework.strategies.ExecutionResultWriteDataStrategy;
@@ -34,12 +34,12 @@ import de.uka.ipd.sdq.sensorframework.entities.ExperimentRun;
 import de.uka.ipd.sdq.sensorframework.entities.dao.IDAOFactory;
 
 /**
- * Recorder for the SensorFramework.
+ * AbstractRecorder for the SensorFramework.
  * 
  * @author pmerkle, Sebastian Lehrig
  * @deprecated Superseded by EDP2.
  */
-public class SensorFrameworkRecorder extends Recorder {
+public class SensorFrameworkRecorder extends AbstractRecorder {
 
     private static final Logger LOGGER = Logger.getLogger(SensorFrameworkRecorder.class.getName());
 

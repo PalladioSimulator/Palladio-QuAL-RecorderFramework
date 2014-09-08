@@ -20,7 +20,7 @@ import org.eclipse.swt.widgets.Text;
 import org.palladiosimulator.edp2.impl.RepositoryManager;
 import org.palladiosimulator.edp2.models.Repository.Repository;
 import org.palladiosimulator.edp2.ui.dialogs.datasource.ConfigureDatasourceDialog;
-import org.palladiosimulator.recorderframework.edp2.EDP2RecorderConfigurationFactory;
+import org.palladiosimulator.recorderframework.edp2.config.EDP2RecorderConfigurationFactory;
 
 public class EDP2Tab extends AbstractLaunchConfigurationTab {
 
@@ -45,9 +45,9 @@ public class EDP2Tab extends AbstractLaunchConfigurationTab {
 
         final Group dataSetGroup = new Group(container, SWT.NONE);
         dataSetGroup.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
-        final GridLayout gridLayout_2 = new GridLayout();
-        gridLayout_2.numColumns = 3;
-        dataSetGroup.setLayout(gridLayout_2);
+        final GridLayout gridLayout2 = new GridLayout();
+        gridLayout2.numColumns = 3;
+        dataSetGroup.setLayout(gridLayout2);
         dataSetGroup.setText("Data Set");
 
         final Label dataSourceLabel = new Label(dataSetGroup, SWT.NONE);

@@ -15,7 +15,8 @@ import org.palladiosimulator.edp2.models.ExperimentData.RawMeasurements;
 import org.palladiosimulator.edp2.models.ExperimentData.Run;
 import org.palladiosimulator.edp2.util.MeasurementsUtility;
 import org.palladiosimulator.measurementframework.Measurement;
-import org.palladiosimulator.recorderframework.Recorder;
+import org.palladiosimulator.recorderframework.AbstractRecorder;
+import org.palladiosimulator.recorderframework.edp2.config.EDP2RecorderConfiguration;
 import org.palladiosimulator.recorderframework.launch.IRecorderConfiguration;
 
 /**
@@ -32,10 +33,10 @@ import org.palladiosimulator.recorderframework.launch.IRecorderConfiguration;
  * @author Baum, Sebastian Lehrig
  * 
  */
-public class EDP2RawRecorder extends Recorder {
+public class EDP2RawRecorder extends AbstractRecorder {
 
     /** Shortcut to experiment data factory. */
-    private final static ExperimentDataFactory experimentDataFactory = ExperimentDataFactory.eINSTANCE;
+    private static final ExperimentDataFactory EXPERIMENT_DATA_FACTORY = ExperimentDataFactory.eINSTANCE;
 
     private EDP2RecorderConfiguration edp2RecorderConfig;
 
@@ -81,8 +82,8 @@ public class EDP2RawRecorder extends Recorder {
      * In this method, an EDP2 experiment run is prepared by initializing EDP2's MeasurementRange
      */
     private void attachRawMeasurementRangeToMeasurements() {
-        final MeasurementsRange measurementsRange = experimentDataFactory.createMeasurementsRange(measurements);
-        final RawMeasurements rawMeasurements = experimentDataFactory.createRawMeasurements(measurementsRange);
+        final MeasurementsRange measurementsRange = EXPERIMENT_DATA_FACTORY.createMeasurementsRange(measurements);
+        final RawMeasurements rawMeasurements = EXPERIMENT_DATA_FACTORY.createRawMeasurements(measurementsRange);
         MeasurementsUtility.createDAOsForRawMeasurements(rawMeasurements);
     }
 }

@@ -3,8 +3,8 @@ package org.palladiosimulator.recorderframework.sensorframework;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.palladiosimulator.recorderframework.AbstractRecorderConfigurationFactory;
-import org.palladiosimulator.recorderframework.IRecorderConfigurationFactory;
+import org.palladiosimulator.recorderframework.config.AbstractRecorderConfigurationFactory;
+import org.palladiosimulator.recorderframework.config.IRecorderConfigurationFactory;
 
 import de.uka.ipd.sdq.sensorframework.SensorFrameworkDataset;
 import de.uka.ipd.sdq.sensorframework.entities.Experiment;

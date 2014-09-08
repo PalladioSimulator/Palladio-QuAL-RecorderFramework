@@ -82,7 +82,7 @@
                   
                </documentation>
                <appinfo>
-                  <meta.attribute kind="java" basedOn=":org.palladiosimulator.recorderframework.IRecorderConfigurationFactory"/>
+                  <meta.attribute kind="java" basedOn=":org.palladiosimulator.recorderframework.config.IRecorderConfigurationFactory"/>
                </appinfo>
             </annotation>
          </attribute>

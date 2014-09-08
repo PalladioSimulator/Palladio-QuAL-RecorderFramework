@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Collections;
 import java.util.Map;
 
-import org.palladiosimulator.recorderframework.AbstractRecorderConfiguration;
+import org.palladiosimulator.recorderframework.config.AbstractRecorderConfiguration;
 import org.palladiosimulator.recorderframework.launch.IRecorderConfiguration;
 
 import de.uka.ipd.sdq.sensorframework.entities.Experiment;

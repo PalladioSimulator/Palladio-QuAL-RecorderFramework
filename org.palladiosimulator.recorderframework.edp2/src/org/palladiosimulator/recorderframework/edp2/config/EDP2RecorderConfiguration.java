@@ -1,10 +1,10 @@
-package org.palladiosimulator.recorderframework.edp2;
+package org.palladiosimulator.recorderframework.edp2.config;
 
 import java.io.Serializable;
 import java.util.Map;
 
 import org.palladiosimulator.edp2.models.ExperimentData.Measurements;
-import org.palladiosimulator.recorderframework.AbstractRecorderConfiguration;
+import org.palladiosimulator.recorderframework.config.AbstractRecorderConfiguration;
 
 public class EDP2RecorderConfiguration extends AbstractRecorderConfiguration implements Serializable {
 

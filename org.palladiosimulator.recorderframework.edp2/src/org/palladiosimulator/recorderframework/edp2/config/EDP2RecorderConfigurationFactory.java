@@ -1,4 +1,4 @@
-package org.palladiosimulator.recorderframework.edp2;
+package org.palladiosimulator.recorderframework.edp2.config;
 
 import java.util.Date;
 import java.util.Map;
@@ -9,6 +9,7 @@ import org.palladiosimulator.edp2.models.ExperimentData.ExperimentSetting;
 import org.palladiosimulator.edp2.models.ExperimentData.Measure;
 import org.palladiosimulator.edp2.models.measuringpoint.MeasuringPoint;
 import org.palladiosimulator.metricspec.MetricDescription;
+import org.palladiosimulator.recorderframework.edp2.AbstractEDP2RecorderConfigurationFactory;
 
 public class EDP2RecorderConfigurationFactory extends AbstractEDP2RecorderConfigurationFactory<ExperimentRun> {
 

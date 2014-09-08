@@ -8,17 +8,13 @@ import org.palladiosimulator.measurementframework.Measurement;
  * be aggregated before storing or be stored as raw measurements.
  * 
  * @author Baum, Sebastian Lehrig
- * 
  */
-public abstract class Recorder implements IRecorder {
+public abstract class AbstractRecorder implements IRecorder {
 
     /**
      * The default constructor for a recorder.
-     * 
-     * @param writeStrategy
-     *            The write strategy of the recorder.
      */
-    public Recorder() {
+    public AbstractRecorder() {
         super();
     }
 

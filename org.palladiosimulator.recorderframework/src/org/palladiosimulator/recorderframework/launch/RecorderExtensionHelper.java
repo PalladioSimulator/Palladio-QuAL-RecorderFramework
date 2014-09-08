@@ -9,7 +9,7 @@ import org.eclipse.core.runtime.IExtension;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.debug.ui.ILaunchConfigurationTab;
 import org.palladiosimulator.recorderframework.IRecorder;
-import org.palladiosimulator.recorderframework.IRecorderConfigurationFactory;
+import org.palladiosimulator.recorderframework.config.IRecorderConfigurationFactory;
 
 public class RecorderExtensionHelper {
 
