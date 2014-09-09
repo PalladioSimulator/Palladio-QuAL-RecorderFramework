@@ -1,4 +1,4 @@
-package org.palladiosimulator.recorderframework.edp2;
+package org.palladiosimulator.recorderframework.edp2.config;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,14 +17,23 @@ import org.palladiosimulator.metricspec.MetricSetDescription;
 import org.palladiosimulator.recorderframework.config.AbstractRecorderConfiguration;
 import org.palladiosimulator.recorderframework.config.AbstractRecorderConfigurationFactory;
 import org.palladiosimulator.recorderframework.config.IRecorderConfiguration;
-import org.palladiosimulator.recorderframework.edp2.config.EDP2RecorderConfiguration;
 
 import de.uka.ipd.sdq.identifier.Identifier;
 
+/**
+ * Abstract factory for EDP2 recorder configuration objects.
+ * 
+ * @param <RUN>
+ *            EDP2 run type, either an experiment run or an experiment group run
+ * @author Sebastian Lehrig
+ */
 public abstract class AbstractEDP2RecorderConfigurationFactory<RUN extends Run> extends
         AbstractRecorderConfigurationFactory {
 
+    /** Identifier for EDP2 repositories; usable in key-value maps. */
     public static final String REPOSITORY_ID = "EDP2RepositoryID";
+
+    /** Identifier for variations; usable in key-value maps. */
     public static final String VARIATION_ID = "variationId";
 
     /** EDP2 Repository where data should be stored. */
@@ -63,17 +72,43 @@ public abstract class AbstractEDP2RecorderConfigurationFactory<RUN extends Run> 
         return result;
     }
 
-    private Measure initializeMeasure(final MetricDescription measureMetric, final MeasuringPoint measuringPoint) {
+    @Override
+    public void finalizeRecorderConfigurationFactory() {
+        this.repository.flush();
+    }
+
+    /**
+     * Initializes the EDP2 measure used to type measurements. Creates a new measure if none
+     * conforming to the given metric description and to the given measuring point exists.
+     * 
+     * @param metricDescription
+     *            the metric description of the measure.
+     * @param measuringPoint
+     *            the measuring point of the measure.
+     * @return a measure conforming to the given parameters.
+     */
+    private Measure initializeMeasure(final MetricDescription metricDescription, final MeasuringPoint measuringPoint) {
         // Check for existing Edp2Measures in the experimentGroup
         for (final Measure edp2Measure : this.experimentGroup.getMeasure()) {
-            if (edp2Measure.getMetric().equals(measureMetric) && edp2Measure.getMeasuringPoint().equals(measuringPoint)) {
+            if (edp2Measure.getMetric().equals(metricDescription)
+                    && edp2Measure.getMeasuringPoint().equals(measuringPoint)) {
                 return edp2Measure;
             }
         }
 
-        return createMeasure(measureMetric, measuringPoint);
+        return createMeasure(metricDescription, measuringPoint);
     }
 
+    /**
+     * Creates a new measure conforming to the given metric description and to the given measuring
+     * point.
+     * 
+     * @param measureMetric
+     *            the metric description of the measure.
+     * @param measuringPoint
+     *            the measuring point of the measure.
+     * @return a newly created measure conforming to the given parameters.
+     */
     protected Measure createMeasure(final MetricDescription measureMetric, final MeasuringPoint measuringPoint) {
         final Measure measure;
 
@@ -87,6 +122,10 @@ public abstract class AbstractEDP2RecorderConfigurationFactory<RUN extends Run> 
 
     /**
      * Initialize EDP2 measurements.
+     * 
+     * @param measure
+     *            the measure typing the measurements to be initialized.
+     * @return a newly created measurements object; typed by the given measure.
      */
     private Measurements initializeMeasurements(final Measure measure) {
         final Measurements measurements = ExperimentDataFactory.eINSTANCE.createMeasurements();
@@ -132,19 +171,27 @@ public abstract class AbstractEDP2RecorderConfigurationFactory<RUN extends Run> 
         this.repository.getExperimentGroups().add(this.experimentGroup);
     }
 
+    /**
+     * Adds the given metric description to the metric description repository if not present.
+     * 
+     * @param metricDescription
+     *            the metric description to be added.
+     * @return the original metric description if it was added; an existing one if the metric
+     *         description was already available in the repository.
+     */
     private MetricDescription addMetricDescriptionToRepository(final MetricDescription metricDescription) {
         if (metricDescription.getRepository() != null) {
             return metricDescription;
         }
 
         // Find existing description based on metric UUID
-        for (final Identifier identifiable : repository.getDescriptions()) {
+        for (final Identifier identifiable : this.repository.getDescriptions()) {
             if (identifiable.getId().equals(metricDescription.getId())) {
                 return (MetricDescription) identifiable;
             }
         }
 
-        repository.getDescriptions().add(metricDescription);
+        this.repository.getDescriptions().add(metricDescription);
         if (metricDescription instanceof MetricSetDescription) {
             for (final MetricDescription childMetricDescription : ((MetricSetDescription) metricDescription)
                     .getSubsumedMetrics()) {
@@ -152,10 +199,5 @@ public abstract class AbstractEDP2RecorderConfigurationFactory<RUN extends Run> 
             }
         }
         return metricDescription;
-    }
-
-    @Override
-    public void finalizeRecorderConfigurationFactory() {
-        this.repository.flush();
     }
 }

@@ -19,7 +19,7 @@ public abstract class AbstractRecorderConfiguration implements IRecorderConfigur
     /** Accepted metric of this configuration. */
     private MetricDescription recorderAcceptedMetric;
 
-    /** @deprecated Measuring point as needed by the sensor framework. */
+    /** Key for measuring points to be used by recorders; usable for key-value configuration maps. */
     public static final String MEASURING_POINT = "measuringPoint";
 
     /** @deprecated Measuring point as needed by the sensor framework. */
@@ -27,7 +27,8 @@ public abstract class AbstractRecorderConfiguration implements IRecorderConfigur
 
     @Override
     public void setConfiguration(final Map<String, Object> configuration) {
-        this.recorderAcceptedMetric = MapHelper.getValue(configuration, RECORDER_ACCEPTED_METRIC, MetricDescription.class);
+        this.recorderAcceptedMetric = MapHelper.getValue(configuration, RECORDER_ACCEPTED_METRIC,
+                MetricDescription.class);
         this.measuringPoint = MapHelper.getValue(configuration, MEASURING_POINT, MeasuringPoint.class);
     }
 
@@ -49,5 +50,5 @@ public abstract class AbstractRecorderConfiguration implements IRecorderConfigur
     public final MetricDescription getRecorderAcceptedMetric() {
         return this.recorderAcceptedMetric;
     }
-    
+
 }

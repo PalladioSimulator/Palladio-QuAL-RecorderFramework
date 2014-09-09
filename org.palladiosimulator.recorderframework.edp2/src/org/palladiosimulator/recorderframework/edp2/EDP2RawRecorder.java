@@ -20,8 +20,8 @@ import org.palladiosimulator.recorderframework.config.IRecorderConfiguration;
 import org.palladiosimulator.recorderframework.edp2.config.EDP2RecorderConfiguration;
 
 /**
- * This class provides methods necessary to write raw or aggregated measurements to the EDP2. It
- * follows the typical three steps of ProbeFramework:
+ * This class provides methods necessary to write measurements to EDP2. It follows the typical three
+ * steps of ProbeFramework:
  * 
  * 1) initialize: Sets up the whole experiment by specifying the EDP2 repository, an experiment
  * group, EDP2Measure objects, an ExperimentSetting, an ExperimentRun, and Measurements.
@@ -30,16 +30,20 @@ import org.palladiosimulator.recorderframework.edp2.config.EDP2RecorderConfigura
  * 
  * 3) flush: Ends the experiment by writing to EDP2.
  * 
- * @author Baum, Sebastian Lehrig
+ * Note that this class copes with raw measurements only. Handling aggregated measurements would be
+ * the task of a different recorder.
  * 
+ * @author Sebastian Lehrig, Steffen Becker
  */
 public class EDP2RawRecorder extends AbstractRecorder {
 
     /** Shortcut to experiment data factory. */
     private static final ExperimentDataFactory EXPERIMENT_DATA_FACTORY = ExperimentDataFactory.eINSTANCE;
 
+    /** EDP2 recorder configuration. */
     private EDP2RecorderConfiguration edp2RecorderConfig;
 
+    /** The measurements object where measurement data will be attached to. */
     private Measurements measurements;
 
     @Override
@@ -50,7 +54,10 @@ public class EDP2RawRecorder extends AbstractRecorder {
     }
 
     /**
-     * This method writes given measurement data to EDP2.
+     * This method writes the given measurement data to EDP2.
+     * 
+     * @param data
+     *            the given measurement data.
      */
     @Override
     public void writeData(final Measurement data) {
