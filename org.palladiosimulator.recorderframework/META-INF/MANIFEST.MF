@@ -19,5 +19,6 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.palladiosimulator.recorderframework,
  org.palladiosimulator.recorderframework.config,
  org.palladiosimulator.recorderframework.filters,
- org.palladiosimulator.recorderframework.launch
+ org.palladiosimulator.recorderframework.launch,
+ org.palladiosimulator.recorderframework.utils
 Bundle-Vendor: palladiosimulator.org
