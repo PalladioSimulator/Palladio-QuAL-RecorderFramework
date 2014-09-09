@@ -1,17 +1,23 @@
 package org.palladiosimulator.recorderframework.edp2.config;
 
-import java.io.Serializable;
 import java.util.Map;
 
 import org.palladiosimulator.commons.datastructureutils.MapHelper;
 import org.palladiosimulator.edp2.models.ExperimentData.Measurements;
 import org.palladiosimulator.recorderframework.config.AbstractRecorderConfiguration;
 
-public class EDP2RecorderConfiguration extends AbstractRecorderConfiguration implements Serializable {
+/**
+ * Specifies EDP2 recorder configuration objects. These configuration objects allow for accessing
+ * EDP2 {@link Measurements}.
+ * 
+ * @author Sebastian Lehrig
+ */
+public class EDP2RecorderConfiguration extends AbstractRecorderConfiguration {
 
-    private static final long serialVersionUID = 1L;
-
+    /** Identifier for measurements; usable in key-value maps. */
     public static final String MEASUREMENTS = "measurements";
+
+    /** The measurements available in this configuration. */
     private Measurements measurements;
 
     @Override
@@ -20,11 +26,11 @@ public class EDP2RecorderConfiguration extends AbstractRecorderConfiguration imp
         this.measurements = MapHelper.getValue(configuration, MEASUREMENTS, Measurements.class);
     }
 
-    public String getModelElementID() {
-        // TODO!
-        return null;
-    }
-
+    /**
+     * Getter for the measurements of this configuration.
+     * 
+     * @return the measurements.
+     */
     public Measurements getMeasurements() {
         return this.measurements;
     }

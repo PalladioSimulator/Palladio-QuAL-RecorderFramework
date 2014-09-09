@@ -11,18 +11,25 @@ import org.palladiosimulator.edp2.models.ExperimentData.Measure;
 import org.palladiosimulator.edp2.models.measuringpoint.MeasuringPoint;
 import org.palladiosimulator.metricspec.MetricDescription;
 
+/**
+ * Factory for EDP2 recorder configuration objects that configure the recorder to store measurements
+ * within experiment runs.
+ * 
+ * @author Sebastian Lehrig
+ */
 public class EDP2RecorderConfigurationFactory extends AbstractEDP2RecorderConfigurationFactory<ExperimentRun> {
 
-    private ExperimentSetting experimentSetting;    
+    /** The experiment setting to be used; based on the current variation. */
+    private ExperimentSetting experimentSetting;
 
     @Override
     public void initialize(final Map<String, Object> configuration) {
         super.initialize(configuration);
-        
+
         initializeExperimentSetting(MapHelper.getValue(configuration, VARIATION_ID, String.class));
         initializeExperimentRun();
     }
-    
+
     /**
      * A single run for a given experiment group and setting.
      */
@@ -32,31 +39,29 @@ public class EDP2RecorderConfigurationFactory extends AbstractEDP2RecorderConfig
         this.experimentSetting.getExperimentRuns().add(this.experimentRun);
         this.experimentGroup.getExperimentSettings().add(this.experimentSetting);
     }
-    
+
     /**
      * Different settings shall refer to the same experiment group but apply a variation within a
-     * group of experiment. For example, we could vary the user population within a closed workload
+     * group of experiments. For example, we could vary the user population within a closed workload
      * over different experiment settings.
+     * 
+     * @param variationID
+     *            the variation to be used for this experiment setting.
      */
     private void initializeExperimentSetting(final String variationID) {
         // check for existing experiment setting
         for (final ExperimentSetting setting : this.experimentGroup.getExperimentSettings()) {
             if (setting.getDescription().equals(variationID)) {
-                this.experimentSetting = setting;                
+                this.experimentSetting = setting;
                 return;
             }
         }
 
         // create new experiment setting
         this.experimentSetting = ExperimentDataFactory.eINSTANCE.createExperimentSetting();
-        this.experimentSetting.setDescription(variationID);        
+        this.experimentSetting.setDescription(variationID);
     }
-    
-    
 
-    /**
-     * Initialize EDP2 measure.
-     */
     @Override
     protected Measure createMeasure(final MetricDescription measureMetric, final MeasuringPoint measuringPoint) {
         final Measure measure = super.createMeasure(measureMetric, measuringPoint);

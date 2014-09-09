@@ -22,6 +22,12 @@ import org.palladiosimulator.edp2.models.Repository.Repository;
 import org.palladiosimulator.edp2.ui.dialogs.datasource.ConfigureDatasourceDialog;
 import org.palladiosimulator.recorderframework.edp2.config.EDP2RecorderConfigurationFactory;
 
+/**
+ * Configures an EDP2-specific launch configuration tab. This tab allows for adding and selecting
+ * EDP2 repositories.
+ * 
+ * @author Sebastian Lehrig
+ */
 public class EDP2Tab extends AbstractLaunchConfigurationTab {
 
     private Text dataField;

@@ -6,6 +6,12 @@ import java.util.Map;
 import org.palladiosimulator.edp2.models.ExperimentData.ExperimentDataFactory;
 import org.palladiosimulator.edp2.models.ExperimentData.ExperimentGroupRun;
 
+/**
+ * Factory for EDP2 recorder configuration objects that configure the recorder to store measurements
+ * within experiment group runs.
+ * 
+ * @author Sebastian Lehrig
+ */
 public class EDP2ReportRecorderConfigurationFactory extends
         AbstractEDP2RecorderConfigurationFactory<ExperimentGroupRun> {
 

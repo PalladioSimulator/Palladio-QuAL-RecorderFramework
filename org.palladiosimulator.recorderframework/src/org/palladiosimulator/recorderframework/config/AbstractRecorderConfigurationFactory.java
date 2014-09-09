@@ -7,12 +7,16 @@ import java.util.Map;
 import org.palladiosimulator.commons.datastructureutils.MapHelper;
 
 /**
- * @author snowball, Sebastian Lehrig
+ * Abstract factory for recorder configuration objects.
+ * 
+ * @author Steffen Becker, Sebastian Lehrig
  */
 public abstract class AbstractRecorderConfigurationFactory implements IRecorderConfigurationFactory {
 
+    /** Identifier for experiment runs; usable in key-value maps. */
     public static final String EXPERIMENT_RUN_NAME = "experimentRun";
 
+    /** Date format to be used by recorders. */
     public static final String EXPERIMENT_RUN_DATE_FORMAT = "yyyy/MM/dd HH:mm:ss:SSS";
 
     /**
@@ -25,13 +29,6 @@ public abstract class AbstractRecorderConfigurationFactory implements IRecorderC
      */
     private String experimentRunName;
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * org.palladiosimulator.recorderframework.IRecorderConfigurationFactory#initialize(java.util
-     * .Map)
-     */
     @Override
     public void initialize(final Map<String, Object> configuration) {
         this.experimentName = MapHelper.getValue(configuration, EXPERIMENT_RUN_NAME, String.class);
