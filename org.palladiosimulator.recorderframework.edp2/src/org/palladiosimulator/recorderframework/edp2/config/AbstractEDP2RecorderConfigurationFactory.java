@@ -7,11 +7,12 @@ import org.palladiosimulator.commons.datastructureutils.MapHelper;
 import org.palladiosimulator.edp2.impl.RepositoryManager;
 import org.palladiosimulator.edp2.models.ExperimentData.ExperimentDataFactory;
 import org.palladiosimulator.edp2.models.ExperimentData.ExperimentGroup;
-import org.palladiosimulator.edp2.models.ExperimentData.Measure;
-import org.palladiosimulator.edp2.models.ExperimentData.Measurements;
+import org.palladiosimulator.edp2.models.ExperimentData.Measurement;
+import org.palladiosimulator.edp2.models.ExperimentData.MeasuringType;
 import org.palladiosimulator.edp2.models.ExperimentData.Run;
 import org.palladiosimulator.edp2.models.Repository.Repository;
 import org.palladiosimulator.edp2.models.measuringpoint.MeasuringPoint;
+import org.palladiosimulator.edp2.models.measuringpoint.MeasuringPointRepository;
 import org.palladiosimulator.metricspec.MetricDescription;
 import org.palladiosimulator.metricspec.MetricSetDescription;
 import org.palladiosimulator.recorderframework.config.AbstractRecorderConfiguration;
@@ -49,7 +50,7 @@ public abstract class AbstractEDP2RecorderConfigurationFactory<RUN extends Run> 
     public void initialize(final Map<String, Object> configuration) {
         super.initialize(configuration);
 
-        initalizeEDP2Repository(MapHelper.getValue(configuration, REPOSITORY_ID, String.class));
+        initializeEDP2Repository(MapHelper.getValue(configuration, REPOSITORY_ID, String.class));
         initializeExperimentGroup();
     }
 
@@ -62,11 +63,12 @@ public abstract class AbstractEDP2RecorderConfigurationFactory<RUN extends Run> 
         final MeasuringPoint measuringPoint = (MeasuringPoint) configuration
                 .get(AbstractRecorderConfiguration.MEASURING_POINT);
 
-        final Measurements measure = initializeMeasurements(initializeMeasure(metricDescription, measuringPoint));
+        final Measurement measurement = initializeMeasurements(initializeMeasuringType(metricDescription,
+                measuringPoint));
         final EDP2RecorderConfiguration result = new EDP2RecorderConfiguration();
         final Map<String, Object> newConfiguration = new HashMap<String, Object>();
         newConfiguration.putAll(configuration);
-        newConfiguration.put(EDP2RecorderConfiguration.MEASUREMENTS, measure);
+        newConfiguration.put(EDP2RecorderConfiguration.MEASUREMENT, measurement);
         result.setConfiguration(newConfiguration);
 
         return result;
@@ -87,16 +89,17 @@ public abstract class AbstractEDP2RecorderConfigurationFactory<RUN extends Run> 
      *            the measuring point of the measure.
      * @return a measure conforming to the given parameters.
      */
-    private Measure initializeMeasure(final MetricDescription metricDescription, final MeasuringPoint measuringPoint) {
-        // Check for existing Edp2Measures in the experimentGroup
-        for (final Measure edp2Measure : this.experimentGroup.getMeasure()) {
-            if (edp2Measure.getMetric().equals(metricDescription)
-                    && edp2Measure.getMeasuringPoint().equals(measuringPoint)) {
-                return edp2Measure;
+    private MeasuringType initializeMeasuringType(final MetricDescription metricDescription,
+            final MeasuringPoint measuringPoint) {
+        // Check for existing measuring types in the experimentGroup
+        for (final MeasuringType measuringType : this.experimentGroup.getMeasuringTypes()) {
+            if (measuringType.getMetric().equals(metricDescription)
+                    && measuringType.getMeasuringPoint().equals(measuringPoint)) {
+                return measuringType;
             }
         }
 
-        return createMeasure(metricDescription, measuringPoint);
+        return createMeasuringType(metricDescription, measuringPoint);
     }
 
     /**
@@ -109,29 +112,53 @@ public abstract class AbstractEDP2RecorderConfigurationFactory<RUN extends Run> 
      *            the measuring point of the measure.
      * @return a newly created measure conforming to the given parameters.
      */
-    protected Measure createMeasure(final MetricDescription measureMetric, final MeasuringPoint measuringPoint) {
-        final Measure measure;
+    protected MeasuringType createMeasuringType(final MetricDescription measureMetric,
+            final MeasuringPoint measuringPoint) {
+        initializeMeasuringPointRepository(measuringPoint);
 
-        measure = ExperimentDataFactory.eINSTANCE.createMeasure();
-        measure.setMeasuringPoint(measuringPoint);
-        measure.setMetric(measureMetric);
-        measure.setExperimentGroup(this.experimentGroup);
+        final MeasuringType measuringType;
+        measuringType = ExperimentDataFactory.eINSTANCE.createMeasuringType();
+        measuringType.setMeasuringPoint(measuringPoint);
+        measuringType.setMetric(measureMetric);
+        measuringType.setExperimentGroup(this.experimentGroup);
+        return measuringType;
+    }
 
-        return measure;
+    /**
+     * Initializes a measuring point repository if not present yet.
+     * 
+     * @param measuringPointRepository
+     *            the repository to be initialized.
+     */
+    private void initializeMeasuringPointRepository(final MeasuringPoint measuringPoint) {
+        if (measuringPoint.getMeasuringPointRepository() == null) {
+            throw new IllegalArgumentException("Measuring point \"" + measuringPoint + "\" lacks a repository!");
+        }
+
+        // repo already reference by experiment group?
+        final MeasuringPointRepository measuringPointRepository = measuringPoint.getMeasuringPointRepository();
+        for (final MeasuringPointRepository repo : this.experimentGroup.getMeasuringPointRepositories()) {
+            if (repo.getId().equals(measuringPointRepository.getId())) {
+                return; // yes!
+            }
+        }
+
+        // no!
+        this.experimentGroup.getMeasuringPointRepositories().add(measuringPointRepository);
     }
 
     /**
      * Initialize EDP2 measurements.
      * 
-     * @param measure
+     * @param measuringType
      *            the measure typing the measurements to be initialized.
      * @return a newly created measurements object; typed by the given measure.
      */
-    private Measurements initializeMeasurements(final Measure measure) {
-        final Measurements measurements = ExperimentDataFactory.eINSTANCE.createMeasurements();
+    private Measurement initializeMeasurements(final MeasuringType measuringType) {
+        final Measurement measurements = ExperimentDataFactory.eINSTANCE.createMeasurement();
 
-        measurements.setMeasure(measure);
-        this.experimentRun.getMeasurements().add(measurements);
+        measurements.setMeasuringType(measuringType);
+        this.experimentRun.getMeasurement().add(measurements);
 
         return measurements;
     }
@@ -142,7 +169,7 @@ public abstract class AbstractEDP2RecorderConfigurationFactory<RUN extends Run> 
      * @param repositoryID
      *            the repository ID to check for.
      */
-    private void initalizeEDP2Repository(final String repositoryID) {
+    private void initializeEDP2Repository(final String repositoryID) {
         this.repository = RepositoryManager.getRepositoryFromUUID(repositoryID);
         if (this.repository == null) {
             throw new IllegalArgumentException(

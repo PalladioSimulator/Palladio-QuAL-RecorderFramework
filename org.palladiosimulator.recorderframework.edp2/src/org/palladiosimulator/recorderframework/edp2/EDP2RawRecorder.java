@@ -9,12 +9,12 @@ import javax.measure.unit.SI;
 import org.palladiosimulator.edp2.dao.MeasurementsDao;
 import org.palladiosimulator.edp2.models.ExperimentData.DataSeries;
 import org.palladiosimulator.edp2.models.ExperimentData.ExperimentDataFactory;
-import org.palladiosimulator.edp2.models.ExperimentData.Measurements;
-import org.palladiosimulator.edp2.models.ExperimentData.MeasurementsRange;
+import org.palladiosimulator.edp2.models.ExperimentData.Measurement;
+import org.palladiosimulator.edp2.models.ExperimentData.MeasurementRange;
 import org.palladiosimulator.edp2.models.ExperimentData.RawMeasurements;
 import org.palladiosimulator.edp2.models.ExperimentData.Run;
 import org.palladiosimulator.edp2.util.MeasurementsUtility;
-import org.palladiosimulator.measurementframework.Measurement;
+import org.palladiosimulator.measurementframework.MeasuringValue;
 import org.palladiosimulator.recorderframework.AbstractRecorder;
 import org.palladiosimulator.recorderframework.config.IRecorderConfiguration;
 import org.palladiosimulator.recorderframework.edp2.config.EDP2RecorderConfiguration;
@@ -44,12 +44,12 @@ public class EDP2RawRecorder extends AbstractRecorder {
     private EDP2RecorderConfiguration edp2RecorderConfig;
 
     /** The measurements object where measurement data will be attached to. */
-    private Measurements measurements;
+    private Measurement measurement;
 
     @Override
     public void initialize(final IRecorderConfiguration recorderConfiguration) {
         edp2RecorderConfig = (EDP2RecorderConfiguration) recorderConfiguration;
-        measurements = edp2RecorderConfig.getMeasurements();
+        measurement = edp2RecorderConfig.getMeasurement();
         attachRawMeasurementRangeToMeasurements();
     }
 
@@ -60,8 +60,8 @@ public class EDP2RawRecorder extends AbstractRecorder {
      *            the given measurement data.
      */
     @Override
-    public void writeData(final Measurement data) {
-        MeasurementsUtility.storeMeasurement(measurements, data);
+    public void writeData(final MeasuringValue data) {
+        MeasurementsUtility.storeMeasurement(measurement, data);
     }
 
     /**
@@ -69,16 +69,16 @@ public class EDP2RawRecorder extends AbstractRecorder {
      */
     @Override
     public void flush() {
-        final MeasurementsRange measurementsRange = this.measurements.getMeasurementsRanges().get(0);
-        final Run run = this.measurements.getRun();
+        final MeasurementRange measurementRange = this.measurement.getMeasurementRanges().get(0);
+        final Run run = this.measurement.getRun();
 
         final long startTime = run.getStartTime().getTime();
         final long endTime = new Date().getTime();
         run.setDuration(Measure.valueOf(endTime - startTime, SI.SECOND));
-        measurementsRange.setStartTime(Measure.valueOf(startTime, SI.SECOND));
-        measurementsRange.setEndTime(Measure.valueOf(endTime, SI.SECOND));
+        measurementRange.setStartTime(Measure.valueOf(startTime, SI.SECOND));
+        measurementRange.setEndTime(Measure.valueOf(endTime, SI.SECOND));
 
-        for (final DataSeries ds : measurementsRange.getRawMeasurements().getDataSeries()) {
+        for (final DataSeries ds : measurementRange.getRawMeasurements().getDataSeries()) {
             final MeasurementsDao<?, ? extends Quantity> dao = MeasurementsUtility.getMeasurementsDao(ds);
             dao.flush();
         }
@@ -89,7 +89,7 @@ public class EDP2RawRecorder extends AbstractRecorder {
      * In this method, an EDP2 experiment run is prepared by initializing EDP2's MeasurementRange
      */
     private void attachRawMeasurementRangeToMeasurements() {
-        final MeasurementsRange measurementsRange = EXPERIMENT_DATA_FACTORY.createMeasurementsRange(measurements);
+        final MeasurementRange measurementsRange = EXPERIMENT_DATA_FACTORY.createMeasurementRange(measurement);
         final RawMeasurements rawMeasurements = EXPERIMENT_DATA_FACTORY.createRawMeasurements(measurementsRange);
         MeasurementsUtility.createDAOsForRawMeasurements(rawMeasurements);
     }

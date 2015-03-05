@@ -17,7 +17,7 @@ import static org.palladiosimulator.metricspec.constants.MetricDescriptionConsta
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
-import org.palladiosimulator.measurementframework.Measurement;
+import org.palladiosimulator.measurementframework.MeasuringValue;
 import org.palladiosimulator.recorderframework.AbstractRecorder;
 import org.palladiosimulator.recorderframework.config.IRecorderConfiguration;
 import org.palladiosimulator.recorderframework.sensorframework.strategies.AbstractWriteDataStrategy;
@@ -113,7 +113,7 @@ public class SensorFrameworkRecorder extends AbstractRecorder {
     }
 
     @Override
-    public void writeData(final Measurement data) {
+    public void writeData(final MeasuringValue data) {
         if (!flushed) {
             writeDataStrategy.writeData(data);
         } else {

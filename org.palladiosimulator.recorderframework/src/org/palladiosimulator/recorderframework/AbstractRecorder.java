@@ -1,6 +1,6 @@
 package org.palladiosimulator.recorderframework;
 
-import org.palladiosimulator.measurementframework.Measurement;
+import org.palladiosimulator.measurementframework.MeasuringValue;
 
 /**
  * This class is the super class of any recorder implementation. A recorder is responsible of making
@@ -18,7 +18,7 @@ public abstract class AbstractRecorder implements IRecorder {
     }
 
     @Override
-    public final void newMeasurementAvailable(final Measurement measurement) {
+    public final void newMeasurementAvailable(final MeasuringValue measurement) {
         this.writeData(measurement);
     }
 

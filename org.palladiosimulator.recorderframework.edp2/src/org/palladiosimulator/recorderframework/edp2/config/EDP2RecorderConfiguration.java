@@ -3,7 +3,7 @@ package org.palladiosimulator.recorderframework.edp2.config;
 import java.util.Map;
 
 import org.palladiosimulator.commons.datastructureutils.MapHelper;
-import org.palladiosimulator.edp2.models.ExperimentData.Measurements;
+import org.palladiosimulator.edp2.models.ExperimentData.Measurement;
 import org.palladiosimulator.recorderframework.config.AbstractRecorderConfiguration;
 
 /**
@@ -14,16 +14,16 @@ import org.palladiosimulator.recorderframework.config.AbstractRecorderConfigurat
  */
 public class EDP2RecorderConfiguration extends AbstractRecorderConfiguration {
 
-    /** Identifier for measurements; usable in key-value maps. */
-    public static final String MEASUREMENTS = "measurements";
+    /** Identifier for measurement; usable in key-value maps. */
+    public static final String MEASUREMENT = "measurement";
 
-    /** The measurements available in this configuration. */
-    private Measurements measurements;
+    /** The measurement available in this configuration. */
+    private Measurement measurement;
 
     @Override
     public void setConfiguration(final Map<String, Object> configuration) {
         super.setConfiguration(configuration);
-        this.measurements = MapHelper.getValue(configuration, MEASUREMENTS, Measurements.class);
+        this.measurement = MapHelper.getValue(configuration, MEASUREMENT, Measurement.class);
     }
 
     /**
@@ -31,7 +31,7 @@ public class EDP2RecorderConfiguration extends AbstractRecorderConfiguration {
      * 
      * @return the measurements.
      */
-    public Measurements getMeasurements() {
-        return this.measurements;
+    public Measurement getMeasurement() {
+        return this.measurement;
     }
 }

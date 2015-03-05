@@ -7,7 +7,7 @@ import org.palladiosimulator.commons.datastructureutils.MapHelper;
 import org.palladiosimulator.edp2.models.ExperimentData.ExperimentDataFactory;
 import org.palladiosimulator.edp2.models.ExperimentData.ExperimentRun;
 import org.palladiosimulator.edp2.models.ExperimentData.ExperimentSetting;
-import org.palladiosimulator.edp2.models.ExperimentData.Measure;
+import org.palladiosimulator.edp2.models.ExperimentData.MeasuringType;
 import org.palladiosimulator.edp2.models.measuringpoint.MeasuringPoint;
 import org.palladiosimulator.metricspec.MetricDescription;
 
@@ -63,9 +63,10 @@ public class EDP2RecorderConfigurationFactory extends AbstractEDP2RecorderConfig
     }
 
     @Override
-    protected Measure createMeasure(final MetricDescription measureMetric, final MeasuringPoint measuringPoint) {
-        final Measure measure = super.createMeasure(measureMetric, measuringPoint);
-        measure.getExperimentSettings().add(this.experimentSetting);
-        return measure;
+    protected MeasuringType createMeasuringType(final MetricDescription measureMetric,
+            final MeasuringPoint measuringPoint) {
+        final MeasuringType measuringType = super.createMeasuringType(measureMetric, measuringPoint);
+        measuringType.getExperimentSettings().add(this.experimentSetting);
+        return measuringType;
     }
 }

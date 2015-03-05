@@ -1,6 +1,6 @@
 package org.palladiosimulator.recorderframework;
 
-import org.palladiosimulator.measurementframework.Measurement;
+import org.palladiosimulator.measurementframework.MeasuringValue;
 import org.palladiosimulator.measurementframework.listener.IMeasurementSourceListener;
 import org.palladiosimulator.recorderframework.config.IRecorderConfiguration;
 
@@ -25,7 +25,7 @@ public interface IRecorder extends IMeasurementSourceListener {
      * @param measurement
      *            The measurement that should be stored.
      */
-    public abstract void writeData(final Measurement measurement);
+    public abstract void writeData(final MeasuringValue measurement);
 
     /**
      * This method is called at the end of the writing process. Flushing assures that all data is
