@@ -7,7 +7,6 @@ import javax.measure.quantity.Dimensionless;
 import javax.measure.quantity.Duration;
 import javax.measure.unit.SI;
 
-import org.palladiosimulator.edp2.util.MeasuringPointUtility;
 import org.palladiosimulator.measurementframework.measureprovider.IMeasureProvider;
 import org.palladiosimulator.metricspec.constants.MetricDescriptionConstants;
 import org.palladiosimulator.recorderframework.config.IRecorderConfiguration;
@@ -23,6 +22,7 @@ import de.uka.ipd.sdq.sensorframework.entities.dao.IDAOFactory;
 /**
  * @deprecated Superseded by EDP2.
  */
+@Deprecated
 public class StateOfActiveResourceWriteDataStrategy extends AbstractWriteDataStrategy {
 
     private final HashMap<String, State> statesCache = new HashMap<String, State>();
@@ -40,7 +40,7 @@ public class StateOfActiveResourceWriteDataStrategy extends AbstractWriteDataStr
     public void initialise(final IRecorderConfiguration recorderConfiguration) {
         final SensorFrameworkRecorderConfiguration sensorFrameworkRecorderConfig = (SensorFrameworkRecorderConfiguration) recorderConfiguration;
         final String sensorId = sensorFrameworkRecorderConfig.getRecorderAcceptedMetric().getName() + " of "
-                + MeasuringPointUtility.measuringPointToString(sensorFrameworkRecorderConfig.getMeasuringPoint());
+                + sensorFrameworkRecorderConfig.getMeasuringPoint().getStringRepresentation();
         this.idleState = SensorHelper.createOrReuseState(daoFactory, "Idle");
         this.busyState = SensorHelper.createOrReuseState(daoFactory, "Busy");
         sensor = SensorHelper.createOrReuseStateSensor(daoFactory, experiment, sensorId, idleState);

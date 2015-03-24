@@ -7,7 +7,6 @@ import javax.measure.quantity.Dimensionless;
 import javax.measure.quantity.Duration;
 import javax.measure.unit.SI;
 
-import org.palladiosimulator.edp2.util.MeasuringPointUtility;
 import org.palladiosimulator.measurementframework.measureprovider.IMeasureProvider;
 import org.palladiosimulator.metricspec.Identifier;
 import org.palladiosimulator.metricspec.MetricSetDescription;
@@ -29,6 +28,7 @@ import de.uka.ipd.sdq.sensorframework.entities.dao.IDAOFactory;
  * @author brosch
  * @deprecated Superseded by EDP2.
  */
+@Deprecated
 public class ExecutionResultWriteDataStrategy extends AbstractWriteDataStrategy {
 
     /**
@@ -63,7 +63,7 @@ public class ExecutionResultWriteDataStrategy extends AbstractWriteDataStrategy 
         final SensorFrameworkRecorderConfiguration sensorFrameworkRecorderConfig = (SensorFrameworkRecorderConfiguration) recorderConfiguration;
         initStatesCache(sensorFrameworkRecorderConfig);
         initSensor(sensorFrameworkRecorderConfig.getRecorderAcceptedMetric().getName() + " of "
-                + MeasuringPointUtility.measuringPointToString(sensorFrameworkRecorderConfig.getMeasuringPoint()));
+                + sensorFrameworkRecorderConfig.getMeasuringPoint().getStringRepresentation());
     }
 
     /*
