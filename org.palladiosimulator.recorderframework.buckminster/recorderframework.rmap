@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rm:rmap xmlns:bc="http://www.eclipse.org/buckminster/Common-1.0" xmlns:rm="http://www.eclipse.org/buckminster/RMap-1.0">
   
+  <rm:locator searchPathRef="MDSDProfiles" failOnError="false"/>
+  
   <rm:locator searchPathRef="RecorderFramework" failOnError="false"/>
   
   <rm:locator searchPathRef="ProbeFramework" failOnError="false"/>
@@ -22,8 +24,6 @@
   <rm:locator pattern="^org\.palladiosimulator\.measurementframework.*" searchPathRef="measurementframework" failOnError="false"/>
   
   <rm:locator pattern="^org\.palladiosimulator\.servicelevelobjective.*" searchPathRef="ServiceLevelObjectives" failOnError="false"/>
-  
-  <rm:locator searchPathRef="MDSDProfiles" failOnError="false"/>
   
   <rm:locator searchPathRef="eclipse-release" failOnError="false"/>
   
