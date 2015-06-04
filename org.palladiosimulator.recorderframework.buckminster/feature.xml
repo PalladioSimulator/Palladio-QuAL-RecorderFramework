@@ -14,7 +14,6 @@
       <discovery label="Metric Specification Framework" url="http://sdqweb.ipd.kit.edu/eclipse/metricspec/nightly/"/>
       <discovery label="Measurement Framework" url="http://sdqweb.ipd.kit.edu/eclipse/measurementframework/nightly/"/>            
       <discovery label="Service Level Objectives" url="http://sdqweb.ipd.kit.edu/eclipse/servicelevelobjectives/nightly/"/>
-      <discovery label="MDSD Profiles" url="http://sdqweb.ipd.kit.edu/eclipse/mdsdprofiles/nightly/"/>
       <discovery label="Eclipse Release" url="http://download.eclipse.org/releases/luna/"/>
       <discovery label="Eclipse Orbit" url="http://download.eclipse.org/tools/orbit/downloads/drops/R20130827064939/repository/"/>
    </url>
