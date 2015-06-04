@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rm:rmap xmlns:bc="http://www.eclipse.org/buckminster/Common-1.0" xmlns:rm="http://www.eclipse.org/buckminster/RMap-1.0">
   
-  <rm:locator searchPathRef="MDSDProfiles" failOnError="false"/>
-  
   <rm:locator searchPathRef="RecorderFramework" failOnError="false"/>
   
   <rm:locator searchPathRef="ProbeFramework" failOnError="false"/>
@@ -98,14 +96,6 @@
       <rm:property key="buckminster.source" value="false"/>
       <rm:property key="buckminster.mutable" value="false"/>
       <rm:uri format="http://sdqweb.ipd.kit.edu/eclipse/servicelevelobjectives/nightly/"/>
-    </rm:provider>
-  </rm:searchPath>
-  
-  <rm:searchPath name="MDSDProfiles">
-    <rm:provider componentTypes="osgi.bundle,eclipse.feature" readerType="p2" source="false" mutable="false">
-      <rm:property key="buckminster.source" value="false"/>
-      <rm:property key="buckminster.mutable" value="false"/>
-      <rm:uri format="http://sdqweb.ipd.kit.edu/eclipse/mdsdprofiles/nightly/"/>
     </rm:provider>
   </rm:searchPath>
   
