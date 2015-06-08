@@ -23,6 +23,8 @@
   
   <rm:locator pattern="^org\.palladiosimulator\.servicelevelobjective.*" searchPathRef="ServiceLevelObjectives" failOnError="false"/>
   
+  <rm:locator pattern="^org\.jscience.*" searchPathRef="thirdpartywrapper" failOnError="false"/>
+  
   <rm:locator searchPathRef="eclipse-release" failOnError="false"/>
   
   <rm:locator searchPathRef="orbit" failOnError="false"/>
@@ -96,6 +98,14 @@
       <rm:property key="buckminster.source" value="false"/>
       <rm:property key="buckminster.mutable" value="false"/>
       <rm:uri format="http://sdqweb.ipd.kit.edu/eclipse/servicelevelobjectives/nightly/"/>
+    </rm:provider>
+  </rm:searchPath>
+  
+    <rm:searchPath name="thirdpartywrapper">
+    <rm:provider componentTypes="osgi.bundle,eclipse.feature,buckminster" readerType="p2" source="false" mutable="false">
+      <rm:property key="buckminster.source" value="false"/>
+      <rm:property key="buckminster.mutable" value="false"/>
+      <rm:uri format="https://sdqweb.ipd.kit.edu/eclipse/thirdpartywrapper/nightly/"/>
     </rm:provider>
   </rm:searchPath>
   
