@@ -3,14 +3,8 @@
   
   <rm:locator searchPathRef="RecorderFramework" failOnError="false"/>
   
-  <rm:locator searchPathRef="ProbeFramework" failOnError="false"/>
-  
-  <rm:locator pattern="^de\.uka\.ipd\.sdq\..*" searchPathRef="palladio-commons" failOnError="false"/>
-  <rm:locator pattern="^org\.palladiosimulator\..*" searchPathRef="palladio-commons" failOnError="false"/>
-  <rm:locator pattern="^edu\.kit\..*" searchPathRef="palladio-commons" failOnError="false"/>
-  
-  <rm:locator pattern="^de\.uka\.ipd\.sdq\..*" searchPathRef="Palladio" failOnError="false"/>
-  
+  <rm:locator pattern="^org\.palladiosimulator\.probeframework.*" searchPathRef="ProbeFramework" failOnError="false"/>
+
   <rm:locator pattern="^de\.uka\.ipd\.sdq\..*" searchPathRef="sensorframework" failOnError="false"/>
   <rm:locator pattern="^org\..*" searchPathRef="sensorframework" failOnError="false"/>
   
@@ -21,13 +15,8 @@
   
   <rm:locator pattern="^org\.palladiosimulator\.measurementframework.*" searchPathRef="measurementframework" failOnError="false"/>
   
-  <rm:locator pattern="^org\.palladiosimulator\.servicelevelobjective.*" searchPathRef="ServiceLevelObjectives" failOnError="false"/>
+  <rm:redirect pattern=".*" href="https://anonymous:anonymous@svnserver.informatik.kit.edu/i43/svn/code/Build/trunk/org.palladiosimulator.targetPlatformBuild/commons.rmap"/>
   
-  <rm:locator pattern="^org\.jscience.*" searchPathRef="thirdpartywrapper" failOnError="false"/>
-  
-  <rm:locator searchPathRef="eclipse-release" failOnError="false"/>
-  
-  <rm:locator searchPathRef="orbit" failOnError="false"/>
   
   <rm:searchPath name="RecorderFramework">
     <rm:provider componentTypes="eclipse.feature,osgi.bundle" readerType="svn">
@@ -44,23 +33,7 @@
       <rm:uri format="http://sdqweb.ipd.kit.edu/eclipse/probeframework/nightly/"/>
     </rm:provider>
   </rm:searchPath>
-  
-  <rm:searchPath name="palladio-commons">
-    <rm:provider componentTypes="osgi.bundle,eclipse.feature" readerType="p2" source="false" mutable="false">
-      <rm:property key="buckminster.source" value="false"/>
-      <rm:property key="buckminster.mutable" value="false"/>
-      <rm:uri format="http://sdqweb.ipd.kit.edu/eclipse/commons/nightly/"/>
-    </rm:provider>
-  </rm:searchPath>
-  
-  <rm:searchPath name="Palladio">
-    <rm:provider componentTypes="osgi.bundle,eclipse.feature,buckminster" readerType="p2" source="false" mutable="false">
-      <rm:property key="buckminster.source" value="false"/>
-      <rm:property key="buckminster.mutable" value="false"/>
-      <rm:uri format="https://sdqweb.ipd.kit.edu/eclipse/palladio/nightly"/>
-    </rm:provider>
-  </rm:searchPath>
-  
+      
   <rm:searchPath name="sensorframework">
     <rm:provider componentTypes="osgi.bundle,eclipse.feature" readerType="p2" source="false" mutable="false">
       <rm:property key="buckminster.source" value="false"/>
@@ -90,38 +63,6 @@
       <rm:property key="buckminster.source" value="false"/>
       <rm:property key="buckminster.mutable" value="false"/>
       <rm:uri format="http://sdqweb.ipd.kit.edu/eclipse/measurementframework/nightly/"/>
-    </rm:provider>
-  </rm:searchPath>
-  
-  <rm:searchPath name="ServiceLevelObjectives">
-    <rm:provider componentTypes="osgi.bundle,eclipse.feature,buckminster" readerType="p2" source="false" mutable="false">
-      <rm:property key="buckminster.source" value="false"/>
-      <rm:property key="buckminster.mutable" value="false"/>
-      <rm:uri format="http://sdqweb.ipd.kit.edu/eclipse/servicelevelobjectives/nightly/"/>
-    </rm:provider>
-  </rm:searchPath>
-  
-    <rm:searchPath name="thirdpartywrapper">
-    <rm:provider componentTypes="osgi.bundle,eclipse.feature,buckminster" readerType="p2" source="false" mutable="false">
-      <rm:property key="buckminster.source" value="false"/>
-      <rm:property key="buckminster.mutable" value="false"/>
-      <rm:uri format="https://sdqweb.ipd.kit.edu/eclipse/thirdpartywrapper/nightly/"/>
-    </rm:provider>
-  </rm:searchPath>
-  
-  <rm:searchPath name="eclipse-release">
-    <rm:provider componentTypes="osgi.bundle,eclipse.feature" readerType="p2" source="false" mutable="false">
-      <rm:property key="buckminster.source" value="false"/>
-      <rm:property key="buckminster.mutable" value="false"/>
-      <rm:uri format="http://download.eclipse.org/releases/luna/"/>
-    </rm:provider>
-  </rm:searchPath>
-  
-  <rm:searchPath name="orbit">
-    <rm:provider componentTypes="osgi.bundle,eclipse.feature,buckminster" readerType="p2" source="false" mutable="false">
-      <rm:property key="buckminster.source" value="false"/>
-      <rm:property key="buckminster.mutable" value="false"/>
-      <rm:uri format="http://download.eclipse.org/tools/orbit/downloads/drops/R20130827064939/repository/"/>
     </rm:provider>
   </rm:searchPath>
   
