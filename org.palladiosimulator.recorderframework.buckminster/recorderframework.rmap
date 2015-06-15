@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rm:rmap xmlns:bc="http://www.eclipse.org/buckminster/Common-1.0" xmlns:rm="http://www.eclipse.org/buckminster/RMap-1.0">
   
-  <rm:locator searchPathRef="RecorderFramework" failOnError="false"/>
+  <rm:locator pattern="^org\.palladiosimulator\.recorderframework.*" searchPathRef="RecorderFramework" failOnError="true"/>
   
   <rm:locator pattern="^org\.palladiosimulator\.probeframework.*" searchPathRef="ProbeFramework" failOnError="false"/>
 
-  <rm:locator pattern="^de\.uka\.ipd\.sdq\..*" searchPathRef="sensorframework" failOnError="false"/>
-  <rm:locator pattern="^org\..*" searchPathRef="sensorframework" failOnError="false"/>
+  <rm:locator pattern="^de\.uka\.ipd\.sdq\.sensorframework.*" searchPathRef="sensorframework" failOnError="false"/>
+  <rm:locator pattern="^de\.uka\.ipd\.sdq\.codegen\.simudatavisualisation.*" searchPathRef="sensorframework" failOnError="false"/>
   
   <rm:locator pattern="^org\.palladiosimulator\.edp2.*" searchPathRef="edp2" failOnError="false"/>
-  <rm:locator pattern="^org\..*" searchPathRef="edp2" failOnError="false"/>
   
   <rm:locator pattern="^org\.palladiosimulator\.metricspec.*" searchPathRef="metricspec" failOnError="false"/>
   
@@ -19,10 +18,10 @@
   
   
   <rm:searchPath name="RecorderFramework">
-    <rm:provider componentTypes="eclipse.feature,osgi.bundle" readerType="svn">
-      <rm:uri format="https://anonymous:anonymous@svnserver.informatik.kit.edu/i43/svn/code/RecorderFramework/trunk/{0}">
-        <bc:propertyRef key="buckminster.component"/>
-      </rm:uri>
+    <rm:provider componentTypes="osgi.bundle,eclipse.feature" readerType="p2" source="false" mutable="false">
+      <rm:property key="buckminster.source" value="false"/>
+      <rm:property key="buckminster.mutable" value="false"/>
+      <rm:uri format="http://sdqweb.ipd.kit.edu/eclipse/recorderframework/nightly/"/>
     </rm:provider>
   </rm:searchPath>
   
