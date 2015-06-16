@@ -10,12 +10,6 @@
    <description url="http://palladiosimulator.org">
       Allows the specification of recorders that can store measured metrics. Recorders can store such measurements in files, main memory, data bases and the like.
    </description>
-
-   <copyright>
-      This plugin is protected by copyright held by the members of
-the Palladio Research Group, University of Karlsruhe.
-   </copyright>
-
    
    <requires>
       <import plugin="org.jscience" version="4.1.3" match="greaterOrEqual"/>
