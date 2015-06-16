@@ -3,8 +3,11 @@
       id="org.palladiosimulator.recorderframework.buckminster"
       label="Palladio RecorderFramework"
       version="1.0.0.qualifier"
-      provider-name="palladiosimulator.org">
+      provider-name="palladiosimulator.org"
+      license-feature="org.palladiosimulator.license"
+      license-feature-version="1.0.0.qualifier">
 
+   
    <url>
       <discovery label="Palladio Probe Framework" url="https://sdqweb.ipd.kit.edu/eclipse/probeframework/nightly/"/>
       <discovery label="Palladio Commons" url="https://sdqweb.ipd.kit.edu/eclipse/commons/nightly/"/>
@@ -12,7 +15,7 @@
       <discovery label="Palladio Sensor Framework" url="https://sdqweb.ipd.kit.edu/eclipse/sensorframework/nightly/"/>
       <discovery label="EDP2" url="https://sdqweb.ipd.kit.edu/eclipse/edp2/nightly/"/>
       <discovery label="Metric Specification Framework" url="https://sdqweb.ipd.kit.edu/eclipse/metricspec/nightly/"/>
-      <discovery label="Measurement Framework" url="https://sdqweb.ipd.kit.edu/eclipse/measurementframework/nightly/"/>            
+      <discovery label="Measurement Framework" url="https://sdqweb.ipd.kit.edu/eclipse/measurementframework/nightly/"/>
       <discovery label="Service Level Objectives" url="https://sdqweb.ipd.kit.edu/eclipse/servicelevelobjectives/nightly/"/>
       <discovery label="Eclipse Release" url="http://download.eclipse.org/releases/luna/"/>
       <discovery label="Eclipse Orbit" url="http://download.eclipse.org/tools/orbit/downloads/drops/R20130827064939/repository/"/>
