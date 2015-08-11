@@ -25,7 +25,7 @@ import org.palladiosimulator.recorderframework.edp2.config.EDP2RecorderConfigura
 /**
  * Configures an EDP2-specific launch configuration tab. This tab allows for adding and selecting
  * EDP2 repositories.
- * 
+ *
  * @author Sebastian Lehrig
  */
 public class EDP2Tab extends AbstractLaunchConfigurationTab {
@@ -69,7 +69,7 @@ public class EDP2Tab extends AbstractLaunchConfigurationTab {
 
             /*
              * (non-Javadoc)
-             * 
+             *
              * @see org.eclipse.swt.events.SelectionListener#widgetSelected(org.eclipse
              * .swt.events.SelectionEvent)
              */
@@ -81,6 +81,11 @@ public class EDP2Tab extends AbstractLaunchConfigurationTab {
                     final Repository repository = (Repository) dialog.getResult();
                     selectedRepositoryID = repository.getId();
                     dataField.setText(repository.toString());
+                } else {
+                    if (RepositoryManager.getRepositoryFromUUID(selectedRepositoryID) == null) {
+                        selectedRepositoryID = "";
+                        dataField.setText("");
+                    }
                 }
             }
         });
