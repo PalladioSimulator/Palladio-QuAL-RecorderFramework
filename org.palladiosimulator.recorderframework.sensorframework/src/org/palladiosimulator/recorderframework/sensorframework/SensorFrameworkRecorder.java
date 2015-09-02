@@ -12,6 +12,7 @@ import static org.palladiosimulator.metricspec.constants.MetricDescriptionConsta
 import static org.palladiosimulator.metricspec.constants.MetricDescriptionConstants.STATE_OF_ACTIVE_RESOURCE_METRIC;
 import static org.palladiosimulator.metricspec.constants.MetricDescriptionConstants.STATE_OF_ACTIVE_RESOURCE_METRIC_TUPLE;
 import static org.palladiosimulator.metricspec.constants.MetricDescriptionConstants.STATE_OF_ACTIVE_RESOURCE_OVER_TIME_METRIC;
+import static org.palladiosimulator.metricspec.constants.MetricDescriptionConstants.STATE_OF_PASSIVE_RESOURCE_METRIC_TUPLE;
 import static org.palladiosimulator.metricspec.constants.MetricDescriptionConstants.WAITING_TIME_METRIC;
 import static org.palladiosimulator.metricspec.constants.MetricDescriptionConstants.WAITING_TIME_METRIC_TUPLE;
 
@@ -22,11 +23,13 @@ import org.palladiosimulator.recorderframework.AbstractRecorder;
 import org.palladiosimulator.recorderframework.config.IRecorderConfiguration;
 import org.palladiosimulator.recorderframework.sensorframework.strategies.AbstractWriteDataStrategy;
 import org.palladiosimulator.recorderframework.sensorframework.strategies.ExecutionResultWriteDataStrategy;
+import org.palladiosimulator.recorderframework.sensorframework.strategies.HoldingTimeWriteDataStrategy;
 import org.palladiosimulator.recorderframework.sensorframework.strategies.OverallStateWriteDataStrategy;
 import org.palladiosimulator.recorderframework.sensorframework.strategies.PointInTimeWriteDataStrategy;
 import org.palladiosimulator.recorderframework.sensorframework.strategies.ResourceDemandWriteDataStrategy;
 import org.palladiosimulator.recorderframework.sensorframework.strategies.ResponseTimeWriteDataStrategy;
 import org.palladiosimulator.recorderframework.sensorframework.strategies.StateOfActiveResourceWriteDataStrategy;
+import org.palladiosimulator.recorderframework.sensorframework.strategies.StateOfPassiveResourceWriteDataStrategy;
 import org.palladiosimulator.recorderframework.sensorframework.strategies.WaitingTimeWriteDataStrategy;
 
 import de.uka.ipd.sdq.sensorframework.entities.Experiment;
@@ -39,6 +42,7 @@ import de.uka.ipd.sdq.sensorframework.entities.dao.IDAOFactory;
  * @author pmerkle, Sebastian Lehrig
  * @deprecated Superseded by EDP2.
  */
+@Deprecated
 public class SensorFrameworkRecorder extends AbstractRecorder {
 
     private static final Logger LOGGER = Logger.getLogger(SensorFrameworkRecorder.class.getName());
@@ -60,9 +64,9 @@ public class SensorFrameworkRecorder extends AbstractRecorder {
         if (myRecorderConfiguration instanceof SensorFrameworkRecorderConfiguration) {
             this.recorderConfiguration = (SensorFrameworkRecorderConfiguration) myRecorderConfiguration;
         } else {
-            throw new IllegalArgumentException("Expected meta data of type "
-                    + SensorFrameworkRecorderConfiguration.class.getSimpleName() + " but was "
-                    + myRecorderConfiguration.getClass().getSimpleName());
+            throw new IllegalArgumentException(
+                    "Expected meta data of type " + SensorFrameworkRecorderConfiguration.class.getSimpleName()
+                            + " but was " + myRecorderConfiguration.getClass().getSimpleName());
         }
 
         if (this.recorderConfiguration.isRemoteRun()) {
@@ -74,40 +78,38 @@ public class SensorFrameworkRecorder extends AbstractRecorder {
         final IDAOFactory daoFactory = this.recorderConfiguration.getDaoFactory();
         final Experiment experiment = this.recorderConfiguration.getExperiment();
         final ExperimentRun run = this.recorderConfiguration.getExperimentRun();
-        final String recorderAcceptedMetric = recorderConfiguration.getRecorderAcceptedMetric().getId();
+        final String recorderAcceptedMetric = this.recorderConfiguration.getRecorderAcceptedMetric().getId();
         if (recorderAcceptedMetric.equals(POINT_IN_TIME_METRIC.getId())) {
-            writeDataStrategy = new PointInTimeWriteDataStrategy(daoFactory, experiment, run);
+            this.writeDataStrategy = new PointInTimeWriteDataStrategy(daoFactory, experiment, run);
         } else if (recorderAcceptedMetric.equals(RESPONSE_TIME_METRIC.getId())
                 || recorderAcceptedMetric.equals(RESPONSE_TIME_METRIC_TUPLE.getId())) {
-            writeDataStrategy = new ResponseTimeWriteDataStrategy(daoFactory, experiment, run);
+            this.writeDataStrategy = new ResponseTimeWriteDataStrategy(daoFactory, experiment, run);
         } else if (recorderAcceptedMetric.equals(HOLDING_TIME_METRIC.getId())
-                || recorderAcceptedMetric.equals(HOLDING_TIME_METRIC_TUPLE.getId())
-                || recorderAcceptedMetric.equals(WAITING_TIME_METRIC.getId())
+                || recorderAcceptedMetric.equals(HOLDING_TIME_METRIC_TUPLE.getId())) {
+            this.writeDataStrategy = new HoldingTimeWriteDataStrategy(daoFactory, experiment, run);
+        } else if (recorderAcceptedMetric.equals(WAITING_TIME_METRIC.getId())
                 || recorderAcceptedMetric.equals(WAITING_TIME_METRIC_TUPLE.getId())) {
-            writeDataStrategy = new WaitingTimeWriteDataStrategy(daoFactory, experiment, run); // TODO
-                                                                                               // Are
-                                                                                               // the
-                                                                                               // correct
-                                                                                               // metrics
-                                                                                               // handled
-                                                                                               // here?
+            this.writeDataStrategy = new WaitingTimeWriteDataStrategy(daoFactory, experiment, run);
         } else if (recorderAcceptedMetric.equals(RESOURCE_DEMAND_METRIC.getId())
                 || recorderAcceptedMetric.equals(RESOURCE_DEMAND_METRIC_TUPLE.getId())) {
-            writeDataStrategy = new ResourceDemandWriteDataStrategy(daoFactory, experiment, run);
+            this.writeDataStrategy = new ResourceDemandWriteDataStrategy(daoFactory, experiment, run);
         } else if (recorderAcceptedMetric.equals(STATE_OF_ACTIVE_RESOURCE_METRIC.getId())
                 || recorderAcceptedMetric.equals(STATE_OF_ACTIVE_RESOURCE_METRIC_TUPLE.getId())
                 || recorderAcceptedMetric.equals(STATE_OF_ACTIVE_RESOURCE_OVER_TIME_METRIC.getId())) {
-            writeDataStrategy = new StateOfActiveResourceWriteDataStrategy(daoFactory, experiment, run);
+            this.writeDataStrategy = new StateOfActiveResourceWriteDataStrategy(daoFactory, experiment, run);
         } else if (recorderAcceptedMetric.equals(OVERALL_STATE_OF_ACTIVE_RESOURCE_METRIC.getId())) {
-            writeDataStrategy = new OverallStateWriteDataStrategy(daoFactory, experiment, run);
+            this.writeDataStrategy = new OverallStateWriteDataStrategy(daoFactory, experiment, run);
         } else if (recorderAcceptedMetric.equals(EXECUTION_RESULT_METRIC.getId())) {
-            writeDataStrategy = new ExecutionResultWriteDataStrategy(daoFactory, experiment, run);
+            this.writeDataStrategy = new ExecutionResultWriteDataStrategy(daoFactory, experiment, run);
+        } else if (recorderAcceptedMetric.equals(STATE_OF_PASSIVE_RESOURCE_METRIC_TUPLE.getId())) {
+            this.writeDataStrategy = new StateOfPassiveResourceWriteDataStrategy(daoFactory, experiment, run);
         } else {
-            throw new RuntimeException("Unsupported metric (\""
-                    + recorderConfiguration.getRecorderAcceptedMetric().getName()
-                    + "\") requested to SensorFramework recorder");
+
+            throw new RuntimeException(
+                    "Unsupported metric (\"" + this.recorderConfiguration.getRecorderAcceptedMetric().getName()
+                            + "\") requested to SensorFramework recorder");
         }
-        writeDataStrategy.initialise(recorderConfiguration);
+        this.writeDataStrategy.initialise(this.recorderConfiguration);
 
         flushed = false;
     }
@@ -115,7 +117,7 @@ public class SensorFrameworkRecorder extends AbstractRecorder {
     @Override
     public void writeData(final MeasuringValue data) {
         if (!flushed) {
-            writeDataStrategy.writeData(data);
+            this.writeDataStrategy.writeData(data);
         } else {
             if (LOGGER.isEnabledFor(Level.WARN)) {
                 LOGGER.warn("Tried to write data, but the pipe has been flushed already");
@@ -130,7 +132,7 @@ public class SensorFrameworkRecorder extends AbstractRecorder {
             if (LOGGER.isDebugEnabled()) {
                 LOGGER.debug("Flushing SensorFramework data store");
             }
-            recorderConfiguration.getDaoFactory().store();
+            this.recorderConfiguration.getDaoFactory().store();
             // do not execute daoFactory.finalizeAndClose() ! This will flush all lists for
             // file-based lists, e.g. experiments, from memory. This should not be done on any DAO
             // requested via the singleton as the lists are not reloaded on next access.
