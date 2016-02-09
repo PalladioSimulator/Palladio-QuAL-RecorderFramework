@@ -93,8 +93,9 @@ public abstract class AbstractEDP2RecorderConfigurationFactory<RUN extends Run> 
             final MeasuringPoint measuringPoint) {
         // Check for existing measuring types in the experimentGroup
         for (final MeasuringType measuringType : this.experimentGroup.getMeasuringTypes()) {
-            if (measuringType.getMetric().equals(metricDescription)
-                    && measuringType.getMeasuringPoint().equals(measuringPoint)) {
+            if (measuringType.getMetric().getId().equals(metricDescription.getId())
+                    && measuringType.getMeasuringPoint().getResourceURIRepresentation().equals(measuringPoint.getResourceURIRepresentation())
+                    && measuringType.getMeasuringPoint().getStringRepresentation().equals(measuringPoint.getStringRepresentation())) {
                 return measuringType;
             }
         }
