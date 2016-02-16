@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.palladiosimulator.commons.datastructureutils.MapHelper;
-import org.palladiosimulator.edp2.MeasuringTypeEquivalenceHelper;
 import org.palladiosimulator.edp2.impl.RepositoryManager;
 import org.palladiosimulator.edp2.models.ExperimentData.ExperimentDataFactory;
 import org.palladiosimulator.edp2.models.ExperimentData.ExperimentGroup;
@@ -19,6 +18,7 @@ import org.palladiosimulator.metricspec.MetricSetDescription;
 import org.palladiosimulator.recorderframework.config.AbstractRecorderConfiguration;
 import org.palladiosimulator.recorderframework.config.AbstractRecorderConfigurationFactory;
 import org.palladiosimulator.recorderframework.config.IRecorderConfiguration;
+import org.palladiosimulator.recorderframework.edp2.MeasuringTypeEquivalenceHelper;
 
 import de.uka.ipd.sdq.identifier.Identifier;
 
