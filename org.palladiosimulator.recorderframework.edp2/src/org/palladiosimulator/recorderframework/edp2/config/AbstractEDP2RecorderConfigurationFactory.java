@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.palladiosimulator.commons.datastructureutils.MapHelper;
+import org.palladiosimulator.edp2.MeasuringTypeEquivalenceHelper;
 import org.palladiosimulator.edp2.impl.RepositoryManager;
 import org.palladiosimulator.edp2.models.ExperimentData.ExperimentDataFactory;
 import org.palladiosimulator.edp2.models.ExperimentData.ExperimentGroup;
@@ -93,9 +94,7 @@ public abstract class AbstractEDP2RecorderConfigurationFactory<RUN extends Run> 
             final MeasuringPoint measuringPoint) {
         // Check for existing measuring types in the experimentGroup
         for (final MeasuringType measuringType : this.experimentGroup.getMeasuringTypes()) {
-            if (measuringType.getMetric().getId().equals(metricDescription.getId())
-                    && measuringType.getMeasuringPoint().getResourceURIRepresentation().equals(measuringPoint.getResourceURIRepresentation())
-                    && measuringType.getMeasuringPoint().getStringRepresentation().equals(measuringPoint.getStringRepresentation())) {
+            if (MeasuringTypeEquivalenceHelper.isEquivalent(measuringType, metricDescription, measuringPoint)) {
                 return measuringType;
             }
         }
