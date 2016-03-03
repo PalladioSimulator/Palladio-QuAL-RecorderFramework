@@ -11,6 +11,9 @@ public class Activator extends Plugin {
     /** The plug-in ID */
     public static final String PLUGIN_ID = "org.palladiosimulator.recorderframework.edp2";
 
+    /** The Recorder name */
+    public static final String EDP2_ID = "Experiment Data Persistency & Presentation (EDP2)";
+
     /** The shared instance */
     private static Activator plugin;
 
@@ -21,13 +24,13 @@ public class Activator extends Plugin {
     }
 
     @Override
-    public void start(BundleContext context) throws Exception {
+    public void start(final BundleContext context) throws Exception {
         super.start(context);
         plugin = this;
     }
 
     @Override
-    public void stop(BundleContext context) throws Exception {
+    public void stop(final BundleContext context) throws Exception {
         plugin = null;
         super.stop(context);
     }
