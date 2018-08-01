@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
 	<feature url="features/org.palladiosimulator.recorderframework.feature_2.1.1.qualifier.jar" id="org.palladiosimulator.recorderframework.feature" version="2.1.1.qualifier">
-	   <category name="org.palladiosimulator.addons.category"/>
+	   <category name="org.palladiosimulator.qual.category"/>
 	</feature>
 	<feature url="features/org.palladiosimulator.recorderframework.feature.source_2.1.1.qualifier.jar" id="org.palladiosimulator.recorderframework.feature.source" version="2.1.1.qualifier">
-	   <category name="org.palladiosimulator.addons.source.category"/>
+	   <category name="org.palladiosimulator.qual.source.category"/>
 	</feature>
-	<category-def name="org.palladiosimulator.addons.category" label="Palladio Bench Addons">
+	<category-def name="org.palladiosimulator.qual.category" label="Quality Analysis Lab">
 	   <description>
-	      Palladio Bench Addons
+	      The Quality Analysis Lab (QuAL) is responsible for taking measurements from experiments or simulations and their persistance
 	   </description>
 	  </category-def>
-	  <category-def name="org.palladiosimulator.addons.source.category" label="Palladio Bench Addons Source">
+	  <category-def name="org.palladiosimulator.qual.source.category" label="Quality Analysis Lab Source">
 	     <description>
-	        Palladio Bench Addons Source
+	        Quality Analysis Lab Source
 	     </description>
 	  </category-def>
 </site>
