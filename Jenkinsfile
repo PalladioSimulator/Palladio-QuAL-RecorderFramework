@@ -1,4 +1,3 @@
-palladioBuild {
-	webserverDir = 'recorderframework'
-	updateSiteLocation = 'releng/org.palladiosimulator.recorderframework.updatesite/target/repository'
+PalladioPipeline {
+    deployUpdatesite 'releng/org.palladiosimulator.recorderframework.updatesite/target/repository'
 }
