@@ -15,7 +15,7 @@ Require-Bundle: org.jscience;bundle-version="4.1.3",
  org.palladiosimulator.edp2,
  org.palladiosimulator.commons
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Export-Package: org.palladiosimulator.recorderframework,
  org.palladiosimulator.recorderframework.config,
  org.palladiosimulator.recorderframework.filters,

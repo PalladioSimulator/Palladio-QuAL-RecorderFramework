@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Recorder Framework for SensorFramework
 Bundle-SymbolicName: org.palladiosimulator.recorderframework.sensorframework;singleton:=true
 Bundle-Version: 2.0.1.qualifier
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Export-Package: org.palladiosimulator.recorderframework.sensorframework,
  org.palladiosimulator.recorderframework.sensorframework.launch
 Require-Bundle: de.uka.ipd.sdq.sensorframework;bundle-version="1.1.0",
