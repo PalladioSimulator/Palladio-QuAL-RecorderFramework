@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Recorder Framework for SensorFramework
 Bundle-SymbolicName: org.palladiosimulator.recorderframework.sensorframework;singleton:=true
-Bundle-Version: 4.2.0.qualifier
+Bundle-Version: 4.3.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-11
 Export-Package: org.palladiosimulator.recorderframework.sensorframework,
  org.palladiosimulator.recorderframework.sensorframework.launch
