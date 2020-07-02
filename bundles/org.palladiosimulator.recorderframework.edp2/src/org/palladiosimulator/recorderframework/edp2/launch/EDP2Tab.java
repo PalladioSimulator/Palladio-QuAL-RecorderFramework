@@ -19,7 +19,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.palladiosimulator.edp2.impl.RepositoryManager;
 import org.palladiosimulator.edp2.models.Repository.Repository;
-import org.palladiosimulator.edp2.ui.dialogs.datasource.ConfigureDatasourceDialog;
+import org.palladiosimulator.edp2.ui.dialogs.datasource.DatasourceDialog;
 import org.palladiosimulator.recorderframework.edp2.config.EDP2RecorderConfigurationFactory;
 
 /**
@@ -75,8 +75,7 @@ public class EDP2Tab extends AbstractLaunchConfigurationTab {
              */
             @Override
             public void widgetSelected(final SelectionEvent e) {
-                final ConfigureDatasourceDialog dialog = new ConfigureDatasourceDialog(e.display.getActiveShell(),
-                        "Select Datasource...", true);
+                final DatasourceDialog dialog = new DatasourceDialog(e.display.getActiveShell(), true);
                 if (dialog.open() == Dialog.OK) {
                     final Repository repository = (Repository) dialog.getResult();
                     selectedRepositoryID = repository.getId();
