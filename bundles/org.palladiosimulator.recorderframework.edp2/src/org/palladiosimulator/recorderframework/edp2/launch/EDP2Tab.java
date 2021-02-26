@@ -1,143 +1,175 @@
 package org.palladiosimulator.recorderframework.edp2.launch;
 
-import org.eclipse.core.runtime.CoreException;
+import java.util.Optional;
+
+import org.eclipse.core.databinding.DataBindingContext;
+import org.eclipse.core.databinding.observable.Diffs;
+import org.eclipse.core.databinding.observable.set.WritableSet;
+import org.eclipse.core.databinding.observable.sideeffect.ISideEffect;
+import org.eclipse.core.databinding.observable.value.IObservableValue;
 import org.eclipse.debug.core.ILaunchConfiguration;
-import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
-import org.eclipse.debug.ui.AbstractLaunchConfigurationTab;
-import org.eclipse.jface.dialogs.Dialog;
+import org.eclipse.emf.common.notify.AdapterFactory;
+import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
+import org.eclipse.emf.edit.provider.IItemLabelProvider;
+import org.eclipse.jface.databinding.viewers.ObservableSetContentProvider;
+import org.eclipse.jface.databinding.viewers.typed.ViewerProperties;
+import org.eclipse.jface.resource.ResourceLocator;
+import org.eclipse.jface.viewers.ComboViewer;
+import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.ModifyEvent;
-import org.eclipse.swt.events.ModifyListener;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Text;
-import org.palladiosimulator.edp2.impl.RepositoryManager;
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.commands.ICommandService;
+import org.palladiosimulator.commons.ui.launch.AbstractDataBindingLaunchConfigurationTab;
+import org.palladiosimulator.commons.ui.launch.ObservableLaunchConfigurationAttributeFactory;
+import org.palladiosimulator.edp2.RepositoryAccess;
 import org.palladiosimulator.edp2.models.Repository.Repository;
-import org.palladiosimulator.edp2.ui.dialogs.datasource.DatasourceDialog;
+import org.palladiosimulator.edp2.ui.EDP2UIPlugin;
+import org.palladiosimulator.edp2.ui.commands.AddDataSourceHandler;
+import org.palladiosimulator.edp2.ui.commands.OpenDataSourceHandler;
+import org.palladiosimulator.edp2.ui.dialogs.datasource.ParameterizedCommandTriggerMenu;
+import org.palladiosimulator.recorderframework.edp2.Activator;
 import org.palladiosimulator.recorderframework.edp2.config.EDP2RecorderConfigurationFactory;
 
 /**
  * Configures an EDP2-specific launch configuration tab. This tab allows for adding and selecting
  * EDP2 repositories.
  *
- * @author Sebastian Lehrig
+ * @author Sebastian Lehrig, Sebastian Krach
  */
-public class EDP2Tab extends AbstractLaunchConfigurationTab {
+public class EDP2Tab extends AbstractDataBindingLaunchConfigurationTab {
 
-    private Text dataField;
+    private ComboViewer dataField;
 
-    protected String selectedRepositoryID;
+    protected RepositoryAccess repositoryAccess;
+    protected WritableSet<Repository> repositorySet = WritableSet.withElementType(Repository.class);
+    protected IObservableValue<Repository> selectedRepository;
 
+    DataBindingContext dbc = new DataBindingContext();
+    
+    @Override
+    protected void registerDataBindings(ObservableLaunchConfigurationAttributeFactory attributeFactory) {
+        updateRepositoryList();
+        selectedRepository = attributeFactory.createFromStringAttribute(EDP2RecorderConfigurationFactory.REPOSITORY_ID,
+                getRepositoryAccess().getAnyRepository().orElse(null), id -> getRepositoryAccess().getRepository(id).orElse(null),
+                repo -> Optional.ofNullable(repo).map(Repository::getId).orElse(""));
+        ISideEffect.create(() -> {
+            var repo = selectedRepository.getValue();
+            if (repo == null) {
+                setWarningMessage("The launch configuration contained a reference to an invalid EDP2 repository. An available one was selected instead.");
+                getRepositoryAccess().getAnyRepository().ifPresent(r -> selectedRepository.setValue(r));
+            }
+        });
+    }
+    
     @Override
     public void createControl(final Composite parent) {
+        super.createControl(parent);
+        
         final Composite container = new Composite(parent, SWT.NONE);
         container.setLayout(new GridLayout());
         setControl(container);
 
-        final ModifyListener modifyListener = new ModifyListener() {
-
-            @Override
-            public void modifyText(final ModifyEvent e) {
-                EDP2Tab.this.setDirty(true);
-                EDP2Tab.this.updateLaunchConfigurationDialog();
-            }
-        };
-
         final Group dataSetGroup = new Group(container, SWT.NONE);
         dataSetGroup.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
         final GridLayout gridLayout2 = new GridLayout();
-        gridLayout2.numColumns = 3;
+        gridLayout2.numColumns = 5;
         dataSetGroup.setLayout(gridLayout2);
         dataSetGroup.setText("Data Set");
 
         final Label dataSourceLabel = new Label(dataSetGroup, SWT.NONE);
         dataSourceLabel.setText("Data source:");
 
-        dataField = new Text(dataSetGroup, SWT.BORDER | SWT.READ_ONLY);
-        dataField.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
-        dataField.addModifyListener(modifyListener);
-
-        final Button browseButton = new Button(dataSetGroup, SWT.NONE);
-        browseButton.setText("Browse...");
-        browseButton.addSelectionListener(new SelectionAdapter() {
-
-            /*
-             * (non-Javadoc)
-             *
-             * @see org.eclipse.swt.events.SelectionListener#widgetSelected(org.eclipse
-             * .swt.events.SelectionEvent)
-             */
+        dataField = new ComboViewer(dataSetGroup, SWT.BORDER | SWT.READ_ONLY);
+        dataField.getCombo().setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
+        dataField.setContentProvider(new ObservableSetContentProvider<Repository>());
+        
+        dataField.setLabelProvider(new LabelProvider() {
+            AdapterFactory adapterFactory = new ComposedAdapterFactory(ComposedAdapterFactory.Descriptor.Registry.INSTANCE);
             @Override
-            public void widgetSelected(final SelectionEvent e) {
-                final DatasourceDialog dialog = new DatasourceDialog(e.display.getActiveShell(), true);
-                if (dialog.open() == Dialog.OK) {
-                    final Repository repository = (Repository) dialog.getResult();
-                    selectedRepositoryID = repository.getId();
-                    dataField.setText(repository.toString());
-                } else {
-                    if (RepositoryManager.getRepositoryFromUUID(selectedRepositoryID) == null) {
-                        selectedRepositoryID = "";
-                        dataField.setText("");
-                    }
+            public String getText(Object element) {
+                var labelProvider = (IItemLabelProvider)adapterFactory.adapt(element, IItemLabelProvider.class);
+                if (labelProvider != null) {
+                    return labelProvider.getText(element);
                 }
+                return element.toString();
             }
         });
-
+        
+        final Button addButton = new Button(dataSetGroup, SWT.NONE);
+        ResourceLocator.imageDescriptorFromBundle(EDP2UIPlugin.class, "icons/add_datasource.gif").ifPresent(
+                desc -> addButton.setImage(desc.createImage()));
+        addButton.setToolTipText("Create data source");
+        var addCommand = PlatformUI.getWorkbench()
+                .getActiveWorkbenchWindow()
+                .getService(ICommandService.class)
+                .getCommand(AddDataSourceHandler.COMMAND_ID);
+        var menu = new ParameterizedCommandTriggerMenu(addCommand);
+        menu.setCommandExecutedCallback(this::updateRepositoryList);
+        menu.setItemTemplate("new %s");
+        menu.registerWith(addButton, addButton::addSelectionListener);
+        
+        
+        final Button openButton = new Button(dataSetGroup, SWT.NONE);
+        ResourceLocator.imageDescriptorFromBundle(EDP2UIPlugin.class, "icons/data_source_open.gif").ifPresent(
+                desc -> openButton.setImage(desc.createImage()));
+        openButton.setToolTipText("Open data source");
+        var openCommand = PlatformUI.getWorkbench()
+                .getActiveWorkbenchWindow()
+                .getService(ICommandService.class)
+                .getCommand(OpenDataSourceHandler.COMMAND_ID);
+        var openMenu = new ParameterizedCommandTriggerMenu(openCommand);
+        openMenu.registerWith(openButton, openButton::addSelectionListener);
+        openMenu.setCommandExecutedCallback(this::updateRepositoryList);
+        
+        // Setup viewer data bindings
+        dataField.setInput(repositorySet);
+        dbc.bindValue(ViewerProperties.singleSelection(Repository.class).observe(dataField), selectedRepository);
     }
 
     @Override
     public String getName() {
         return "EDP2";
     }
-
+    
     @Override
-    public void initializeFrom(final ILaunchConfiguration configuration) {
-        try {
-            selectedRepositoryID = configuration.getAttribute(EDP2RecorderConfigurationFactory.REPOSITORY_ID, "");
-            final Repository repository = RepositoryManager.getRepositoryFromUUID(selectedRepositoryID);
-            if (repository == null) {
-                dataField.setText("");
-            } else {
-                dataField.setText(repository.toString());
-            }
-        } catch (final CoreException e) {
-            selectedRepositoryID = "";
-            dataField.setText("");
-        }
-    }
-
-    @Override
-    public void performApply(final ILaunchConfigurationWorkingCopy configuration) {
-        configuration.setAttribute(EDP2RecorderConfigurationFactory.REPOSITORY_ID, selectedRepositoryID);
-    }
-
-    @Override
-    public void setDefaults(final ILaunchConfigurationWorkingCopy configuration) {
-        configuration.setAttribute(EDP2RecorderConfigurationFactory.REPOSITORY_ID, -1);
+    public void initializeFrom(ILaunchConfiguration configuration) {
+        updateRepositoryList();
+        
+        super.initializeFrom(configuration);
     }
 
     @Override
     public boolean isValid(final ILaunchConfiguration launchConfig) {
-        final Repository repository = RepositoryManager.getRepositoryFromUUID(selectedRepositoryID);
-        if (repository == null) {
+        if (selectedRepository == null) {
             setErrorMessage("Data source is missing!");
             return false;
         }
         return true;
     }
 
-    @Override
-    public void activated(final ILaunchConfigurationWorkingCopy workingCopy) {
+    protected void updateRepositoryList() {
+        var diff = Diffs.computeSetDiff(repositorySet, getRepositoryAccess().availableRepositories());
+        diff.applyTo(repositorySet);
+        if (diff.getAdditions().size() > 0) {
+            var addition = diff.getAdditions().iterator().next();
+            if (selectedRepository != null) {
+                selectedRepository.setValue(addition);
+            }
+        }
     }
-
-    @Override
-    public void deactivated(final ILaunchConfigurationWorkingCopy workingCopy) {
+    
+    protected RepositoryAccess getRepositoryAccess() {
+        if (repositoryAccess == null) {
+            var serviceRef = Activator.getCurrentContext().getServiceReference(RepositoryAccess.class);
+            repositoryAccess = Activator.getCurrentContext().getService(serviceRef);    
+        }
+        return repositoryAccess;
     }
 
 }
