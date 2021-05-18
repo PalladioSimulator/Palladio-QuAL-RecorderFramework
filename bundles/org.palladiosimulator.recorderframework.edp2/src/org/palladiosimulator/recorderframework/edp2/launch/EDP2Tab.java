@@ -5,7 +5,6 @@ import java.util.Optional;
 import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.core.databinding.observable.Diffs;
 import org.eclipse.core.databinding.observable.set.WritableSet;
-import org.eclipse.core.databinding.observable.sideeffect.ISideEffect;
 import org.eclipse.core.databinding.observable.value.IObservableValue;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.emf.common.notify.AdapterFactory;
@@ -50,27 +49,16 @@ public class EDP2Tab extends AbstractDataBindingLaunchConfigurationTab {
     protected WritableSet<Repository> repositorySet = WritableSet.withElementType(Repository.class);
     protected IObservableValue<Repository> selectedRepository;
 
-    DataBindingContext dbc = new DataBindingContext();
-    
     @Override
-    protected void registerDataBindings(ObservableLaunchConfigurationAttributeFactory attributeFactory) {
+    protected void registerDataBindings(ObservableLaunchConfigurationAttributeFactory attributeFactory, DataBindingContext dbc) {
         updateRepositoryList();
         selectedRepository = attributeFactory.createFromStringAttribute(EDP2RecorderConfigurationFactory.REPOSITORY_ID,
                 getRepositoryAccess().getAnyRepository().orElse(null), id -> getRepositoryAccess().getRepository(id).orElse(null),
                 repo -> Optional.ofNullable(repo).map(Repository::getId).orElse(""));
-        ISideEffect.create(() -> {
-            var repo = selectedRepository.getValue();
-            if (repo == null) {
-                setWarningMessage("The launch configuration contained a reference to an invalid EDP2 repository. An available one was selected instead.");
-                getRepositoryAccess().getAnyRepository().ifPresent(r -> selectedRepository.setValue(r));
-            }
-        });
     }
     
     @Override
-    public void createControl(final Composite parent) {
-        super.createControl(parent);
-        
+    public void createControlInternal(final Composite parent, DataBindingContext dbc) {
         final Composite container = new Composite(parent, SWT.NONE);
         container.setLayout(new GridLayout());
         setControl(container);
@@ -146,13 +134,16 @@ public class EDP2Tab extends AbstractDataBindingLaunchConfigurationTab {
 
     @Override
     public boolean isValid(final ILaunchConfiguration launchConfig) {
-        if (selectedRepository == null) {
+        setErrorMessage(null);
+        
+        if (selectedRepository.getValue() == null) {
             setErrorMessage("Data source is missing!");
             return false;
         }
-        return true;
+        
+        return super.isValid(launchConfig);
     }
-
+    
     protected void updateRepositoryList() {
         var diff = Diffs.computeSetDiff(repositorySet, getRepositoryAccess().availableRepositories());
         diff.applyTo(repositorySet);
