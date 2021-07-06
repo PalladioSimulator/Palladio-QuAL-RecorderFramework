@@ -18,7 +18,10 @@ public abstract class AbstractRecorderConfigurationFactory implements IRecorderC
 
     /** Date format to be used by recorders. */
     public static final String EXPERIMENT_RUN_DATE_FORMAT = "yyyy/MM/dd HH:mm:ss:SSS";
-
+    
+    /** The global resource set partition, in case of an interpreted analysis **/
+    public static final String RUNTIME_MODEL_ACCESS = "runtimeModelAccess";
+    
     /**
      * The name of the experiment.
      */
