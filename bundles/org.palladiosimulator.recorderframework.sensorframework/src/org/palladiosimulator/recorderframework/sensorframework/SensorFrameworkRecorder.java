@@ -19,8 +19,8 @@ import static org.palladiosimulator.metricspec.constants.MetricDescriptionConsta
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.palladiosimulator.measurementframework.MeasuringValue;
-import org.palladiosimulator.recorderframework.AbstractRecorder;
-import org.palladiosimulator.recorderframework.config.IRecorderConfiguration;
+import org.palladiosimulator.recorderframework.core.AbstractRecorder;
+import org.palladiosimulator.recorderframework.core.config.IRecorderConfiguration;
 import org.palladiosimulator.recorderframework.sensorframework.strategies.AbstractWriteDataStrategy;
 import org.palladiosimulator.recorderframework.sensorframework.strategies.ExecutionResultWriteDataStrategy;
 import org.palladiosimulator.recorderframework.sensorframework.strategies.HoldingTimeWriteDataStrategy;

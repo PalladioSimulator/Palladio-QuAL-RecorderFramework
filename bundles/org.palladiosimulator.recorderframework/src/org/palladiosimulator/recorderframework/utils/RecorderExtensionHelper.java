@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.eclipse.debug.ui.ILaunchConfigurationTab;
 import org.palladiosimulator.commons.eclipseutils.ExtensionHelper;
-import org.palladiosimulator.recorderframework.IRecorder;
 import org.palladiosimulator.recorderframework.config.IRecorderConfigurationFactory;
+import org.palladiosimulator.recorderframework.core.IRecorder;
 
 /**
  * Helper to load recorder-related extensions.

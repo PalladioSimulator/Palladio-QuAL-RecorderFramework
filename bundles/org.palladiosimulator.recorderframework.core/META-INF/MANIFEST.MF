@@ -3,6 +3,9 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Recorder Framework Core
 Bundle-SymbolicName: org.palladiosimulator.recorderframework.core
 Bundle-Version: 5.2.1.qualifier
+Export-Package: org.palladiosimulator.recorderframework.core,
+ org.palladiosimulator.recorderframework.core.config
+Require-Bundle: org.palladiosimulator.measurementframework;bundle-version="5.2.1"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-17
 Bundle-Vendor: palladiosimulator.org
