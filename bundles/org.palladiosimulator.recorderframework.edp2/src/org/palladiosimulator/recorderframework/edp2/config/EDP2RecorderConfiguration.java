@@ -4,7 +4,7 @@ import java.util.Map;
 
 import org.palladiosimulator.commons.datastructureutils.MapHelper;
 import org.palladiosimulator.edp2.models.ExperimentData.Measurement;
-import org.palladiosimulator.recorderframework.config.AbstractRecorderConfiguration;
+import org.palladiosimulator.recorderframework.core.config.AbstractRecorderConfiguration;
 
 /**
  * Specifies EDP2 recorder configuration objects. These configuration objects allow for accessing

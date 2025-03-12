@@ -1,11 +1,10 @@
-package org.palladiosimulator.recorderframework.config;
+package org.palladiosimulator.recorderframework.core.config;
 
 import java.util.Map;
 
 import org.palladiosimulator.commons.datastructureutils.MapHelper;
 import org.palladiosimulator.edp2.models.measuringpoint.MeasuringPoint;
 import org.palladiosimulator.metricspec.MetricDescription;
-import org.palladiosimulator.recorderframework.core.config.IRecorderConfiguration;
 
 /**
  * Abstract implementation for recorder configuration objects.

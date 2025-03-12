@@ -1,8 +1,6 @@
-package org.palladiosimulator.recorderframework.config;
+package org.palladiosimulator.recorderframework.core.config;
 
 import java.util.Map;
-
-import org.palladiosimulator.recorderframework.core.config.IRecorderConfiguration;
 
 /**
  * This interface specifies factory methods for creating configuration objects of recorders.

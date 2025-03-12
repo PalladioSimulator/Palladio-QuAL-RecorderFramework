@@ -15,8 +15,8 @@ import org.palladiosimulator.edp2.models.measuringpoint.MeasuringPoint;
 import org.palladiosimulator.edp2.models.measuringpoint.MeasuringPointRepository;
 import org.palladiosimulator.metricspec.MetricDescription;
 import org.palladiosimulator.metricspec.MetricSetDescription;
-import org.palladiosimulator.recorderframework.config.AbstractRecorderConfiguration;
 import org.palladiosimulator.recorderframework.config.AbstractRecorderConfigurationFactory;
+import org.palladiosimulator.recorderframework.core.config.AbstractRecorderConfiguration;
 import org.palladiosimulator.recorderframework.core.config.IRecorderConfiguration;
 import org.palladiosimulator.recorderframework.edp2.MeasuringTypeEquivalenceHelper;
 

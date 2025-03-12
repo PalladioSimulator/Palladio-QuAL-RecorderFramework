@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.Map;
 
 import org.palladiosimulator.commons.datastructureutils.MapHelper;
+import org.palladiosimulator.recorderframework.core.config.IRecorderConfigurationFactory;
 
 /**
  * Abstract factory for recorder configuration objects.
