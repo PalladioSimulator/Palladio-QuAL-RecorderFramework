@@ -11,7 +11,13 @@ import org.palladiosimulator.recorderframework.core.IRecorder;
  * 
  * @author Sebastian Lehrig
  */
-public class RecorderExtensionUiHelper extends RecorderExtensionHelper {
+public class RecorderExtensionUiHelper {
+    /** Extension point ID for the recorder framework. */
+    private static final String RECORDER_EXTENSION_POINT_ID = "org.palladiosimulator.recorderframework";
+    /** Recorder element name of the extension point of the recorder framework. */
+    private static final String RECORDER_EXTENSION_ELEMENT = "recorder";
+    /** Recorder extension attribute for the recorder name. */
+    private static final String RECORDER_EXTENSION_NAME_ATTRIBUTE = "name";
 
     /** Recorder extension attribute for the recorder implementation. */
     private static final String RECORDER_EXTENSION_RECORDER_IMPLEMENTATION_ATTRIBUTE = "recorderImplementation";

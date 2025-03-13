@@ -76,16 +76,6 @@
                </appinfo>
             </annotation>
          </attribute>
-         <attribute name="configurationFactory" type="string" use="required">
-            <annotation>
-               <documentation>
-                  
-               </documentation>
-               <appinfo>
-                  <meta.attribute kind="java" basedOn=":org.palladiosimulator.recorderframework.config.IRecorderConfigurationFactory"/>
-               </appinfo>
-            </annotation>
-         </attribute>
       </complexType>
    </element>
 

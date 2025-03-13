@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension-point id="org.palladiosimulator.recorderframework.core" name="org.palladiosimulator.recorderframework.core" schema="schema/org.palladiosimulator.recorderframework.core.exsd"/>
+
+</plugin>

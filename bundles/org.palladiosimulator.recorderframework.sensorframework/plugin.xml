@@ -5,11 +5,18 @@
          id="org.palladiosimulator.recorderframework.sensorframework"
          point="org.palladiosimulator.recorderframework">
       <recorder
-            configurationFactory="org.palladiosimulator.recorderframework.sensorframework.SensorFrameworkRecorderConfigurationFactory"
             launchConfigTab="org.palladiosimulator.recorderframework.sensorframework.launch.SensorFrameworkTab"
             name="SensorFramework"
             recorderImplementation="org.palladiosimulator.recorderframework.sensorframework.SensorFrameworkRecorder">
       </recorder>
    </extension>
 
+   <extension
+         id="org.palladiosimulator.recorderframework.sensorframework"
+         point="org.palladiosimulator.recorderframework.core">
+      <recorder
+            configurationFactory="org.palladiosimulator.recorderframework.sensorframework.SensorFrameworkRecorderConfigurationFactory"
+            name="SensorFramework">
+      </recorder>
+   </extension>
 </plugin>

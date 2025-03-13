@@ -1,4 +1,5 @@
-package org.palladiosimulator.recorderframework.utils;
+/** */
+package org.palladiosimulator.recorderframework.core.utils;
 
 import org.palladiosimulator.commons.eclipseutils.ExtensionHelper;
 import org.palladiosimulator.recorderframework.core.config.IRecorderConfigurationFactory;
@@ -6,11 +7,11 @@ import org.palladiosimulator.recorderframework.core.config.IRecorderConfiguratio
 public class RecorderExtensionHelper {
 
     /** Extension point ID for the recorder framework. */
-    protected static final String RECORDER_EXTENSION_POINT_ID = "org.palladiosimulator.recorderframework";
+    private static final String RECORDER_EXTENSION_POINT_ID = "org.palladiosimulator.recorderframework.core";
     /** Recorder element name of the extension point of the recorder framework. */
-    protected static final String RECORDER_EXTENSION_ELEMENT = "recorder";
+    private static final String RECORDER_EXTENSION_ELEMENT = "recorder";
     /** Recorder extension attribute for the recorder name. */
-    protected static final String RECORDER_EXTENSION_NAME_ATTRIBUTE = "name";
+    private static final String RECORDER_EXTENSION_NAME_ATTRIBUTE = "name";
 
     /** Recorder extension attribute for the recorder configuration factory. */
     private static final String RECORDER_EXTENSION_CONFIGURATION_FACTORY_ATTRIBUTE = "configurationFactory";
