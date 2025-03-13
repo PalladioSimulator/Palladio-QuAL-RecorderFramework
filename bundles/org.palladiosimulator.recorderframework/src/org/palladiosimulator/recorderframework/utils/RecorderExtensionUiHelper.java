@@ -12,7 +12,7 @@ import org.palladiosimulator.recorderframework.core.config.IRecorderConfiguratio
  * 
  * @author Sebastian Lehrig
  */
-public class RecorderExtensionHelper {
+public class RecorderExtensionUiHelper {
 
     /** Extension point ID for the recorder framework. */
     private static final String RECORDER_EXTENSION_POINT_ID = "org.palladiosimulator.recorderframework";
