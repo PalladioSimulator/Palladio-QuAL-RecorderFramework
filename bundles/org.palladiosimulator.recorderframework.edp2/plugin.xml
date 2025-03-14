@@ -6,8 +6,7 @@
          point="org.palladiosimulator.recorderframework">
       <recorder
             launchConfigTab="org.palladiosimulator.recorderframework.edp2.launch.EDP2Tab"
-            name="Experiment Data Persistency &amp; Presentation (EDP2)"
-            recorderImplementation="org.palladiosimulator.recorderframework.edp2.EDP2RawRecorder">
+            name="Experiment Data Persistency &amp; Presentation (EDP2)">
       </recorder>
    </extension>
 
@@ -16,6 +15,7 @@
          point="org.palladiosimulator.recorderframework.core">
       <recorder
             configurationFactory="org.palladiosimulator.recorderframework.edp2.config.EDP2RecorderConfigurationFactory"
+			recorderImplementation="org.palladiosimulator.recorderframework.edp2.EDP2RawRecorder"			            
             name="Experiment Data Persistency &amp; Presentation (EDP2)">
       </recorder>
    </extension>
