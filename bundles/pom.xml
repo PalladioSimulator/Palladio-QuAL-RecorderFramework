@@ -12,6 +12,7 @@
 	<packaging>pom</packaging>
 	
 	<modules>
+		<module>org.palladiosimulator.recorderframework.core</module>
 		<module>org.palladiosimulator.recorderframework</module>
 		<module>org.palladiosimulator.recorderframework.edp2</module>
 		<module>org.palladiosimulator.recorderframework.sensorframework</module>

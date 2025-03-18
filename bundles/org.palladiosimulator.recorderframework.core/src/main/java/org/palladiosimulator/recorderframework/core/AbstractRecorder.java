@@ -1,4 +1,4 @@
-package org.palladiosimulator.recorderframework;
+package org.palladiosimulator.recorderframework.core;
 
 import org.palladiosimulator.measurementframework.MeasuringValue;
 

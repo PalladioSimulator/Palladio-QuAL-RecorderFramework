@@ -56,16 +56,6 @@
                </documentation>
             </annotation>
          </attribute>
-         <attribute name="recorderImplementation" type="string" use="required">
-            <annotation>
-               <documentation>
-                  
-               </documentation>
-               <appinfo>
-                  <meta.attribute kind="java" basedOn=":org.palladiosimulator.recorderframework.IRecorder"/>
-               </appinfo>
-            </annotation>
-         </attribute>
          <attribute name="launchConfigTab" type="string">
             <annotation>
                <documentation>
@@ -73,16 +63,6 @@
                </documentation>
                <appinfo>
                   <meta.attribute kind="java" basedOn=":org.eclipse.debug.ui.ILaunchConfigurationTab"/>
-               </appinfo>
-            </annotation>
-         </attribute>
-         <attribute name="configurationFactory" type="string" use="required">
-            <annotation>
-               <documentation>
-                  
-               </documentation>
-               <appinfo>
-                  <meta.attribute kind="java" basedOn=":org.palladiosimulator.recorderframework.config.IRecorderConfigurationFactory"/>
                </appinfo>
             </annotation>
          </attribute>

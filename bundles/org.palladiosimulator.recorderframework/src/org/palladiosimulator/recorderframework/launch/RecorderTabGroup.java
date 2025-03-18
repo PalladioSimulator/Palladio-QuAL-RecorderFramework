@@ -5,7 +5,7 @@ import java.util.List;
 import org.eclipse.debug.ui.AbstractLaunchConfigurationTabGroup;
 import org.eclipse.debug.ui.ILaunchConfigurationDialog;
 import org.eclipse.debug.ui.ILaunchConfigurationTab;
-import org.palladiosimulator.recorderframework.utils.RecorderExtensionHelper;
+import org.palladiosimulator.recorderframework.utils.RecorderExtensionUiHelper;
 
 /**
  * Enables the launch configuration tab group for a recorder as registered via the recorder
@@ -17,7 +17,7 @@ public class RecorderTabGroup extends AbstractLaunchConfigurationTabGroup {
 
     @Override
     public void createTabs(final ILaunchConfigurationDialog dialog, final String mode) {
-        final List<ILaunchConfigurationTab> tabs = RecorderExtensionHelper.getLaunchConfigTabs();
+        final List<ILaunchConfigurationTab> tabs = RecorderExtensionUiHelper.getLaunchConfigTabs();
         setTabs(tabs.toArray(new ILaunchConfigurationTab[tabs.size()]));
     }
 

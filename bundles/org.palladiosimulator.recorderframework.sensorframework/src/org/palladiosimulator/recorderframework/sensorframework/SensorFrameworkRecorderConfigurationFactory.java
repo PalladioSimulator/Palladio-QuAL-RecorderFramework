@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.palladiosimulator.commons.datastructureutils.MapHelper;
-import org.palladiosimulator.recorderframework.config.AbstractRecorderConfigurationFactory;
+import org.palladiosimulator.recorderframework.core.config.AbstractRecorderConfigurationFactory;
 
 import de.uka.ipd.sdq.sensorframework.SensorFrameworkDataset;
 import de.uka.ipd.sdq.sensorframework.entities.Experiment;
