@@ -1,4 +1,5 @@
-package org.palladiosimulator.recorderframework.config;
+/** */
+package org.palladiosimulator.recorderframework.core.config;
 
 import java.util.Map;
 
