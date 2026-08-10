@@ -10,5 +10,5 @@ Require-Bundle: org.palladiosimulator.commons,
  org.palladiosimulator.measurementframework,
  org.palladiosimulator.edp2
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-17
+Bundle-RequiredExecutionEnvironment: JavaSE-21
 Bundle-Vendor: palladiosimulator.org
